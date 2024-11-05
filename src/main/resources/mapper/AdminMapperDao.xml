@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.example.admin.dao.AdminMapper">
+
+    <select id="selectMenuListAll" resultType="com.example.admin.dto.HospitalDTO">
+        select
+            hosp_id as hospId,
+            cl_cd   as clCd,
+            addr,
+        cl_cd_nm as clCdNm,
+        emdong_nm as emdongNm,
+        estb_dd as estbDd,
+        hosp_url as hospUrl,
+        post_no as postNo,
+        sggu_cd as sgguCd,
+        sggu_cd_nm as sgguCdNm,
+        sido_cd as sidoCd,
+        sido_cd_nm as sidoCdNm,
+         telno,
+        yadm_nm as yadmNm,
+         ykiho,
+        hosp_status as hospStatus
+
+        from hospital
+    </select>
+
+<!--    <select id="selectMenuListAll" resultType="dto.com.example.admin.HospitalReservationDTO">-->
+<!--        select * from hospitalReservation-->
+<!--    </select>-->
+
+
+    <!--    전체 사용자 수 조화-->
+    <select id="getTotalUsers" resultType="int">
+        SELECT COUNT(*) AS total_users FROM user
+    </select>
+
+    <!--활성 사용 자 수 조화-->
+    <select id="getActiveUsers" resultType="int">
+        SELECT COUNT(*) AS active_users
+        FROM user
+        WHERE status = 'ACTIVE'
+    </select>
+    <!--    전체 병원 수 조화-->
+    <select id="getTotalHospitals" resultType="int">
+        SELECT COUNT(*) AS total_hospitals FROM hospital
+    </select>
+
+    <!--    도시별 사용자 수 조회-->
+    <select id="getUserCountByCity" resultType="map">
+        SELECT city, COUNT(*) AS user_count
+        FROM user
+        GROUP BY city
+        ORDER BY user_count DESC
+    </select>
+
+    <!--    지역(시,도)별 병원 수 조화-->
+    <select id="getHospitalCountByProvince" resultType="map">
+        SELECT sido_cd_nm AS province, COUNT(*) AS hospital_count
+        FROM hospital
+        GROUP BY sido_cd_nm
+        ORDER BY hospital_count DESC
+    </select>
+
+<!--    병원 예약 건수 조화-->
+    <select id="getReservationCountByHospital" resultType="map">
+        SELECT h.yadm_nm AS hospital_name, COUNT(hr.hosp_reservation_id) AS reservation_count
+        FROM hospital_reservation hr
+        JOIN hospital h ON hr.hosp_id = h.hosp_id
+        GROUP BY hr.hosp_id
+        ORDER BY reservation_count DESC
+    </select>
+<!--월별 예약 건수 추이-->
+    <select id="getMonthlyReservationTrend" resultType="map">
+        SELECT DATE_FORMAT(reservation_at, '%Y-%m') AS month, COUNT(*) AS reservation_count
+        FROM hospital_reservation
+        GROUP BY month
+        ORDER BY month
+    </select>
+<!--병원 별 평균 리뷰 평점-->
+    <select id="getAverageRatingByHospital" resultType="map">
+        SELECT h.yadm_nm AS hospital_name, AVG(hr.hosp_review_rating) AS average_rating
+        FROM hospital_review hr
+        JOIN hospital h ON hr.hosp_id = h.hosp_id
+        GROUP BY hr.hosp_id
+        ORDER BY average_rating DESC
+    </select>
+<!--병원별 총 결제 -->
+    <select id="getTotalPaymentAmountByHospital" resultType="map">
+        SELECT h.yadm_nm AS hospital_name, SUM(p.amount) AS total_amount
+        FROM payment p
+        JOIN hospital h ON p.hosp_id = h.hosp_id
+        GROUP BY p.hosp_id
+        ORDER BY total_amount DESC
+    </select>
+<!-- 예약의 참석률? 계산-->
+    <select id="getAttendanceRateByHospital" resultType="map">
+        SELECT h.yadm_nm AS hospital_name,
+        (SUM(hr.attended) / COUNT(hr.hosp_reservation_id)) * 100 AS attendance_rate
+        FROM hospital_reservation hr
+        JOIN hospital h ON hr.hosp_id = h.hosp_id
+        GROUP BY hr.hosp_id
+        ORDER BY attendance_rate DESC
+    </select>
+<!--    일별 신규 회원 가입 수-->
+    <select id="getDailyNewUsers" resultType="map">
+        SELECT DATE(created_at) AS date, COUNT(*) AS new_users
+        FROM user
+        GROUP BY date
+        ORDER BY date
+    </select>
+<!--    병원 리뷰 수 상위 10개 병원-->
+    <select id="getTop10HospitalsByReviewCount" resultType="map">
+        SELECT h.yadm_nm AS hospital_name, COUNT(hr.hosp_review_id) AS review_count
+        FROM hospital_review hr
+        JOIN hospital h ON hr.hosp_id = h.hosp_id
+        GROUP BY hr.hosp_id
+        ORDER BY review_count DESC
+        LIMIT 10
+    </select>
+
+</mapper>
+

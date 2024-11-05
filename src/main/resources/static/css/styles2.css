@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+}
+
+/* Sidebar 고정 스타일 */
+.sidebar {
+    width: 400px; /* 아이콘 크기에 맞춰서 좁게 -> 뭔 개소리야 gpt야 넓게 바꿀게 */
+    background-color: #2c3e50;
+    color: white;
+    height: 100vh; /* 화면 크기에 맞게 고정 */
+    position: fixed; /* 스크롤해도 고정되게 설정 */
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.menu-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* 동그랗게 만듦 */
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.menu-icon img:hover {
+    transform: scale(1.1); /* 호버 시 확대 효과 */
+    background-color: #1abc9c;
+}
+
+/* 유저 프로필 중간 영역 */
+.user-profile {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.user-profile a {
+    text-decoration: none;
+    color: white;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.profile-picture:hover {
+    transform: scale(1.1); /* 프로필 사진에 호버 시 확대 효과 */
+}
+
+.user-profile h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.user-profile p {
+    font-size: 14px;
+}
+
+/* Main content area */
+.content {
+    margin-left: 420px; /* Sidebar가 차지하는 공간을 고려 */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #ecf0f1;
+}
+
+/* 게시글 섹션 */
+.post-summary {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post {
+    margin-bottom: 20px;
+}
+
+.post h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #34495e;
+}
+
+.post-category {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.post-date {
+    font-size: 12px;
+    color: #95a5a6;
+}
+
+.post-excerpt {
+    font-size: 16px;
+    color: #2c3e50;
+}
