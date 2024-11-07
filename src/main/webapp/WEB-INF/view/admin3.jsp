@@ -1,11 +1,16 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 메타 정보와 외부 라이브러리 로드 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS: 대시보드 레이아웃 및 스타일링 -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js: 차트 생성을 위한 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jQuery: AJAX 요청 및 DOM 조작을 위한 라이브러리 -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
@@ -32,13 +37,11 @@
 
                 <!-- Dashboard1: 현재 통계 -->
                 <div class="tab-pane fade show active" id="dashboard1" role="tabpanel" aria-labelledby="dashboard1-tab">
-                    <h1 class="h2">Admin Dashboard</h1>
-                    <!-- 통계 카드 및 차트 생성 코드 -->
-                    <!-- [이전 통계 화면 그대로 유지] -->
+
                     <!-- 메인 콘텐츠 영역 -->
                             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                                 <!-- 대시보드 제목 -->
-                                <h1 class="h2">Admin Dashboard</h1>
+                                 <h1 class="h2">Admin Dashboard</h1>
 
                                 <!-- 통계 카드 영역 -->
                                 <div class="row mt-4">
@@ -46,7 +49,7 @@
                                     <div class="col-md-3">
                                         <div class="card text-white bg-primary mb-3">
                                             <div class="card-body">
-                                                <h5 class="card-title">Total Users</h5>
+                                                <h5 class="card-title">전체 유저</h5>
                                                 <!-- 데이터 로딩 영역 -->
                                                 <p id="totalUsers" class="card-text">Loading...</p>
                                             </div>
@@ -56,7 +59,7 @@
                                     <div class="col-md-3">
                                         <div class="card text-white bg-success mb-3">
                                             <div class="card-body">
-                                                <h5 class="card-title">Active Users</h5>
+                                                <h5 class="card-title">활성화된 유저</h5>
                                                 <p id="activeUsers" class="card-text">Loading...</p>
                                             </div>
                                         </div>
@@ -65,7 +68,7 @@
                                     <div class="col-md-3">
                                         <div class="card text-white bg-warning mb-3">
                                             <div class="card-body">
-                                                <h5 class="card-title">Total Hospitals</h5>
+                                                <h5 class="card-title">전체 병원</h5>
                                                 <p id="totalHospitals" class="card-text">Loading...</p>
                                             </div>
                                         </div>
@@ -116,6 +119,7 @@
                                         <canvas id="totalPaymentAmountByHospitalChart"></canvas>
                                     </div>
                                 </div>
+                            </main>
 
                 </div>
 

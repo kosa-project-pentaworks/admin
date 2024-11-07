@@ -126,13 +126,7 @@
                     <canvas id="totalPaymentAmountByHospitalChart"></canvas>
                 </div>
             </div>
-            <div class="row mt-4">
-                <!-- 혼합 차트 -->
-                <div class="col-md-6">
 
-                    <canvas id="hospitalAndUserCountByProvinceChart"></canvas>
-                </div>
-            </div>
 
         </main>
     </div>
@@ -354,44 +348,7 @@
             });
         });
 
-        // 지역별 병원 수와 사용자 수 차트 생성
-        $.get("/admin/hospitalAndUserCountByProvince", function (data) {
-            let provinces = data.map(item => item.province); // 지역 이름 배열
-            let hospitalCounts = data.map(item => item.hospital_count); // 병원 수 배열
-            let userCounts = data.map(item => item.user_count); // 사용자 수 배열
 
-            // 혼합형 차트 생성
-            new Chart(document.getElementById("hospitalAndUserCountByProvinceChart"), {
-                type: "bar",
-                data: {
-                    labels: provinces,
-                    datasets: [
-                        {
-                            label: "Hospital Count",
-                            type: "bar",
-                            data: hospitalCounts,
-                            backgroundColor: 'rgba(54, 162, 235, 0.6)' // 병원 수 막대 색상
-                        },
-                        {
-                            label: "User Count",
-                            type: "line",
-                            data: userCounts,
-                            borderColor: 'rgba(255, 99, 132, 1)', // 사용자 수 선 색상
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        });
 
     });
 </script>

@@ -37,18 +37,20 @@
 
     <!--    전체 사용자 수 조화-->
     <select id="getTotalUsers" resultType="int">
-        SELECT COUNT(*) AS total_users FROM user
+        SELECT COUNT(*) AS total_users FROM TB_USER_MASTER
+        where  role = "user"
     </select>
 
     <!--활성 사용 자 수 조화-->
     <select id="getActiveUsers" resultType="int">
         SELECT COUNT(*) AS active_users
-        FROM user
-        WHERE status = 'ACTIVE'
+        FROM TB_USER_MASTER
+        WHERE status = 'ACTIVE' and  role = "user"
     </select>
+
     <!--    전체 병원 수 조화-->
     <select id="getTotalHospitals" resultType="int">
-        SELECT COUNT(*) AS total_hospitals FROM hospital
+        SELECT COUNT(*) AS total_hospitals FROM TB_HOSPITAL_MASTER
     </select>
 
     <!--    도시별 사용자 수 조회-->
@@ -67,7 +69,7 @@
         ORDER BY hospital_count DESC
     </select>
 
-<!--    병원 예약 건수 조화-->
+    <!--    병원 예약 건수 조화-->
     <select id="getReservationCountByHospital" resultType="map">
         SELECT h.yadm_nm AS hospital_name, COUNT(hr.hosp_reservation_id) AS reservation_count
         FROM hospital_reservation hr
@@ -75,14 +77,16 @@
         GROUP BY hr.hosp_id
         ORDER BY reservation_count DESC
     </select>
-<!--월별 예약 건수 추이-->
+
+    <!--월별 예약 건수 추이-->
     <select id="getMonthlyReservationTrend" resultType="map">
         SELECT DATE_FORMAT(reservation_at, '%Y-%m') AS month, COUNT(*) AS reservation_count
         FROM hospital_reservation
         GROUP BY month
         ORDER BY month
     </select>
-<!--병원 별 평균 리뷰 평점-->
+
+    <!--병원 별 평균 리뷰 평점-->
     <select id="getAverageRatingByHospital" resultType="map">
         SELECT h.yadm_nm AS hospital_name, AVG(hr.hosp_review_rating) AS average_rating
         FROM hospital_review hr
@@ -90,7 +94,8 @@
         GROUP BY hr.hosp_id
         ORDER BY average_rating DESC
     </select>
-<!--병원별 총 결제 -->
+
+    <!--병원별 총 결제 -->
     <select id="getTotalPaymentAmountByHospital" resultType="map">
         SELECT h.yadm_nm AS hospital_name, SUM(p.amount) AS total_amount
         FROM payment p
@@ -98,7 +103,8 @@
         GROUP BY p.hosp_id
         ORDER BY total_amount DESC
     </select>
-<!-- 예약의 참석률? 계산-->
+
+    <!-- 예약의 참석률? 계산-->
     <select id="getAttendanceRateByHospital" resultType="map">
         SELECT h.yadm_nm AS hospital_name,
         (SUM(hr.attended) / COUNT(hr.hosp_reservation_id)) * 100 AS attendance_rate
@@ -107,21 +113,90 @@
         GROUP BY hr.hosp_id
         ORDER BY attendance_rate DESC
     </select>
-<!--    일별 신규 회원 가입 수-->
+
+    <!--    일별 신규 회원 가입 수-->
     <select id="getDailyNewUsers" resultType="map">
         SELECT DATE(created_at) AS date, COUNT(*) AS new_users
-        FROM user
+        FROM TB_USER_MASTER
         GROUP BY date
         ORDER BY date
     </select>
-<!--    병원 리뷰 수 상위 10개 병원-->
+
+    <!--    병원 리뷰 수 상위 10개 병원-->
     <select id="getTop10HospitalsByReviewCount" resultType="map">
         SELECT h.yadm_nm AS hospital_name, COUNT(hr.hosp_review_id) AS review_count
-        FROM hospital_review hr
-        JOIN hospital h ON hr.hosp_id = h.hosp_id
+        FROM TB_HOSPITAL_REVIEW_HISTORY hr
+        JOIN TB_HOSPITAL_MASTER h ON hr.hosp_id = h.hosp_id
         GROUP BY hr.hosp_id
         ORDER BY review_count DESC
         LIMIT 10
+    </select>
+
+<!--    &lt;!&ndash; 방문자 연령대별 통계 &ndash;&gt;-->
+<!--    <select id="getVisitorAgeDistribution" resultType="map">-->
+<!--        SELECT age_group AS ageGroup, COUNT(*) AS visitor_count-->
+<!--        FROM visitor-->
+<!--        GROUP BY age_group-->
+<!--        ORDER BY age_group-->
+<!--    </select>-->
+
+
+
+<!--    &lt;!&ndash; 병원 별 예약자 수 &ndash;&gt;-->
+<!--    <select id="getReservationCountByHospital" resultType="map">-->
+<!--        SELECT h.yadm_nm AS hospital_name, COUNT(r.hosp_reservation_id) AS reservation_count-->
+<!--        FROM hospital_reservation r-->
+<!--        JOIN hospital h ON r.hosp_id = h.hosp_id-->
+<!--        GROUP BY r.hosp_id-->
+<!--        ORDER BY reservation_count DESC-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 일정 기간 예약자 현황 &ndash;&gt;-->
+<!--    <select id="getReservationStatusWithinPeriod" resultType="map">-->
+<!--        SELECT reservation_date, COUNT(*) AS reservation_count-->
+<!--        FROM hospital_reservation-->
+<!--        WHERE reservation_date BETWEEN #{startDate} AND #{endDate}-->
+<!--        GROUP BY reservation_date-->
+<!--        ORDER BY reservation_date-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 기간 별 등록된 병원 수 &ndash;&gt;-->
+<!--    <select id="getHospitalRegistrationCountByPeriod" resultType="map">-->
+<!--        SELECT DATE_FORMAT(estb_dd, '%Y-%m') AS month, COUNT(*) AS registration_count-->
+<!--        FROM hospital-->
+<!--        WHERE estb_dd BETWEEN #{startDate} AND #{endDate}-->
+<!--        GROUP BY month-->
+<!--        ORDER BY month-->
+<!--    </select>-->
+
+    <!-- 날짜별 병원 평균 평점 -->
+    <select id="getAverageRatingByDate" resultType="map">
+        SELECT
+        DATE(hrh.created_at) AS review_date,
+        hrh.hosp_id,
+        AVG(hrh.hosp_review_rating) AS avg_rating
+        FROM
+        TB_HOSPITAL_REVIEW_HISTORY hrh
+        GROUP BY
+        DATE(hrh.created_at), hrh.hosp_id
+        ORDER BY
+        review_date, hrh.hosp_id;
+    </select>
+
+    <!-- 시,도 별 사용자와 병원 수 -->
+    <select id= "getHospitalAndUserCountByCity" resultType="map">
+        SELECT
+        hm.sido_cd_nm AS region,  -- 시도명
+        COUNT(DISTINCT um.user_id) AS user_count,  -- 유저 수
+        COUNT(DISTINCT hm.hosp_id) AS hospital_count  -- 병원 수
+        FROM
+        TB_USER_MASTER um
+        JOIN
+        TB_HOSPITAL_MASTER hm ON um.user_id = hm.hosp_id
+        GROUP BY
+        hm.sido_cd_nm
+        ORDER BY
+        region;
     </select>
 
 </mapper>

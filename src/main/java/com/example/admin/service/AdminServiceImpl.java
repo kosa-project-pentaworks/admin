@@ -94,4 +94,18 @@ public class AdminServiceImpl implements AdminService {
     public List<Map<String, Object>> getTop10HospitalsByReviewCount() {
         return adminMapper.getTop10HospitalsByReviewCount();
     }
+
+    // 시,도 별 유저 병원 수 getHospitalAndUserCountByCity
+    @Override
+    public List<Map<String, Object>> getHospitalAndUserCountByCity() {
+        return adminMapper.getHospitalAndUserCountByCity();
+    }
+
+    //  날짜별 병원 평균 평점 getAverageRatingByDate
+    @Override
+    public List<Map<String, Object>> getAverageRatingByDate() {
+        return adminMapper.getAverageRatingByDate();
+    }
+
+
 }

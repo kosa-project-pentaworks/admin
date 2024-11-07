@@ -17,6 +17,17 @@ public class ViewController {
         return "admin"; // admin.jsp를 호출합니다.
     }
 
+    @GetMapping("/admin2")
+    public String pageView2() {
+        log.info("pageView2()");
+        return "admin2"; // admin.jsp를 호출합니다.
+    }
+    @GetMapping("/admin3")
+    public String pageView3() {
+        log.info("pageView3()");
+        return "admin3"; // admin.jsp를 호출합니다.
+    }
+
     @GetMapping("/dashboard")
     public String dashboardView() {
         log.info("dashboardView()");

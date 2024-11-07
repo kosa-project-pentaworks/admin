@@ -69,10 +69,13 @@
                         </div>
                     </div>
 
-                    <!-- 차트 영역 (예시: 도시별 사용자 수) -->
+                    <!-- 차트 영역 (예시: 도시별 사용자 수)  -->
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <canvas id="userCountByCityChart"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="averageRatingByDate"></canvas>
                         </div>
                     </div>
                     <!-- 다른 차트 영역들도 추가 -->
@@ -169,20 +172,109 @@
             $("#reservationList").html(reservationList.join(''));
         });
 
-        // 예시 차트 (도시별 사용자 수)
-        $.get("/admin/userCountByCity", function (data) {
-            let cities = data.map(item => item.city);
-            let userCounts = data.map(item => item.user_count);
+        // 일별 신규 회원 가입 수 차트 생성
+        $.get("/admin/averageRatingByDate", function (data) {
+            let dates = data.map(item => item.review_date); // 날짜 배열
+            let avgRating = data.map(item => item.avg_rating); // 신규 가입자 수 배열
 
-            new Chart(document.getElementById("userCountByCityChart"), {
-                type: "bar",
+            // 라인 차트 생성
+            new Chart(document.getElementById("averageRatingByDate"), {
+                type: "line",
                 data: {
-                    labels: cities,
+                    labels: dates,
                     datasets: [{
-                        label: "User Count by City",
-                        data: userCounts,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                        label: "일별 신규 회원 가입 수",
+                        data: avgRating,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        fill: false,
+                        borderColor: 'rgba(75, 192, 192, 1)'
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+
+
+        // 예시 차트 (도시별 사용자 수)
+        $.get("/admin/hospitalAndUserCountByCity", function (data) {
+            // 데이터 매핑
+            let userCounts = data.map(item => item.user_count);
+            let hospitalCounts = data.map(item => item.hospital_count);
+            let regions = data.map(item => item.region);
+
+            // Chart.js 차트 생성
+            new Chart(document.getElementById("userCountByCityChart"), {
+                type: 'bar',
+                data: {
+                    labels: regions,
+                    datasets: [
+                        {
+                            label: 'User Count',
+                            type: 'line',
+                            borderColor: '#4BC0C0',
+                            backgroundColor: '#4BC0C0',
+                            data: userCounts,
+                            fill: false,
+                            yAxisID: 'y-axis-1'
+                        },
+                        {
+                            label: 'Hospital Count',
+                            type: 'bar',
+                            backgroundColor: '#565656',
+                            data: hospitalCounts,
+                            yAxisID: 'y-axis-2'
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'User and Hospital Count by Region'
+                    },
+                    scales: {
+                        yAxes: [
+                            {
+                                id: 'y-axis-1',
+                                type: 'linear',
+                                position: 'left',
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function(value) {
+                                        return value % 1 === 0 ? value : null; // 정수만 표시
+                                    }
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'User Count'
+                                }
+                            },
+                            {
+                                id: 'y-axis-2',
+                                type: 'linear',
+                                position: 'right',
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function(value) {
+                                        return value % 1 === 0 ? value : null; // 정수만 표시
+                                    }
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Hospital Count'
+                                }
+                            }
+                        ],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false
+                            }
+                        }]
+                    }
                 }
             });
         });

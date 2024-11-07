@@ -96,4 +96,16 @@ public class AdminController {
     public List<Map<String, Object>> getTop10HospitalsByReviewCount() {
         return adminService.getTop10HospitalsByReviewCount();
     }
+
+    // 리뷰 수 상위 10개 병원 조회 엔드포인트
+    @GetMapping("/hospitalAndUserCountByCity")
+    public List<Map<String, Object>> getHospitalAndUserCountByCity() {
+        return adminService.getHospitalAndUserCountByCity();
+    }
+
+    // 리뷰 수 상위 10개 병원 조회 엔드포인트
+    @GetMapping("/averageRatingByDate")
+    public List<Map<String, Object>> getAverageRatingByDate() {
+        return adminService.getAverageRatingByDate();
+    }
 }

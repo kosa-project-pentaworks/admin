@@ -1,4 +1,4 @@
-// admin-dashboard.js
+// adminDashboard.js
 
 $(document).ready(function () {
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
             data: {
                 labels: cities,
                 datasets: [{
-                    label: "User Count by City",
+                    label: "지역별 이용자 수",
                     data: userCounts,
                     backgroundColor: 'rgba(54, 162, 235, 0.6)' // 막대 색상
                 }]
@@ -51,7 +51,7 @@ $(document).ready(function () {
             data: {
                 labels: months,
                 datasets: [{
-                    label: "Monthly Reservation Trend",
+                    label: "월별 예약 건수",
                     data: reservationCounts,
                     backgroundColor: 'rgba(255, 206, 86, 0.6)',
                     fill: false,
@@ -76,7 +76,7 @@ $(document).ready(function () {
             data: {
                 labels: provinces,
                 datasets: [{
-                    label: "Hospital Count by Province",
+                    label: "지역별 병원 수",
                     data: hospitalCounts,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',
@@ -107,7 +107,7 @@ $(document).ready(function () {
             data: {
                 labels: hospitals,
                 datasets: [{
-                    label: "Average Rating by Hospital",
+                    label: "병원별 평균 리뷰 평점",
                     data: ratings,
                     backgroundColor: 'rgba(153, 102, 255, 0.6)'
                 }]
@@ -130,7 +130,7 @@ $(document).ready(function () {
             data: {
                 labels: hospitals,
                 datasets: [{
-                    label: "Attendance Rate (%)",
+                    label: "병원별",
                     data: attendanceRates,
                     backgroundColor: 'rgba(255, 159, 64, 0.6)'
                 }]
@@ -153,7 +153,7 @@ $(document).ready(function () {
             data: {
                 labels: dates,
                 datasets: [{
-                    label: "Daily New Users",
+                    label: "일별 신규 회원 가입 수",
                     data: newUsers,
                     backgroundColor: 'rgba(75, 192, 192, 0.6)',
                     fill: false,

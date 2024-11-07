@@ -46,4 +46,10 @@ public interface AdminService {
 
     // 리뷰 수 상위 10개 병원 조회
     List<Map<String, Object>> getTop10HospitalsByReviewCount();
+
+    // 시,도 별 유저 병원 수 getHospitalAndUserCountByCity
+    List<Map<String, Object>> getHospitalAndUserCountByCity();
+
+    //  날짜별 병원 평균 평점 getAverageRatingByDate
+    List<Map<String, Object>> getAverageRatingByDate();
 }
