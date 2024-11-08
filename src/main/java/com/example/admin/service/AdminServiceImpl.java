@@ -107,5 +107,10 @@ public class AdminServiceImpl implements AdminService {
         return adminMapper.getAverageRatingByDate();
     }
 
+    @Override
+    public List<Map<String, Object>> getHospitalReservationHistory() {
+        return adminMapper.getHospitalReservationHistory();
+    }
+
 
 }

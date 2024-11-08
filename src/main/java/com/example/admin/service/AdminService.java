@@ -52,4 +52,7 @@ public interface AdminService {
 
     //  날짜별 병원 평균 평점 getAverageRatingByDate
     List<Map<String, Object>> getAverageRatingByDate();
+
+    //  예약 히스토리 조회
+    List<Map<String, Object>> getHospitalReservationHistory();
 }

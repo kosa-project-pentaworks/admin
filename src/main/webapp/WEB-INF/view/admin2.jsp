@@ -79,6 +79,25 @@
                         </div>
                     </div>
                     <!-- 다른 차트 영역들도 추가 -->
+                    <!-- Dashboard3 (예약 리스트) -->
+                    <div class="tab-pane fade" id="dashboard3">
+                        <h1 class="h2">Reservation List</h1>
+                        <!-- 예약 리스트 테이블 -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Reservation ID</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Hospital</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationList">
+                                <!-- 예약 리스트 내용은 AJAX로 로드될 예정 -->
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
 
@@ -101,25 +120,7 @@
                     </table>
                 </div>
 
-                <!-- Dashboard3 (예약 리스트) -->
-                <div class="tab-pane fade" id="dashboard3">
-                    <h1 class="h2">Reservation List</h1>
-                    <!-- 예약 리스트 테이블 -->
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Reservation ID</th>
-                                <th scope="col">User</th>
-                                <th scope="col">Hospital</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="reservationList">
-                            <!-- 예약 리스트 내용은 AJAX로 로드될 예정 -->
-                        </tbody>
-                    </table>
-                </div>
+
             </div>
         </main>
     </div>
@@ -162,11 +163,11 @@
         $.get("/admin/reservations", function (data) {
             let reservationList = data.map(item => `
                 <tr>
-                    <td>${item.reservation_id}</td>
-                    <td>${item.user}</td>
-                    <td>${item.hospital}</td>
-                    <td>${item.date}</td>
-                    <td>${item.status}</td>
+                    <td>${item.hosp_reservation_id}</td>
+                    <td>${item.user_id}</td>
+                    <td>${item.hosp_id}</td>
+                    <td>${item.reservation_time}</td>
+                    <td>${item.reservation_status}</td>
                 </tr>
             `);
             $("#reservationList").html(reservationList.join(''));

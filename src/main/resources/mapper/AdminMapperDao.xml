@@ -30,9 +30,10 @@
         from hospital
     </select>
 
-<!--    <select id="selectMenuListAll" resultType="dto.com.example.admin.HospitalReservationDTO">-->
-<!--        select * from hospitalReservation-->
-<!--    </select>-->
+    <select id="getHospitalReservationHistory" resultType="map">
+        select *
+        from TB_HOSPITAL_RESERVATION_HISTORY
+    </select>
 
 
     <!--    전체 사용자 수 조화-->

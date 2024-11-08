@@ -2,6 +2,7 @@ package com.example.admin.controllers;
 
 import com.example.admin.dto.HospitalDTO;
 import com.example.admin.service.AdminService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import java.util.Map;
 // AdminController 클래스: 클라이언트로부터의 요청을 처리하고 응답을 제공합니다.
 @RestController
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 
     @Autowired
@@ -107,5 +109,12 @@ public class AdminController {
     @GetMapping("/averageRatingByDate")
     public List<Map<String, Object>> getAverageRatingByDate() {
         return adminService.getAverageRatingByDate();
+    }
+
+    // 예약 리스트 보여주기
+    @GetMapping("/reservations")
+    public List<Map<String, Object>> getHospitalReservationHistory() {
+        log.info("예약 리스트 :: = {}",adminService.getHospitalReservationHistory());
+        return adminService.getHospitalReservationHistory();
     }
 }
