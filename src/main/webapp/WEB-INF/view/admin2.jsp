@@ -26,9 +26,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="dashboard2-tab" data-toggle="tab" href="#dashboard2">Dashboard2</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="dashboard3-tab" data-toggle="tab" href="#dashboard3">Dashboard3</a>
-                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -80,24 +78,26 @@
                     </div>
                     <!-- 다른 차트 영역들도 추가 -->
                     <!-- Dashboard3 (예약 리스트) -->
-                    <div class="tab-pane fade" id="dashboard3">
+
                         <h1 class="h2">Reservation List</h1>
                         <!-- 예약 리스트 테이블 -->
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">Reservation ID</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Hospital</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">예약 ID</th>
+                                    <th scope="col">예약 날짜</th>
+                                    <th scope="col">예약 시간</th>
+                                    <th scope="col">상태</th>
+                                    <th scope="col">유저 ID</th>
+                                    <th scope="col">결제 ID</th>
+                                    <th scope="col">병원 ID</th>
                                 </tr>
                             </thead>
                             <tbody id="reservationList">
                                 <!-- 예약 리스트 내용은 AJAX로 로드될 예정 -->
                             </tbody>
                         </table>
-                    </div>
+
 
                 </div>
 
@@ -115,7 +115,17 @@
                             </tr>
                         </thead>
                         <tbody id="hospitalList">
-                            <!-- 병원 리스트 내용은 AJAX로 로드될 예정 -->
+                                   <c:forEach var="reservation" items="${reservations}">
+                                       <tr>
+                                           <td>${reservation.hospReservationId}</td>
+                                           <td>${reservation.reservationAt}</td>
+                                           <td>${reservation.reservationTime}</td>
+                                           <td>${reservation.reservationStatus}</td>
+                                           <td>${reservation.userId}</td>
+                                           <td>${reservation.paymentId}</td>
+                                           <td>${reservation.hospId}</td>
+                                       </tr>
+                                   </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -147,31 +157,69 @@
         });
 
         // 병원 리스트 로딩 (Dashboard2)
-        $.get("/admin/hospitals", function (data) {
+        $.get("/admin/selectHospListAll", function (data) {
             let hospitalList = data.map(item => `
                 <tr>
-                    <td>${item.name}</td>
-                    <td>${item.location}</td>
-                    <td>${item.rating}</td>
+                    <td>${item.yadmNm}</td>
+                    <td>${item.addr}</td>
+                    <td>${item.hospStatus}</td>
                     <td><button class="btn btn-info">View</button></td>
                 </tr>
             `);
             $("#hospitalList").html(hospitalList.join(''));
         });
 
-        // 예약 리스트 로딩 (Dashboard3)
-        $.get("/admin/reservations", function (data) {
-            let reservationList = data.map(item => `
-                <tr>
-                    <td>${item.hosp_reservation_id}</td>
-                    <td>${item.user_id}</td>
-                    <td>${item.hosp_id}</td>
-                    <td>${item.reservation_time}</td>
-                    <td>${item.reservation_status}</td>
-                </tr>
-            `);
-            $("#reservationList").html(reservationList.join(''));
-        });
+         // 예약 리스트 데이터를 가져오는 함수
+         function loadReservationList() {
+             fetch('/admin/reservations')
+                 .then(response => response.json())
+                 .then(data => {
+                     console.log('예약 리스트 데이터:', data);
+
+                     // #reservationList 테이블 요소 가져오기
+                     const tableBody = document.getElementById('reservationList');
+                     tableBody.innerHTML = ''; // 테이블 초기화
+
+                     // 데이터가 배열인지 확인하고, 데이터가 있을 경우 테이블에 추가
+                     if (Array.isArray(data) && data.length > 0) {
+                         data.forEach(reservation => {
+                             // 날짜와 시간을 포맷팅
+                             const reservationDate = reservation.reservation_at
+                                 ? new Date(reservation.reservation_at).toLocaleDateString()
+                                 : '-';
+                             const reservationTime = reservation.reservation_time || '-';
+
+                             // 테이블에 행 추가
+                             const row = document.createElement('tr');
+                             row.innerHTML = `
+                                 <td>${reservation.hosp_reservation_id || '-'}</td>
+                                 <td>${reservationDate}</td>
+                                 <td>${reservationTime}</td>
+                                 <td>${reservation.reservation_status || '-'}</td>
+                                 <td>${reservation.user_id || '-'}</td>
+                                 <td>${reservation.payment_id || '-'}</td>
+                                 <td>${reservation.hosp_id || '-'}</td>
+                             `;
+                             tableBody.appendChild(row);
+                         });
+                     } else {
+                         // 데이터가 없을 경우 빈 테이블 메시지 출력
+                         const noDataRow = document.createElement('tr');
+                         noDataRow.innerHTML = `<td colspan="7" class="text-center">No reservations found</td>`;
+                         tableBody.appendChild(noDataRow);
+                     }
+                 })
+                 .catch(error => {
+                     console.error('예약 리스트 가져오기 실패:', error);
+                     const tableBody = document.getElementById('reservationList');
+                     const errorRow = document.createElement('tr');
+                     errorRow.innerHTML = `<td colspan="7" class="text-center text-danger">Failed to load reservations</td>`;
+                     tableBody.appendChild(errorRow);
+                 });
+         }
+
+         // 페이지 로드 시 예약 리스트 데이터를 가져옴
+         loadReservationList();
 
         // 일별 신규 회원 가입 수 차트 생성
         $.get("/admin/averageRatingByDate", function (data) {
@@ -184,7 +232,7 @@
                 data: {
                     labels: dates,
                     datasets: [{
-                        label: "일별 신규 회원 가입 수",
+                        label: "날짜별 평균 평점",
                         data: avgRating,
                         backgroundColor: 'rgba(75, 192, 192, 0.6)',
                         fill: false,

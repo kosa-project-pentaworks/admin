@@ -7,14 +7,15 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class HospitalReservationDTO {
     private Long hospReservationId;
     private LocalDateTime reservationAt;
+    private String reservationTime;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private Integer status;
-    private Integer attended;
+    private String reservationStatus;
     private Long userId;
     private Long paymentId;
     private Long hospId;

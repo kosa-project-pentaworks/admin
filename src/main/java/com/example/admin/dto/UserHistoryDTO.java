@@ -6,17 +6,20 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class UserHistoryDTO {
-    private Long historyId;
+    private Long userHistoryId;
     private Long userId;
-    private String status;
-    private String actionType;
-    private String ipAddress;
-    private String userAgent;
-    private String performedBy;
-    private String oldValue;
-    private String newValue;
-    private LocalDateTime changeDate;
+    private String userRole;
+    private String reqIp;
+    private String reqMethod;
+    private String reqUrl;
+    private String reqHeader;
+    private String reqPayload;
+    private LocalDateTime createdAt;
+    private String createdBy;
+    private LocalDateTime modifiedAt;
+    private String modifiedBy;
 
 }

@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class UserDTO {
     private Long userId;
     private String providerId;
@@ -26,6 +27,5 @@ public class UserDTO {
     private String createdBy;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
-
 
 }

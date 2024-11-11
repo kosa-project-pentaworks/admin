@@ -95,6 +95,7 @@
         // 예약 차트 업데이트
         updateChart('reservationsChart', '월별 예약 현황', labels, reservations);
         updateChart('revenueChart', '월별 매출 현황', labels, revenues);
+        console.log('병원 리스트 데이터:', hospitals);
     }
 
     function updateChart(canvasId, label, labels, data) {
