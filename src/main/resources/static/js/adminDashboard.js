@@ -214,3 +214,43 @@ $(document).ready(function () {
     });
 
 });
+
+
+
+        fetch('/api/member/status')
+            .then(response => response.json())
+            .then(data => {
+                // 파이 차트 데이터 구성
+                const chartData = {
+                    labels: ['활성화', '비활성화'],
+                    datasets: [{
+                        data: [data.active, data.inactive],
+                        backgroundColor: ['#4caf50', '#f44336'], // 활성화는 초록색, 비활성화는 빨간색
+                        hoverBackgroundColor: ['#66bb6a', '#e57373']
+                    }]
+                };
+
+                // 차트 옵션 설정
+                const chartOptions = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
+                };
+
+                // 차트 생성
+                const ctx = document.getElementById('memberChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: chartData,
+                    options: chartOptions
+                });
+            })
+            .catch(error => {
+                console.error('데이터를 가져오는 중 오류 발생:', error);
+            });

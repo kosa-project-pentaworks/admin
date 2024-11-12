@@ -48,9 +48,14 @@ public class AdminController {
         log.info("selectUserListAll()");
 
         // 요청 실행: 전체조회
-        List<UserDTO> returnMenusDtoList =adminService.selectUserListAll();
-        log.info("returnUserDTOList= {}",returnMenusDtoList);
-        ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnMenusDtoList);
+        List<UserDTO> returnUserList =adminService.selectUserListAll();
+//        log.info("returnUserDTOList= {}",returnMenusDtoList);
+        for(int i=0; i < returnUserList.size() ; i++ ){
+            log.info("returnUserDTOList= {}",returnUserList.get(i).toString());
+        }
+
+
+        ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
 
         //리턴
         return results;
@@ -63,9 +68,13 @@ public class AdminController {
         log.info("selectHospitalReservationListAll()");
 
         // 요청 실행: 전체조회
-        List<HospitalReservationDTO> returnMenusDtoList =adminService.selectHospitalReservationListAll();
-        log.info("returnHospitalReservationDTOList= {}",returnMenusDtoList);
-        ResponseEntity<List<HospitalReservationDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnMenusDtoList);
+        List<HospitalReservationDTO> returnReservationList =adminService.selectHospitalReservationListAll();
+        log.info("returnHospitalReservationDTOList= {}",returnReservationList);
+        for(int i=0; i < returnReservationList.size() ; i++ ){
+            log.info("returnUserDTOList= {}",returnReservationList.get(i).toString());
+        }
+
+        ResponseEntity<List<HospitalReservationDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnReservationList);
 
         //리턴
         return results;

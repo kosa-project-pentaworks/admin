@@ -33,16 +33,16 @@
                     console.log('병원 리스트 데이터:', hospitals[0].addr);
                     // 병원 데이터를 반복하여 테이블에 추가
                     hospitals.forEach(hospital => {
-                        // 자바스크립트에서 날짜를 형식화
+                        // 자바스크립트에서 날짜를 형식화 index 숫자
                         const formattedDate = hospital.estbDd ? new Date(hospital.estbDd).toLocaleDateString() : 'N/A';
                         html += `
                             <tr>
 
-                                <td>${hospital[index].yadmNm}</td>
-                                <td>${hospital[index].addr}</td>
-                                <td>${hospital[index].telno}</td>
-                                <td>${hospital[index].estbDd}</td>
-                                <td>${hospital[index].hospStatus}</td>
+                                <td>\${hospital.yadmNm}</td>
+                                <td>\${hospital.addr}</td>
+                                <td>\${hospital.telno}</td>
+                                <td>\${hospital[index].estbDd}</td>
+                                <td>\${hospital[index].hospStatus}</td>
                             </tr>
                         `;
                     });

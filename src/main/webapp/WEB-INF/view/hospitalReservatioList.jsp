@@ -4,7 +4,7 @@
 <head>
 <%--
     <meta charset="UTF-8">
-    <title>회원 목록</title>
+    <title>병원 예약 목록</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,12 +16,18 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="description" content="" />
             <meta name="author" content="" />
-            <title>회원 통계(활동/비활동)</title>
+            <title>병원 예약 목록</title>
             <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
             <link href="/css/styles.css" rel="stylesheet" />
             <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <style>
+                   table, th, td {
+                     border: 1px solid #bcbcbc;
+                   }
+                 </style>
 </head>
-    <body class="sb-nav-fixed">
+<body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <!-- <a class="navbar-brand ps-3" href="/view/index">Start Bootstrap</a> -->
@@ -39,7 +45,7 @@
                             &nbsp;&nbsp;
                           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                           <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -139,30 +145,55 @@
                             </div>
                         </nav>
                     </div>
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                    관리
-                    <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/view/userList">회원 목록</a>
-                    <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/view/hospitalReservatioList">병원 예약 목록 </a>
-                    <br/>
-                    통계<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/view/userdashboard">회원 현황(활동/비활동)</a>
-                    <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/view/reservationDashboard">병원 예약 현황(요일별)</a>
+                        <!-- 내용  -->
+                        <h2>병원 예약 목록</h2>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                병원 예약 목록
+                            </div>
+                            <div class="card-body">
+                             <table class="datatable-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>병원 예약 ID</th>
+                                        <th>회원 ID</th>
+                                        <th>병원 ID</th>
+                                        <th>결제 ID</th>
+                                        <th>예약 날짜</th>
+                                        <th>예약 시간</th>
+                                        <th>생성 날짜</th>
+                                        <th>수정 날짜</th>
+                                        <th>예약 상태</th>
 
-
-             </div>
+                                    </tr>
+                                </thead>
+                                <tbody id="hospitalReservationList">
+                                </tbody>
+                             </table>
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>
-<script>
+    <script src = "/js/hopitalReservatioList.js">
 
-</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </script>
 </body>
-<!-- <script src="/js/admin.js"></script> -->
+<%--
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   --%>
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <script src="/js/scripts.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+            <script src="/assets/demo/chart-area-demo.js"></script>
+            <script src="/assets/demo/chart-bar-demo.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+            <script src="/js/datatables-simple-demo.js"></script>
 </html>
+

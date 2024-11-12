@@ -20,4 +20,25 @@ public class HospitalReservationDTO {
     private Long paymentId;
     private Long hospId;
 
+    private String reservationAtStr;
+    private String createdAtStr;
+    private String modifiedAtStr;
+
+    @Override
+    public String toString() {
+        return "HospitalReservationDTO{" +
+                "hospReservationId=" + hospReservationId +
+                ", reservationAt=" + reservationAt +
+                ", reservationTime='" + reservationTime + '\'' +
+                ", createdAt=" + createdAt +
+                ", modifiedAt=" + modifiedAt +
+                ", reservationStatus='" + reservationStatus + '\'' +
+                ", userId=" + userId +
+                ", paymentId=" + paymentId +
+                ", hospId=" + hospId +
+                ", reservationAtStr='" + reservationAtStr + '\'' +
+                ", createdAtStr='" + createdAtStr + '\'' +
+                ", modifiedAtStr='" + modifiedAtStr + '\'' +
+                '}';
+    }
 }
