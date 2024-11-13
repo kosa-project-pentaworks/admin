@@ -59,4 +59,12 @@ public class ViewController {
         log.info("reservationDashboardView()");
         return "reservationDashboard"; // dashboard.jsp를 호출합니다.
     }
+
+
+    // text page
+    @GetMapping("/userdata")
+    public String userdata() {
+        log.info("userdata()");
+        return "userdata"; // dashboard.jsp를 호출합니다.
+    }
 }

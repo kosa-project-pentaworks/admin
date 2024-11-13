@@ -28,10 +28,10 @@
             hosp_status as hospStatus
         from HOSPITAl
     </select>
-
-    <select id="selectUserListAll" resultType="com.example.admin.dto.UserDTO">
+<!-- 유저 검색 -->
+    <select id="selectUserListAll" parameterType="map" resultType="com.example.admin.dto.UserDTO">
         select
-            user_id  as   userId,
+            user_id  as userId,
             IFNULL(provider_id, '')   as  providerId,
             email  as  email,
             username  as  username,
@@ -69,7 +69,21 @@
             created_by  as  createdBy,
             IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
             modified_by  as  modifiedBy
-        from USER;
+        from USER
+        where 1=1
+
+        <if test="username != null and  username !='' ">
+            and username like '%${username}%'
+        </if>
+
+        <if test="phone != null and  phone !='' ">
+            and phone like '%${phone}%'
+        </if>
+
+        <if test="email != null and  email !='' ">
+            and email like '%${email}%'
+        </if>
+
     </select>
 <!--병원 예약-->
     <select id="selectHospitalReservationListAll" resultType="com.example.admin.dto.HospitalReservationDTO">

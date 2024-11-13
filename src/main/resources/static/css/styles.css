@@ -4246,6 +4246,7 @@ textarea.form-control-lg {
   color: var(--bs-card-cap-color);
   background-color: var(--bs-card-cap-bg);
   border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+
 }
 .card-header:first-child {
   border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
@@ -11163,12 +11164,14 @@ body {
 .datatable-table > thead > tr > td,
 .datatable-table > thead > tr > th {
   vertical-align: top;
+  text-align: center;
   padding: 0.5rem 0.5rem;
+  font-family: "Noto Sans KR";
 }
 
 .datatable-table > thead > tr > th {
   vertical-align: bottom;
-  text-align: left;
+  text-align: center;
   border-bottom: none;
 }
 

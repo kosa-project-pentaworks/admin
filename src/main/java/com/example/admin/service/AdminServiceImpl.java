@@ -8,17 +8,17 @@ import com.example.admin.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// AdminServiceImpl 클래스: 서비스 로직을 구현하고 데이터 접근 계층과 상호작용합니다.
 @Service
 @Slf4j
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
-
 
 
     // 병원 목록 전체 조회 구현
@@ -30,17 +30,17 @@ public class AdminServiceImpl implements AdminService {
 
     // 유저 전체 조회
     @Override
-    public List<UserDTO> selectUserListAll() {
-        log.info("AdminService :: selectUserListAll() = {}", adminMapper.selectUserListAll());
+    public List<UserDTO> selectUserListAll(HashMap<String, Object> paramMap) {
+        log.info("AdminService :: selectUserListAll() = {}", paramMap);
 
-        return adminMapper.selectUserListAll();
+        return adminMapper.selectUserListAll(paramMap);
     }
 
 
     // 병원 예약 전체 조회
     @Override
     public List<HospitalReservationDTO> selectHospitalReservationListAll() {
-        log.info("AdminService :: selectHospitalReservationListAll() = {}", adminMapper.selectHospitalReservationListAll());
+        log.info("AdminService :: selectHospitalReservationListAll() =");
 
         return adminMapper.selectHospitalReservationListAll();
     }

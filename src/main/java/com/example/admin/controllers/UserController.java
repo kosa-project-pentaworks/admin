@@ -1,7 +1,6 @@
 package com.example.admin.controllers;
 
-import com.example.admin.dto.HospitalDTO;
-import com.example.admin.dto.HospitalReservationDTO;
+
 import com.example.admin.dto.UserDTO;
 import com.example.admin.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,45 +9,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-// AdminController 클래스: 클라이언트로부터의 요청을 처리하고 응답을 제공합니다.
-
-@Controller
-@RequestMapping("/api/admin")
 @Slf4j
-public class AdminController {
+@Controller
+@RequestMapping("/admin")
+public class UserController {
 
     @Autowired
     private AdminService adminService;
 
-
-
-    // 병원 목록 전체 조회
-    @GetMapping(value = "/selectHospListAll")
-    public ResponseEntity<List<HospitalDTO>> selectHospListAll() {
-        // 요청
-        log.info("selectHospListAll()");
-
-        // 요청 실행: 전체조회
-        List<HospitalDTO> returnMenusDtoList =adminService.selectHospListAll();
-        log.info("returnMessageDtoList= {}",returnMenusDtoList);
-        ResponseEntity<List<HospitalDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnMenusDtoList);
-
-        //리턴
-        return results;
+    //회원 리스트 페이지로 이동
+    @GetMapping("/userList")
+    public String userListView() {
+        log.info("userListView()");
+        return "userList";
     }
 
-
-
-
-    // 유저 목록 전체 조회
+    // ============================================================
+    //  유저 목록 조회
+    // ============================================================
     @GetMapping("/selectUserListAll")
-    public ResponseEntity<List<UserDTO>> selectUserListAll(@RequestParam HashMap<String, Object> paramMap) {
+    public String selectUserListAll(@RequestParam HashMap<String, Object> paramMap, Model model) {
         // 요청
         log.info("selectUserListAll()");
         log.info("selectUserListAll() = {}",paramMap);
@@ -80,46 +68,25 @@ public class AdminController {
             log.info("selectUserListAll() = {}", paramMap);
         }
 
+
         // 요청 실행: 전체조회
         List<UserDTO> returnUserList =adminService.selectUserListAll(paramMap);
-//        log.info("returnUserDTOList= {}",returnMenusDtoList);
         for(int i=0; i < returnUserList.size() ; i++ ){
             log.info("returnUserDTOList= {}",returnUserList.get(i).toString());
         }
+//        log.info("returnUserDTOList= {}",returnMenusDtoList);
+        // 모델에 유저 리스트를 담음
+        model.addAttribute("userList",returnUserList);
+        log.info("returnUserDTOList= {}",model.getAttribute("userList"));
 
 
         ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
 
         //리턴
-        return results;
+        return "userList";
     }
 
 
-
-
-
-
-
-
-
-    //병원 예약 목록 전체 조회
-    @GetMapping(value = "/selectHospitalReservationListAll")
-    public ResponseEntity<List<HospitalReservationDTO>> selectHospitalReservationListAll() {
-        // 요청
-        log.info("selectHospitalReservationListAll()");
-
-        // 요청 실행: 전체조회
-        List<HospitalReservationDTO> returnReservationList =adminService.selectHospitalReservationListAll();
-        log.info("returnHospitalReservationDTOList= {}",returnReservationList);
-        for(int i=0; i < returnReservationList.size() ; i++ ){
-            log.info("returnUserDTOList= {}",returnReservationList.get(i).toString());
-        }
-
-        ResponseEntity<List<HospitalReservationDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnReservationList);
-
-        //리턴
-        return results;
-    }
 
 
 }
