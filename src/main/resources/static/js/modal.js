@@ -1,249 +1,221 @@
+document.addEventListener('DOMContentLoaded', function () {
+    // 모든 시작 버튼 선택
+    const startButtons = document.querySelectorAll('.startButton');
+    const modalElement = document.getElementById('modal');
+    const bootstrapModal = new bootstrap.Modal(modalElement);
 
+    // 각 버튼에 클릭 이벤트 추가
+    startButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            bootstrapModal.show();
+        });
+    });
+
+    // 모달 닫기 버튼 클릭 이벤트
+    const closeButton = document.querySelector('[data-bs-dismiss="modal"]');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            bootstrapModal.hide();
+        });
+    }
+});
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     // 모든 시작 버튼 선택
+//     const startButtons = document.querySelectorAll('.startButton');
+//     const modalElement = document.getElementById('modal');
+//     const modalBody = modalElement.querySelector('.modal-body');
+//     const bootstrapModal = new bootstrap.Modal(modalElement);
+
+    // // 각 버튼에 클릭 이벤트 추가
+    // startButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         // 버튼의 data-user-id 값 가져오기
+    //         const userId = button.getAttribute('data-user-id');
+            
+    //         // 모달 내용 업데이트
+    //         modalBody.innerHTML = `<p>회원 ID: ${userId}</p>`;
+
+    //         // 모달 열기
+    //         bootstrapModal.show();
+    //     });
+    // });
+
+//     // 모달 닫기 버튼 클릭 이벤트
+//     const closeButton = document.querySelector('[data-bs-dismiss="modal"]');
+//     if (closeButton) {
+//         closeButton.addEventListener('click', () => {
+//             bootstrapModal.hide();
+//         });
+//     }
+// });
+//    수정한  
+// const modalBody = modalElement.querySelector('.modal-body');
+
+// startButtons.forEach(button => {
+//     button.addEventListener('click', () => {
+//         const userId = button.getAttribute('data-user-id');
+
+//         // 서버로 POST 요청 보내기
+//         fetch('/admin/getUserInfo', {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json' // JSON 형식으로 요청 보냄
+//             },
+//             body: JSON.stringify({ userId: userId }) // userId 데이터를 JSON 형식으로 전송
+//         })
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok');
+//             }
+//             return response.json(); // JSON 응답 파싱
+//         })
+//         .then(data => {
+//             // 서버로부터 받은 데이터를 모달에 표시
+//             if (data.success) {
+//                 modalBody.innerHTML = `
+//                     <p><strong>회원 ID:</strong> ${data.userId}</p>
+//                     <p><strong>이메일:</strong> ${data.email}</p>
+//                     <p><strong>이름:</strong> ${data.username}</p>
+//                     <p><strong>전화번호:</strong> ${data.phone}</p>
+//                     <p><strong>주소:</strong> ${data.address}</p>
+//                     <p><strong>가입 날짜:</strong> ${data.createdAt}</p>
+//                     <p><strong>상태:</strong> ${data.status}</p>
+//                 `;
+//                 bootstrapModal.show();
+//             } else {
+//                 alert('유저 정보를 불러오는 데 실패했습니다.');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             alert('오류가 발생했습니다. 관리자에게 문의하세요.');
+//         });
+//     });
+// });
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 모달 초기화
-      $('#modal').modal({
-        show: false // 모달 초기 상태를 숨김으로 설정
-      });
-    // 요소를 선택하는 함수
-    function select(id) {
-        return document.getElementById(id);
-    }
-    // 모달 표시 및 숨기기
-    const startButton = select('startButton'); // 시작 버튼
-    const modal = $('#modal'); // jQuery를 사용해 모달 요소 선택
-    if (startButton) {
-        startButton.addEventListener('click', function () {
-            modal.modal('show'); // 모달 표시
-        });
-    }
-    const closeButton = select('close'); // 모달 닫기 버튼
-    if (closeButton) {
-        closeButton.addEventListener('click', function () {
-            modal.modal('hide'); // 모달 숨기기
-        });
-    }
-    // 탭 기능 구현
-    const tablinks = document.querySelectorAll('.tab a'); // 탭 링크 선택
-    tablinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // 기본 링크 동작 방지
-            const tabcontent = document.querySelectorAll('.tabcontent'); // 탭 콘텐츠 선택
-            tabcontent.forEach(function (tab) {
-                tab.style.display = 'none'; // 모든 탭 콘텐츠 숨기기
+    const startButtons = document.querySelectorAll('.startButton');
+    const modalElement = document.getElementById('modal');
+    const modalBody = modalElement.querySelector('.modal-body');
+    const bootstrapModal = new bootstrap.Modal(modalElement);
+
+    startButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const userId = button.getAttribute('data-user-id');
+
+            // 서버로 POST 요청 보내기
+            fetch('/admin/getUserInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // JSON 형식으로 요청 보냄
+                },
+                body: JSON.stringify({ userId: userId }) // userId 데이터를 JSON 형식으로 전송
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // JSON 응답 파싱
+            })
+            .then(data => {
+                // 서버로부터 받은 데이터를 모달에 표시
+                if (data.success) {
+                    modalBody.innerHTML = `
+                        <p><strong>회원 ID:</strong> ${data.userId}</p>
+                        <p><strong>이메일:</strong> ${data.email}</p>
+                        <p><strong>이름:</strong> ${data.username}</p>
+                        <p><strong>전화번호:</strong> ${data.phone}</p>
+                        <p><strong>주소:</strong> ${data.address}</p>
+                        <p><strong>가입 날짜:</strong> ${data.createdAt}</p>
+                        <p><strong>상태:</strong> ${data.status}</p>
+                    `;
+                    bootstrapModal.show();
+                } else {
+                    alert('유저 정보를 불러오는 데 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('오류가 발생했습니다. 관리자에게 문의하세요.');
             });
-            const href = link.getAttribute('href'); // 클릭한 탭의 href 값
-            document.querySelector(href).style.display = 'block'; // 클릭한 탭의 콘텐츠만 표시
         });
     });
-    if (tablinks.length > 0) { // 요소의 총 개수
-        tablinks[0].click(); // 첫 번째 탭을 기본 활성화 상태로 설정
-    }
 });
 
 
-    // 로그인
-    $(document).ready(function() {
-        $('#loginBtn').click(function(event) {
-            event.preventDefault();
-            console.log("로그인 버튼 클릭");
-            const email = $('#loginemail').val();
-            const password = $('#loginpassword').val();
-            const data = {
-                email,
-                password
-            };
-
-            console.log("로그인 fetch 바로 전");
-
-            fetch('/loginMain/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success === 1){
-                        alert('로그인 성공!');
-                        // 로그인 성공 후 처리 (예: 메인 페이지 이동)
-                        // window.location.href = '/test-main';
-                        window.location.href = `/baseleap/home/page?pageUserId=`+data.userId;
-                    } else {
-                        alert('로그인 실패');
-                    }
-                })
-                .catch(error => {
-                    alert('로그인 중 오류 발생');
-                    console.error(error);
-                });
-        });
-    });
-
-    // 회원 가입
-    $(document).ready(function() {
-        $('#signupButton').click(function(event) {
-            event.preventDefault();
-
-            // 입력 값 가져오기
-            const email = $('#email').val();
-            const password = $('#password').val();
-            const password2 = $('#password2').val();
-            const nickName = $('#nickName').val();
-            const profileImage = $('input[name="profileImage"]:checked').val();
-            const userIntroduce = $('#userIntroduce').val();
-            const validationQuizQuestion = $('#validationQuizQuestion').val();
-            const validationQuizAnswer = $('#validationQuizAnswer').val();
-
-            const data = {
-                email,
-                password,
-                nickName,
-                profileImage,
-                userIntroduce,
-                validationQuizQuestion,
-                validationQuizAnswer
-            };
-            // 유효성 검사 함수 호출
-            if (!validateForm(data)) {
-                return;
-            }
-
-            // Fetch 요청
-            fetch('/signup/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json' // html head 같은 의미 여기서는 json 형식으로 보낼거라는 의미
-                },
-                body: JSON.stringify(data) // 실제 보내는 데이터
-            })
-            // 만약 뭐뭐 면 같은 임시? 예약?
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                // 여기서 부터 진짜 데이터 넘어옴
-                .then(data => {
-                    if (data.success == 1) {
-                        alert('회원가입 성공!');
-                        // 회원가입 후 처리 (메인 페이지 이동 등)
-                        window.location.href = '/intro';
-                    } else {
-                        alert('회원가입 실패');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('회원가입 중 오류가 발생했습니다.');
-                });
-
-        });
-
-        function validateForm(data) {
-               const password2 = $('#password2').val();
-            // 이메일 유효성 검사 (정규 표현식 활용)
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(data.email)) {
-                alert('이메일 형식이 올바르지 않습니다.');
-                return false;
-            }
-
-            // 비밀번호 유효성 검사 (기존 정규 표현식 활용)
-            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-            if (!passwordRegex.test(data.password)) {
-                alert('비밀번호 형식이 올바르지 않습니다.');
-                return false;
-            }
-            if (!isMatch(data.password, $('#password2').val())) {
-                alert('비밀번호가 일치하지 않습니다.');
-                return false;
-            }
-
-            return true;
-        }
-
-        function isMatch(password, confirmPassword) {
-           return password === confirmPassword;
-        }
-
-    });
-
-// 비밀번호 찾기
 $(document).ready(function() {
-    $('#reset-form').submit(function(event) {
-        event.preventDefault();
-
-        const email = $('#findEmail').val();
-        const validationQuizQuestion = $('#findValidationQuizQuestion').val();
-        const validationQuizAnswer = $('#findValidationQuizAnswer').val();
-
-        const data = {
-            email,
-            validationQuizQuestion,
-            validationQuizAnswer
-        };
-
-        fetch('/find/passwordFind', {
+    // 모달이 열릴 때마다 실행
+    $('#userModal').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget); // 클릭한 버튼
+        const userId = button.data('user-id'); // 버튼의 data-user-id 속성 값
+        
+        // AJAX 요청
+        $.ajax({
+            url: '/getUserInfo', // 서버 URL
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            data: { user_id: userId },
+            success: function(response) {
+                // 서버에서 받은 데이터를 모달 내용에 채움
+                $('#modalContent').html(`
+                    <p>아이디: ${response.userId}</p>
+                    <p>이메일: ${response.email}</p>
+                    <p>이름: ${response.username}</p>
+                    <p>전화번호: ${response.phoneStr}</p>
+                    <p>주소: ${response.addressStr}</p>
+                    <p>가입일: ${response.createdAtStr}</p>
+                    <p>상태: ${response.status}</p>
+                `);
             },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success == 1) {
-                alert('비밀번호 찾기 성공! 새 비밀번호를 설정해주세요.');
-                // 비밀번호 재설정 폼 표시 (이 부분은 HTML에 해당 폼이 있다고 가정)
-                $('#password-reset-form').show();
-                $('#reset-form').hide();
-                $('#email-for-reset').val(email);  // 이메일 필드에 값 설정
-            } else {
-                alert('비밀번호 찾기 실패 ');
+            error: function() {
+                $('#modalContent').html('<p>정보를 가져오는 중 오류가 발생했습니다.</p>');
             }
-        })
-        .catch(error => {
-            alert('비밀번호 찾기 중 오류 발생');
-            console.error(error);
-        });
-    });
-
-    // 새 비밀번호 설정
-    $('#password-reset-form').submit(function(event) {
-        event.preventDefault();
-
-        const email = $('#email-for-reset').val();
-        const newPassword = $('#new-password').val();
-
-        const data = {
-            email,
-            password: newPassword
-        };
-
-        fetch('/find/passwordFindResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success == 1) {
-                alert('비밀번호가 성공적으로 변경되었습니다.');
-                window.location.href = '/';
-            } else {
-                alert('비밀번호 변경 실패');
-            }
-        })
-        .catch(error => {
-            alert('비밀번호 변경 중 오류 발생');
-            console.error(error);
         });
     });
 });
 
 
+// // 상세보기 처리 (모달창 열어줌)
+// 		// 실제 이벤트가 발생하는 곳은 반복문에 의해 생성되는 곳임으로 이벤트가 먹히지 않을 수 있음 
+// 		// 그렇기 때문에 실제 요소가 있는 곳에 이벤트를 걸어 이벤트 전파방식으로 진행 
+// 		$('#contentDiv').on('click', '.image-inner a', function(event){
+// 			// image-inner안의 a태그에 클릭이 발생하면 함수 발동 
+// 			event.preventDefault();
+// 			// a태그의 고유기능 중지
+			
+// 			// 글번호 얻어오기 
+// 			const bno = $(this).attr('href');
+// 			// 이벤트가 발생한 곳의 href 속성의 값을 가져옴 
+// 			console.log(bno);
+			
+// 			$.getJSON(
+// 				'<c:url value="/snsBoard/getDetail/" />' + bno,
+// 				function(data){
+// 					console.log(data);
+// 					// 서버에서 준 데이터 
+					
+// 					// 미리 준비한 모달창에 뿌림  
+// 					// 값을 위치에 뿌려주고 모달을 열어줌 
+// 					$('#snsModal').modal('show');
+// 					// 모달 열어줌 
+					
+// 					// console.log(data.writer);
+// 					// 값 입력
+// 					$('#snsWriter').html(data.writer);
+// 					$('#snsRegdate').html(timeStamp(data.regdate));
+// 					if (data.content !== null){
+// 						$('#snsContent').text(data.content);							
+// 					}
+// 					else {
+// 						$('#snsContent').text('');
+// 					}
+// 					const src ='<c:url value="/snsBoard/display?fileLocation=' + data.fileloca + '&fileName=' + data.filename + '"/>';
+// 					// const src = "<c:url value='/snsBoard/display?fileLocation=` + data.fileloca + `&fileName=` + data.filename + `'/>";
+// 					$('#snsImg').attr("src", src);
+// 					// 로컬에 저장되어 있는 이미지를 불러옴 
+
+// 				}
+// 			);
+			
+// 		}); // 상세보기 처리 끝

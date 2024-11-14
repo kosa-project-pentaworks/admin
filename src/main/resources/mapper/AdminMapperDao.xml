@@ -70,6 +70,7 @@
             IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
             modified_by  as  modifiedBy
         from USER
+        <!--   where 1=1은 반드시 실행 되게  -->
         where 1=1
 
         <if test="username != null and  username !='' ">
@@ -84,6 +85,87 @@
             and email like '%${email}%'
         </if>
 
+        <if test="user_id != null and  user_id !='' ">
+            and user_id  = ${userId}
+        </if>
+
+    </select>
+
+    <!-- 유저 검색 -->
+    <select id="getUserInfo" parameterType="map" resultType="com.example.admin.dto.UserDTO">
+        select
+        user_id  as userId,
+        email  ,
+        username  ,
+        CONCAT(
+        substring(phone, 1, 3),
+        '-',
+        substring(phone, 4, 4),
+        '-',
+        substring(phone, 8, 4)
+        ) as   phoneStr,
+        role ,
+        IFNULL(provider, '')  as  provider,
+        CONCAT(
+        zipcode,
+        '-',
+        address_line1,
+        '-',
+        address_line2,
+        '-',
+        city,
+        '-',
+        state) as addressStr,
+        CASE  status
+        WHEN 'ACTIVE' THEN '활동'
+        WHEN 'DEACTIVE' THEN '비활동'
+        ELSE ''
+        END AS status,
+        IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr
+        from USER
+
+        where
+        user_id  = ${paramId}
+    </select>
+
+
+    <!-- 유저 검색Rest -->
+    <select id="getUserInfoRest" parameterType="map" resultType="com.example.admin.dto.UserDTO">
+        select
+        user_id  as userId,
+        email  ,
+        username  ,
+        CONCAT(
+        substring(phone, 1, 3),
+        '-',
+        substring(phone, 4, 4),
+        '-',
+        substring(phone, 8, 4)
+        ) as   phoneStr,
+        role ,
+        IFNULL(provider, '')  as  provider,
+        CONCAT(
+        zipcode,
+        '-',
+        address_line1,
+        '-',
+        address_line2,
+        '-',
+        city,
+        '-',
+        state) as addressStr,
+        CASE  status
+        WHEN 'ACTIVE' THEN '활동'
+        WHEN 'DEACTIVE' THEN '비활동'
+        ELSE ''
+        END AS status,
+        IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr
+        from USER
+
+        where
+        user_id  = ${paramId}
     </select>
 <!--병원 예약-->
     <select id="selectHospitalReservationListAll" resultType="com.example.admin.dto.HospitalReservationDTO">

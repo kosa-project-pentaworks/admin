@@ -77,12 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const searchType = document.querySelector("#searchType");
             const search = document.querySelector("#search");
-        
+
             // 유효성 검사 함수 호출
             if (!validateForm(data)) {
                 return;
             }
-        
+
             // Fetch 요청 ${text}
                 fetch('http://localhost:8080/api/admin/selectUserListAll?searchType=${searchType}&search=${search}')
                 .then(response => {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(userList => {
                     let html = '';
                     console.log('회원 리스트 데이터:', userList);
-        
+
                     // 병원 데이터를 반복하여 테이블에 추가
                     userList.forEach(user => {
                         html += `
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </tr>
                         `;
                     });
-        
+
                     // 테이블에 데이터를 추가
                     document.getElementById('userList').innerHTML = html;
                 })

@@ -34,7 +34,7 @@
                  </style>
 
 
-
+    <script src = "/css/modal.css"></script>
 </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
@@ -177,7 +177,6 @@
                     <br/>
                     <div class="container-fluid px-4">
                          <!-- 내용  -->
-
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -196,10 +195,15 @@
                                         <th>상태  </th>
                                     </tr>
                                 </thead>
-                                <tbody id="userList" class="table-group-divider">
-                                		<c:forEach var="userList" items="${userList}">
+                                    <tbody id="userList" class="table-group-divider">
+                                		<c:forEach var="userList" items="${userList}" varStatus="vs">
+                                		    <form action="/admin/getUserInfo" method="get">
                                 			<tr>
-                                			    <td type = "button" id="userUpdate"><c:out value="${userList.userId}"></c:out></td>
+                                			    <td id="userUpdate">
+                                                    <button class="startButton btn" name ="${userList.userId}" type="submit" data-user-id="${userList.userId}" id="startButton">
+                                                    <c:out value="${userList.userId}"></c:out>
+                                                    </button>
+                                			    </td>
                                                 <%-- <td><c:out value="${userList.userId}"></c:out></td> --%>
                                                 <td><c:out value="${userList.email}"></c:out></td>
                                                 <td><c:out value="${userList.username}"></c:out></td>
@@ -207,20 +211,69 @@
                                                 <td><c:out value="${userList.addressStr}"></c:out></td>
                                                 <td><c:out value="${userList.createdAtStr}"></c:out></td>
                                                 <td><c:out value="${userList.status}"></c:out></td>
+                                            <!-- 모달 창 -->
+                                            <div id="modal" class="modal"   role="dialog" style="display: none;">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">회원 관리</h5>
+                                                            <button type="button" class="btn btn-secondary" aria-label="Close">
+                                                                <span aria-hidden="true" data-bs-dismiss="modal">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                                <a><c:out value="${userList.userId}"></c:out></a>
+                                                        </div>
+                                                        <div id="modalId${vs.index}" class="modal-body">
+
+                                                        모달 내용 ${userList.userId} 입니다.
+
+                                                        </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                                  </div>
+                                                </div>
+                                            </div>
                                 			</tr>
+                                			</form>
                                 		</c:forEach>
-
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
                             </div>
-
-
                         </div>
-
                     </div>
+                    <!-- 모달 -->
+
                 </main>
             </div>
-<%-- <script src = "/js/user.js"></script> --%>
+<!--    <script src = "/js/user.js"></script> -->
+    <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 모든 시작 버튼 선택
+    const startButtons = document.querySelectorAll('.startButton');
+    const modalElement = document.getElementById('modal');
+    const bootstrapModal = new bootstrap.Modal(modalElement);
+
+    // 각 버튼에 클릭 이벤트 추가
+    startButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            bootstrapModal.show();
+        });
+    });
+
+    // 모달 닫기 버튼 클릭 이벤트
+    const closeButton = document.querySelector('[data-bs-dismiss="modal"]');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            bootstrapModal.hide();
+        });
+    }
+});
+
+    </script>
+
 </body>
 
 <%--    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>

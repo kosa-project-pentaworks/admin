@@ -7,6 +7,7 @@ import com.example.admin.dto.HospitalReservationDTO;
 import com.example.admin.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -43,6 +44,16 @@ public class AdminServiceImpl implements AdminService {
         log.info("AdminService :: selectHospitalReservationListAll() =");
 
         return adminMapper.selectHospitalReservationListAll();
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> getUserInfoRest(HashMap<String, Object> paramMap) {
+        return  adminMapper.getUserInfoRest(paramMap);
+    }
+
+    @Override
+    public UserDTO getUserInfo(HashMap<String, Object> paramMap) {
+        return adminMapper.getUserInfo(paramMap);
     }
 
 

@@ -119,16 +119,16 @@
                                     </tr>
                                 </thead>
                                 <tbody id="userList" class="table-group-divider">
-                                		<c:forEach var="userList" items="${userList}">
+                                		<c:forEach var="user" items="${userInfo}">
                                 			<tr>
-                                			<td type = "button"><c:out value="${userList.userId}"></c:out></td>
+                                			<td type = "button"><c:out value="${user.userId}"></c:out></td>
                                                 <td action="/view/admin2"><c:out value="${userList.userId}"></c:out></td>
-                                                <td><c:out value="${userList.email}"></c:out></td>
-                                                <td><c:out value="${userList.username}"></c:out></td>
-                                                <td><c:out value="${userList.phoneStr}"></c:out></td>
-                                                <td><c:out value="${userList.addressStr}"></c:out></td>
-                                                <td><c:out value="${userList.createdAtStr}"></c:out></td>
-                                                <td><c:out value="${userList.status}"></c:out></td>
+                                                <td><c:out value="${user.email}"></c:out></td>
+                                                <td><c:out value="${user.username}"></c:out></td>
+                                                <td><c:out value="${user.phoneStr}"></c:out></td>
+                                                <td><c:out value="${user.addressStr}"></c:out></td>
+                                                <td><c:out value="${user.createdAtStr}"></c:out></td>
+                                                <td><c:out value="${user.status}"></c:out></td>
                                 			</tr>
                                 		</c:forEach>
 

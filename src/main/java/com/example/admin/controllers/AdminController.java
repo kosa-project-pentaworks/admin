@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// AdminController 클래스: 클라이언트로부터의 요청을 처리하고 응답을 제공합니다.
-
 @Controller
 @RequestMapping("/api/admin")
 @Slf4j
