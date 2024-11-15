@@ -33,6 +33,7 @@ public class UserDTO {
     private String addressStr;
     private String createdAtStr;
     private String modifiedAtStr;
+    private String statusStr;
 
     @Override
     public String toString() {
@@ -58,6 +59,7 @@ public class UserDTO {
                 ", addressStr='" + addressStr + '\'' +
                 ", createdAtStr='" + createdAtStr + '\'' +
                 ", modifiedAtStr='" + modifiedAtStr + '\'' +
+                ", statusStr='" + statusStr + '\'' +
                 '}';
     }
 }

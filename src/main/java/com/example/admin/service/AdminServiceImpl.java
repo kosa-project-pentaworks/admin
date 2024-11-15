@@ -46,14 +46,23 @@ public class AdminServiceImpl implements AdminService {
         return adminMapper.selectHospitalReservationListAll();
     }
 
+    // 유저 정보 조회
     @Override
     public ResponseEntity<UserDTO> getUserInfoRest(HashMap<String, Object> paramMap) {
         return  adminMapper.getUserInfoRest(paramMap);
     }
 
     @Override
-    public UserDTO getUserInfo(HashMap<String, Object> paramMap) {
-        return adminMapper.getUserInfo(paramMap);
+    public UserDTO getUserInfo(long paramId) {
+        return adminMapper.getUserInfo(paramId);
+    }
+
+    
+    // 회원 수정
+    @Override
+    public int userUpdate(UserDTO userDTO) {
+        log.info("Service userUpdate() :: = {}",userDTO);
+        return adminMapper.userUpdate(userDTO);
     }
 
 

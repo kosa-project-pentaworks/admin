@@ -1,6 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%><!-- JSTL -->
+            <%
+
+             //selected searchType set
+
+            String searchType = request.getParameter("searchType");
+
+            //System.out.println("searchType ===>"+searchType);
+
+            if(searchType == null) searchType = "";
+            String search = request.getParameter("search");
+            if (searchType == null || searchType.equals("") || searchType.equals("all")) {
+                search = "";
+            } else {
+                search = search;
+            }
+
+             %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -35,8 +53,43 @@
 
 
     <script src = "/css/modal.css"></script>
+    <script>
+        function searchTypeChange(){
+           // alert("searchTypeChange()");
+           document.querySelector("#search").value = '';
+           if(document.querySelector("#searchType").value === 'all'){
+                 document.querySelector('#search').disabled = true;
+           }
+           else{
+             document.querySelector('#search').disabled = false;
+           }
+        }
+        function initPage(){
+            let searchType = document.querySelector("#searchType").value;
+
+            switch (searchType){
+
+              case "all" :  // 변수 = 상수1이면, 실행문 A실행
+                document.querySelector('#search').disabled = true;
+                break; // swith{} 코드 블록 탈출
+              case "email" :  // 변수 = 상수1이면, 실행문 A실행
+                document.querySelector('#search').disabled = false;
+                break; // swith{} 코드 블록 탈출
+              case "username" :  // 변수 = 상수1이면, 실행문 A실행
+                document.querySelector('#search').disabled = false;
+                break; // swith{} 코드 블록 탈출
+
+              case "phone" : // 변수 != 상수1 이고, 변수 = 상수2 이면, 실행문 B 실행
+                document.querySelector('#search').disabled = false;
+                break; // swith{} 코드 블록 탈출
+
+              default: // 변수 != 상수1 이고, 변수 != 상수2 이면, 실행문 C 실행
+                document.querySelector('#search').disabled = true;
+            }
+        }
+     </script>
 </head>
-    <body class="sb-nav-fixed">
+    <body class="sb-nav-fixed" onload = "initPage();" >
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
             <!-- Navbar Brand-->
             <!-- <a class="navbar-brand ps-3" href="/view/index">Start Bootstrap</a> -->
@@ -46,15 +99,15 @@
             <!-- Navbar Search-->
             <form class="d-flex"  action="/admin/selectUserListAll" method="get">
 
-                            <select class="form-select" name = "searchType" id="searchType">
-                              <option value="all">회원 전체 검색</option>
-                              <option value="email">이메일</option>
-                              <option value="username">이름</option>
-                              <option value="phone">전화번호</option>
-                            </select>
+                         <select class="form-select" name = "searchType" id="searchType" onchange = "searchTypeChange()">
+                              <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>회원 전체 검색</option>
+                              <option value="email"  <%=searchType.equals("email")?"selected":""%>>이메일</option>
+                              <option value="username"  <%=searchType.equals("username")?"selected":""%>>이름</option>
+                              <option value="phone"  <%=searchType.equals("phone")?"selected":""%>>전화번호</option>
+                         </select>
 
                             &nbsp;&nbsp;
-                          <input class="form-control me-2" type="search"name="search" placeholder="Search" id="search" aria-label="Search">
+                          <input class="form-control me-2" type="search"name="search" placeholder="Search"  value="${search}" id="search"  aria-label="Search">
                           <!-- 온클릿  서브밋-->
                           <button class="btn btn-outline-success" type="submit" id="searchButton" >Search</button>
             </form>
@@ -81,7 +134,7 @@
                                         관리
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/view/userList">회원 </a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
                                             <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">병원 예약</a>
                                         </nav>
 
@@ -184,9 +237,9 @@
                             </div>
                             <div class="card-body">
                              <table class="datatable-table">
-                                <thead class="table-light">
+                                <thead class="table-success">
                                     <tr>
-                                        <th>ID</th>
+                                        <th>회원번호</th>
                                         <th>이메일</th>
                                         <th>이름</th>
                                         <th>전화번호</th>
@@ -200,19 +253,19 @@
                                 		    <form action="/admin/getUserInfo" method="get">
                                 			<tr>
                                 			    <td id="userUpdate">
-                                                    <button class="startButton btn" name ="${userList.userId}" type="submit" data-user-id="${userList.userId}" id="startButton">
+                                                    <button class="startButton btn" name ="paramId" type="submit" data-user-id="${userList.userId}" id="startButton" value="${userList.userId}">
                                                     <c:out value="${userList.userId}"></c:out>
                                                     </button>
                                 			    </td>
-                                                <%-- <td><c:out value="${userList.userId}"></c:out></td> --%>
+                                                 <!-- <td><c:out value="${userList.userId}"></c:out></td>  -->
                                                 <td><c:out value="${userList.email}"></c:out></td>
                                                 <td><c:out value="${userList.username}"></c:out></td>
                                                 <td><c:out value="${userList.phoneStr}"></c:out></td>
                                                 <td><c:out value="${userList.addressStr}"></c:out></td>
                                                 <td><c:out value="${userList.createdAtStr}"></c:out></td>
-                                                <td><c:out value="${userList.status}"></c:out></td>
+                                                <td><c:out value="${userList.statusStr}"></c:out></td>
                                             <!-- 모달 창 -->
-                                            <div id="modal" class="modal"   role="dialog" style="display: none;">
+                                            <!-- <div id="modal" class="modal"   role="dialog" style="display: none;">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -222,7 +275,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                                <a><c:out value="${userList.userId}"></c:out></a>
+                                                                <a ><c:out value="${userList.userId}"></c:out></a>
                                                         </div>
                                                         <div id="modalId${vs.index}" class="modal-body">
 
@@ -234,7 +287,7 @@
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                                                   </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                 			</tr>
                                 			</form>
                                 		</c:forEach>
@@ -243,34 +296,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 모달 -->
-
                 </main>
             </div>
 <!--    <script src = "/js/user.js"></script> -->
     <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-    // 모든 시작 버튼 선택
-    const startButtons = document.querySelectorAll('.startButton');
-    const modalElement = document.getElementById('modal');
-    const bootstrapModal = new bootstrap.Modal(modalElement);
-
-    // 각 버튼에 클릭 이벤트 추가
-    startButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            bootstrapModal.show();
-        });
-    });
-
-    // 모달 닫기 버튼 클릭 이벤트
-    const closeButton = document.querySelector('[data-bs-dismiss="modal"]');
-    if (closeButton) {
-        closeButton.addEventListener('click', () => {
-            bootstrapModal.hide();
-        });
-    }
-});
 
     </script>
 

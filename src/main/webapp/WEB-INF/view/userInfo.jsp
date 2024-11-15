@@ -26,12 +26,7 @@
              <style>
              @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
              </style>
-                 <style>
-                   table, th, td {
-                     border: 1px solid #bcbcbc;
-                   }
 
-                 </style>
 
 
 
@@ -44,6 +39,7 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
+            <!--
             <form class="d-flex"  action="/admin/selectUserListAll" method="get">
 
                             <select class="form-select" name ="searchType" id="searchType">
@@ -55,9 +51,9 @@
 
                             &nbsp;&nbsp;
                           <input class="form-control me-2" type="search"name="search" placeholder="Search" id="search" aria-label="Search">
-                          <!-- 온클릿  서브밋-->
                           <button class="btn btn-outline-success" type="submit" id="searchButton" >Search</button>
             </form>
+            -->
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -80,7 +76,7 @@
                                         관리
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/view/userList">회원 </a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
                                             <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">병원 예약</a>
                                         </nav>
 
@@ -99,52 +95,75 @@
                     <br/>
                     <div class="container-fluid px-4">
                          <!-- 내용  -->
-
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                회원 목록
+                                회원 정보
                             </div>
-                            <div class="card-body">
-                             <table class="datatable-table">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>이메일</th>
-                                        <th>이름</th>
-                                        <th>전화번호</th>
-                                        <th>주소</th>
-                                        <th>가입날짜</th>
-                                        <th> 상태 </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="userList" class="table-group-divider">
-                                		<c:forEach var="user" items="${userInfo}">
-                                			<tr>
-                                			<td type = "button"><c:out value="${user.userId}"></c:out></td>
-                                                <td action="/view/admin2"><c:out value="${userList.userId}"></c:out></td>
-                                                <td><c:out value="${user.email}"></c:out></td>
-                                                <td><c:out value="${user.username}"></c:out></td>
-                                                <td><c:out value="${user.phoneStr}"></c:out></td>
-                                                <td><c:out value="${user.addressStr}"></c:out></td>
-                                                <td><c:out value="${user.createdAtStr}"></c:out></td>
-                                                <td><c:out value="${user.status}"></c:out></td>
-                                			</tr>
-                                		</c:forEach>
+                            
+                            <form action="/admin/update" method="post">
+                                <div class="card-body ">
+                                    <table style="width:60%;" class="datatable-table table-align-center">
+                                        <thead class="table-success">
+                                                <tr>
+                                                    <th>항목</th>
+                                                    <th>정보</th>
+                                                </tr>
+                                        </thead>
 
-                                </tbody>
-                            </table>
+                                        <tbody id="userList" class="table-group-divider">
+
+                                            <tr>
+                                                <td style="width:30%;">회원번호</td>
+                                                <td><input style="width:100%;" type="text" name="userId" value = "${user.userId}" readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td>이매일</td>
+                                                <td	><input style="width:100%;" type="email" name="email"  value = "${user.email}" readonly > </td>
+                                            </tr>
+                                            <tr>
+                                                <td>이름</td>
+                                                <td><input style="width:100%;" type="text" name="username" value = "${user.username}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>주소</td>
+                                                <td ><input style="width:100%;" type="text" name="addressStr" value = "${user.addressStr}" readonly></td>
+                                            <!--   <td><div> ${user.addressStr}</div> </td> -->
+                                            </tr>
+                                            <tr>
+                                                <td>전화번호</td>
+                                                <td><input style="width:100%;" type="text" name="phone" value = "${user.phone}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>상태</td>
+                                                <td>
+                                                <input type="radio" name="status" value="ACTIVE" <c:out value="${user.status == 'ACTIVE' ? 'checked' : ''}"/>>&nbsp;<a>활동</a>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <input type="radio" name="status" value="DEACTIVATED" <c:out value="${user.status == 'DEACTIVATED' ? 'checked' : ''}"/>>&nbsp;<a>비활동</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                </table> 
+                                <div class="text-align-center">
+                                    <input type="submit" value="수정">&nbsp;<input type="reset" value="취소">    
+                                </div>
+                                <br/>    
                             </div>
+                            </form>
+                                <!--
+                                <div>
+                                    <button onclick="history.back()">Back</button>
+                                </div>
+                                -->
                         </div>
-
                     </div>
                 </main>
             </div>
-<%-- <script src = "/js/user.js"></script> --%>
-</body>
+</body> 
 
-<%--    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- <script src = "/js/user.js"></script>  -->
+<%--    
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    --%>

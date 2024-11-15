@@ -11163,7 +11163,7 @@ body {
 .datatable-table > tfoot > tr > th,
 .datatable-table > thead > tr > td,
 .datatable-table > thead > tr > th {
-  vertical-align: top;
+  vertical-align: middle;
   text-align: center;
   padding: 0.5rem 0.5rem;
   font-family: "Noto Sans KR";
@@ -11250,4 +11250,17 @@ body {
   font-optical-sizing: auto;
   font-weight: <weight>;
   font-style: normal;
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.align-center{
+   align: center;
+}
+.table-align-center{
+    margin-left:auto;
+
+    margin-right:auto;
 }

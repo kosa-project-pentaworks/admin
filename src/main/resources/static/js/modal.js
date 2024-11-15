@@ -219,3 +219,50 @@ $(document).ready(function() {
 // 			);
 			
 // 		}); // 상세보기 처리 끝
+
+
+
+// 상세보기 처리 (모달창 열어줌)
+// 실제 이벤트가 발생하는 곳은 반복문에 의해 생성되는 곳임으로 이벤트가 먹히지 않을 수 있음 
+// 그렇기 때문에 실제 요소가 있는 곳에 이벤트를 걸어 이벤트 전파방식으로 진행 
+$('#contentDiv').on('click', '.image-inner a', function(event){
+    // image-inner안의 a태그에 클릭이 발생하면 함수 발동 
+    event.preventDefault();
+    // a태그의 고유기능 중지
+
+    // 글번호 얻어오기 
+    const bno = $(this).attr('href');
+    // 이벤트가 발생한 곳의 href 속성의 값을 가져옴 
+    console.log(bno);
+
+    // Fetch를 사용하여 서버에서 JSON 데이터를 가져옴
+    fetch('<c:url value="/snsBoard/getDetail/" />' + bno)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // 서버에서 준 데이터
+
+            // 미리 준비한 모달창에 뿌림
+            // 값을 위치에 뿌려주고 모달을 열어줌
+            $('#snsModal').modal('show');
+            // 모달 열어줌
+
+            // console.log(data.writer);
+            // 값 입력
+            $('#snsWriter').html(data.writer);
+            $('#snsRegdate').html(timeStamp(data.regdate));
+            if (data.content !== null){
+                $('#snsContent').text(data.content);
+            }
+            else {
+                $('#snsContent').text('');
+            }
+
+            const src ='<c:url value="/snsBoard/display?fileLocation=' + data.fileloca + '&fileName=' + data.filename + '"/>';
+            $('#snsImg').attr("src", src);
+            // 로컬에 저장되어 있는 이미지를 불러옴
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}); // 상세보기 처리 끝

@@ -52,6 +52,7 @@ public class UserController {
 
             switch (searchType) {
                 case "all":
+                    paramMap.put("search", null);
                     break;
                 case "email":
                     paramMap.put("email", paramMap.get("search"));
@@ -77,8 +78,11 @@ public class UserController {
 //        log.info("returnUserDTOList= {}",returnMenusDtoList);
         // 모델에 유저 리스트를 담음
         model.addAttribute("userList",returnUserList);
+        model.addAttribute("searchType",(String) paramMap.get("searchType"));
+        model.addAttribute("search",(String) paramMap.get("search"));
         log.info("returnUserDTOList= {}",model.getAttribute("userList"));
-
+        log.info("searchType= {}",model.getAttribute("searchType"));
+        log.info("search= {}",model.getAttribute("search"));
 
         ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
 

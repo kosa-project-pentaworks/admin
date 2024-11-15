@@ -28,6 +28,8 @@ public interface AdminMapper {
     // 회원 id로 회원 정보 조회
     ResponseEntity<UserDTO> getUserInfoRest(HashMap<String, Object> paramMap);
 
-    UserDTO getUserInfo(HashMap<String, Object> paramMap);
+    UserDTO getUserInfo(long paramId);
+
+    int userUpdate(UserDTO userDTO);
 
 }

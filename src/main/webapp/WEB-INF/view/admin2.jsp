@@ -65,7 +65,7 @@
                                         관리
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="/view/userList">회원 </a>
+                                            <a class="nav-link" href="/admin/selectUserListAll">회원 </a>
                                             <a class="nav-link" href="/view/hospitalReservatioList">병원 예약</a>
                                         </nav>
 

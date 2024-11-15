@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -25,23 +22,23 @@ public class UserUpdateController {
 
 
     // ============================================================
-    // 업데이트를 위한 회원id로 회원 정보 조회 후 정보 전달
+    // 업데이트를 위한 회원id로 회원 정보 조회 후  정보 수정 창으로 전달
     // ============================================================
     @GetMapping("/getUserInfo")
-    public String selectUserListAll(@RequestParam HashMap<String, Object> paramMap, Model model) {
+    public String selectUserListAll(@RequestParam long paramId, Model model) {
         // 요청
-        log.info("selectUserListAll()");
-        log.info("selectUserListAll() = {}", paramMap);
+        log.info("selectUserListAll()2");
+        log.info("selectUserListAll()2 = {}", paramId);
         // ============================================================
         //  searchType = user_id 입력 받은 user_id로 정보 조회 후 전달
         // ============================================================
 
 
         // 요청 실행:전체조회
-        UserDTO returnUserInfo = adminService.getUserInfo(paramMap);
+        UserDTO returnUserInfo = adminService.getUserInfo(paramId);
         log.info("returnUserDTOList= {}", returnUserInfo.toString());
 
-        model.addAttribute("userInfo",returnUserInfo);
+        model.addAttribute("user",returnUserInfo);
         //리턴
         return "userInfo";
     }
@@ -64,5 +61,31 @@ public class UserUpdateController {
         return retult;
     }
 
+
+    // ============================================================
+    // 업데이트 실향
+    // ============================================================
+    @PostMapping(value = "/update")
+    public String userUpdate(@ModelAttribute UserDTO userDTO) {
+        //요청
+        log.info("userUpdate() :: userModel = {}",userDTO);
+
+        //요청 처리
+        // - 회원 정보를 업데이트
+        int returnCnt = adminService.userUpdate(userDTO);
+        log.info("userUpdate() :: returnCnt = {} ",returnCnt);
+        log.info("userUpdate() :: getUserId = {} ",userDTO.getUserId());
+        long uid = userDTO.getUserId();
+
+        String url = "redirect:/admin/getUserInfo?paramId="+uid;
+
+        // 리턴
+        // returnCnt = 0; // 태스트용
+        if (returnCnt == 1){
+            return url;
+        }else {
+            return "/admin/getUserInfo?paramId="+userDTO.getUserId();
+        }
+    }
 
 }

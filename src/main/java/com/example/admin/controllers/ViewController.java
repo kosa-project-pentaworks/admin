@@ -38,7 +38,8 @@ public class ViewController {
     @GetMapping("/userList")
     public String userListView() {
         log.info("userListView()");
-        return "userList";
+
+        return "redirect:/admin/selectUserListAll";
     }
     // 병원 예약 리스트
     @GetMapping("/hospitalReservatioList")
