@@ -26,7 +26,7 @@ public class ViewController {
     @GetMapping("/admin2")
     public String pageView2() {
         log.info("pageView2()");
-        return "admin2"; // admin.jsp를 호출합니다.
+        return "redirect:/admin/selectUserListAll"; // admin.jsp를 호출합니다.
     }
     @GetMapping("/admin3")
     public String pageView3() {
@@ -45,7 +45,7 @@ public class ViewController {
     @GetMapping("/hospitalReservatioList")
     public String hospitalReservatioListView() {
         log.info("hospitalReservatioListView()");
-        return "hospitalReservatioList"; // dashboard.jsp를 호출합니다.
+        return "redirect:/admin/selectHospitalReservationListAll"; // dashboard.jsp를 호출합니다.
     }
 
     // 유저 통계 대시보드 : 유저

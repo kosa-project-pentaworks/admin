@@ -65,7 +65,7 @@ public class UserUpdateController {
     // ============================================================
     // 업데이트 실향
     // ============================================================
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/user/update")
     public String userUpdate(@ModelAttribute UserDTO userDTO) {
         //요청
         log.info("userUpdate() :: userModel = {}",userDTO);

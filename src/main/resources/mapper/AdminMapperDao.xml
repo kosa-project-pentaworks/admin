@@ -86,7 +86,7 @@
             and email like '%${email}%'
         </if>
 
-        <if test="user_id != null and  user_id !='' ">
+        <if test="userId != null and  userId !='' ">
             and user_id  = ${userId}
         </if>
 
@@ -172,44 +172,98 @@
         user_id  = ${paramId}
     </select>
 
+    <!--  회원 정보 수정   -->
+    <update id="userUpdate"
+            parameterType="com.example.admin.dto.UserDTO">
+        UPDATE User
+        SET
+        username = #{username},
+        phone = #{phone},
+        status = #{status},
+        modified_at = now()
+        WHERE user_id  = ${userId}
+    </update>
 
-<!--병원 예약-->
-    <select id="selectHospitalReservationListAll" resultType="com.example.admin.dto.HospitalReservationDTO">
+<!--병원 예약 검색-->
+    <select id="selectHospitalReservationListAll" parameterType="map" resultType="com.example.admin.dto.ReservationDTO">
 
         select
         hosp_reservation_id as hospReservationId,   --  예약 번호
-        h.yadm_nm as '병원이름',  -- 병원 이름
-        u.user_id ,     --  회원 ID
-        u.username as "회원 이름",   -- 회원 이름
-        IFNULL(DATE_FORMAT(reservation_at, '%Y-%m-%d'),'')  as reservationAt,    -- 예약 날짜
+        h.yadm_nm as yadmNm,   -- 병원 이름
+        u.user_id  as userId,     --  회원 ID
+        u.username as username,   -- 회원 이름
+        IFNULL(DATE_FORMAT(reservation_at, '%Y-%m-%d'),'')  as reservationAt,     -- 예약 날짜
         reservation_time   as reservationTime,  -- 예약 시간
         CASE  reservation_status
         WHEN 'SUCCESS' THEN '예약'
         WHEN 'CANCELLED' THEN '취소'
         ELSE ''
         END AS reservationStatus -- 예약 상태
-
         from
         hospital_reservation hr
-        inner join  USER u
+        join  USER u
         on hr.user_id=u.user_id
-        inner join HOSPITAl h
+        join HOSPITAl h
         on hr.hosp_id=h.hosp_id
         WHERE  1=1
-        order by reservation_at desc ,reservation_time desc;
+
+        <if test="username != null and  username !='' ">
+            and username like '%${username}%'
+        </if>
+
+        <if test="yadmNm != null and  yadmNm !='' ">
+            and yadm_nm like '%${yadmNm}%'
+        </if>
+
+        <if test="reservationStatus != null and  reservationStatus !='' ">
+            and reservation_status like '%{reservationStatus}%'
+        </if>
+
+        <if test="hospReservationId != null and  hospReservationId !='' ">
+            and hosp_reservation_id  = ${hospReservationId}
+        </if>
+
+        order by reservation_at desc ,reservation_time desc
 
     </select>
 
-<!--  회원 정보 수정   -->
-    <update id="userUpdate"
-            parameterType="com.example.admin.dto.HospitalReservationDTO">
-        UPDATE User
+    <!-- 병원 예약 검색 -->
+    <select id="getReservationInfo" parameterType="_long" resultType="com.example.admin.dto.ReservationDTO">
+        -- 사용 버전
+        select
+        hosp_reservation_id as hospReservationId,   --  예약 번호
+        h.yadm_nm as yadmNm,   -- 병원 이름
+        u.user_id  as userId,     --  회원 ID
+        u.username as username,   -- 회원 이름
+        IFNULL(DATE_FORMAT(reservation_at, '%Y-%m-%d'),'')  as reservationAt,     -- 예약 날짜
+        reservation_time   as reservationTime,  -- 예약 시간
+        CASE  reservation_status
+        WHEN 'SUCCESS' THEN '예약'
+        WHEN 'CANCELLED' THEN '취소'
+        ELSE ''
+        END AS reservationStatus -- 예약 상태
+        from
+        hospital_reservation hr
+        join  USER u
+        on hr.user_id=u.user_id
+        join HOSPITAl h
+        on hr.hosp_id=h.hosp_id
+        where
+        hosp_reservation_id  = ${paramId}
+    </select>
+
+    <!--  예약 정보 수정   -->
+    <update id="reservationUpdate"
+            parameterType="com.example.admin.dto.ReservationDTO">
+        UPDATE hospital_reservation
         SET
-            username = #{username},
-            phone = #{phone},
-            status = #{status},
-            modified_at = now()
-        WHERE user_id  = ${userId}
+        reservation_status = #{reservationStatus}
+
+        WHERE hosp_reservation_id  = ${hospReservationId};
     </update>
+
+
+
+
 </mapper>
 

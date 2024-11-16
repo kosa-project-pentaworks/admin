@@ -4,6 +4,7 @@ package com.example.admin.service;
 import com.example.admin.dao.AdminMapper;
 import com.example.admin.dto.HospitalDTO;
 import com.example.admin.dto.HospitalReservationDTO;
+import com.example.admin.dto.ReservationDTO;
 import com.example.admin.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,10 @@ public class AdminServiceImpl implements AdminService {
 
     // 병원 예약 전체 조회
     @Override
-    public List<HospitalReservationDTO> selectHospitalReservationListAll() {
+    public List<ReservationDTO> selectHospitalReservationListAll(HashMap<String, Object> paramMap) {
         log.info("AdminService :: selectHospitalReservationListAll() =");
 
-        return adminMapper.selectHospitalReservationListAll();
+        return adminMapper.selectHospitalReservationListAll(paramMap);
     }
 
     // 유저 정보 조회
@@ -63,6 +64,18 @@ public class AdminServiceImpl implements AdminService {
     public int userUpdate(UserDTO userDTO) {
         log.info("Service userUpdate() :: = {}",userDTO);
         return adminMapper.userUpdate(userDTO);
+    }
+
+    @Override
+    public ReservationDTO getReservationInfo(long paramId) {
+        log.info("Service getReservationInfo() :: = {}",paramId);
+        return adminMapper.getReservationInfo(paramId);
+    }
+
+    @Override
+    public int reservationUpdate(ReservationDTO reservationDTO) {
+        log.info("Service reservationUpdate() :: = {}",reservationDTO);
+        return adminMapper.reservationUpdate(reservationDTO);
     }
 
 

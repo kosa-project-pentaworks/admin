@@ -2,6 +2,7 @@ package com.example.admin.controllers;
 
 import com.example.admin.dto.HospitalDTO;
 import com.example.admin.dto.HospitalReservationDTO;
+import com.example.admin.dto.ReservationDTO;
 import com.example.admin.dto.UserDTO;
 import com.example.admin.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -99,25 +100,6 @@ public class AdminController {
 
 
 
-
-    //병원 예약 목록 전체 조회
-    @GetMapping(value = "/selectHospitalReservationListAll")
-    public ResponseEntity<List<HospitalReservationDTO>> selectHospitalReservationListAll() {
-        // 요청
-        log.info("selectHospitalReservationListAll()");
-
-        // 요청 실행: 전체조회
-        List<HospitalReservationDTO> returnReservationList =adminService.selectHospitalReservationListAll();
-        log.info("returnHospitalReservationDTOList= {}",returnReservationList);
-        for(int i=0; i < returnReservationList.size() ; i++ ){
-            log.info("returnUserDTOList= {}",returnReservationList.get(i).toString());
-        }
-
-        ResponseEntity<List<HospitalReservationDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnReservationList);
-
-        //리턴
-        return results;
-    }
 
 
 }

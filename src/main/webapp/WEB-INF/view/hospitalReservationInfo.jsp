@@ -29,7 +29,6 @@
 
 
 
-
 </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
@@ -98,10 +97,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                회원 정보
+                                진료 예약 정보
                             </div>
-                            
-                            <form action="/admin/user/update" method="post">
+
+                            <form action="/admin/reservation/update" method="post">
                                 <div class="card-body ">
                                     <table style="width:60%;" class="datatable-table table-align-center">
                                         <thead class="table-success">
@@ -114,40 +113,44 @@
                                         <tbody id="userList" class="table-group-divider">
 
                                             <tr>
-                                                <td style="width:30%;">회원번호</td>
-                                                <td><input style="width:100%;" type="text" name="userId" value = "${user.userId}" readonly></td>
+                                                <td style="width:30%;">예약번호</td>
+                                                <td><input style="width:100%;" type="text" name="hospReservationId" value = "${reservation.hospReservationId}" readonly></td>
                                             </tr>
                                             <tr>
-                                                <td>이매일</td>
-                                                <td	><input style="width:100%;" type="email" name="email"  value = "${user.email}" readonly > </td>
+                                                <td>병원</td>
+                                                <td	><input style="width:100%;" type="email" name="yadmNm"  value = "${reservation.yadmNm}" readonly > </td>
                                             </tr>
                                             <tr>
-                                                <td>이름</td>
-                                                <td><input style="width:100%;" type="text" name="username" value = "${user.username}"></td>
+                                                <td>회원번호</td>
+                                                <td><input style="width:100%;" type="text" name="userId" value = "${reservation.userId}" readonly></td>
                                             </tr>
                                             <tr>
-                                                <td>주소</td>
-                                                <td ><input style="width:100%;" type="text" name="addressStr" value = "${user.addressStr}" readonly></td>
+                                                <td>회원이름</td>
+                                                <td ><input style="width:100%;" type="text" name="username" value = "${reservation.username}" readonly></td>
                                             <!--   <td><div> ${user.addressStr}</div> </td> -->
                                             </tr>
                                             <tr>
-                                                <td>전화번호</td>
-                                                <td><input style="width:100%;" type="text" name="phone" value = "${user.phone}"></td>
+                                                <td>예약날짜</td>
+                                                <td><input style="width:100%;" type="text" name="reservationAt" value = "${reservation.reservationAt}" readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td>예약시간</td>
+                                                <td><input style="width:100%;" type="text" name="reservationTime" value = "${reservation.reservationTime}" readonly></td>
                                             </tr>
                                             <tr>
                                                 <td>상태</td>
                                                 <td>
-                                                <input type="radio" name="status" value="ACTIVE" <c:out value="${user.status == 'ACTIVE' ? 'checked' : ''}"/>>&nbsp;<a>활동</a>
+                                                <input type="radio" name="reservationStatus" value="SUCCESS" <c:out value="${reservation.reservationStatus == '예약' ? 'checked' : ''}"/>>&nbsp;<a>예약확인</a>
                                                 &nbsp;&nbsp;&nbsp;
-                                                <input type="radio" name="status" value="DEACTIVATED" <c:out value="${user.status == 'DEACTIVATED' ? 'checked' : ''}"/>>&nbsp;<a>비활동</a>
+                                                <input type="radio" name="reservationStatus" value="CANCELLED" <c:out value="${reservation.reservationStatus == '취소' ? 'checked' : ''}"/>>&nbsp;<a>예약취소</a>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                </table> 
+                                </table>
                                 <div class="text-align-center">
-                                    <input type="submit" value="수정">&nbsp;<input type="reset" value="취소">    
+                                    <input type="submit" value="수정">&nbsp;<input type="reset" value="취소">
                                 </div>
-                                <br/>    
+                                <br/>
                             </div>
                             </form>
                                 <!--
@@ -159,10 +162,10 @@
                     </div>
                 </main>
             </div>
-</body> 
+</body>
 
     <!-- <script src = "/js/user.js"></script>  -->
-<%--    
+<%--
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

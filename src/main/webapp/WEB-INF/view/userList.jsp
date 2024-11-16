@@ -100,7 +100,7 @@
             <form class="d-flex"  action="/admin/selectUserListAll" method="get">
 
                          <select class="form-select" name = "searchType" id="searchType" onchange = "searchTypeChange()">
-                              <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>회원 전체 검색</option>
+                              <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>회원 전체</option>
                               <option value="email"  <%=searchType.equals("email")?"selected":""%>>이메일</option>
                               <option value="username"  <%=searchType.equals("username")?"selected":""%>>이름</option>
                               <option value="phone"  <%=searchType.equals("phone")?"selected":""%>>전화번호</option>
@@ -135,7 +135,7 @@
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
-                                            <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">병원 예약</a>
+                                            <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">진료 예약</a>
                                         </nav>
 
                             <%-- <div class="sb-sidenav-menu-heading">통계</div> --%>
@@ -144,84 +144,8 @@
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link noto-sans-kr" href="/view/userdashboard">회원(활동/비활동)</a>
-                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">병원 예약(요일별)</a>
+                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">진료 예약(요일별)</a>
                                         </nav>
-<%--
-
-                                     <div class="sb-sidenav-menu-heading">통계</div>
-                                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                                통계
-                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                            </a>
-                                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                                <nav class="sb-sidenav-menu-nested nav">
-                                                    <a class="nav-link" href="/view/userdashboard">회원(활동/비활동)</a>
-                                                    <a class="nav-link" href="/view/reservationDashboard">병원 예약(요일별)</a>
-                                                </nav>
-                                            </div>
-
-                                    <div class="sb-sidenav-menu-heading">Core</div>
-                                    <a class="nav-link" href="/view/index">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                        Dashboard 관리자
-                                    </a>
-                                    <div class="sb-sidenav-menu-heading">Interface</div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                        Layouts
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                            <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                        Pages
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                                관리
-                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                            </a>
-                                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                                <nav class="sb-sidenav-menu-nested nav">
-                                                    <a class="nav-link" href="login.html">회원 </a>
-                                                    <a class="nav-link" href="register.html">병원 예약</a>
-                                                </nav>
-                                            </div>
-                                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                                통계
-                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                            </a>
-                                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                                <nav class="sb-sidenav-menu-nested nav">
-                                                    <a class="nav-link" href="401.html">회원(활동/비활동)2</a>
-                                                    <a class="nav-link" href="404.html">병원 예약(요일별)</a>
-                                                </nav>
-                                            </div>
-                                        </nav>
-                                    </div>
-                                    <div class="sb-sidenav-menu-heading">Addons</div>
-                                    <a class="nav-link" href="charts.html">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                        Charts
-                                    </a>
-                                    <a class="nav-link" href="tables.html">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                        Tables
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="sb-sidenav-footer">
-                                <div class="small">Logged in as:</div>
-                                Start Bootstrap
-                            </div>
---%>
 
                         </nav>
                     </div>
@@ -264,30 +188,30 @@
                                                 <td><c:out value="${userList.addressStr}"></c:out></td>
                                                 <td><c:out value="${userList.createdAtStr}"></c:out></td>
                                                 <td><c:out value="${userList.statusStr}"></c:out></td>
-                                            <!-- 모달 창 -->
-                                            <!-- <div id="modal" class="modal"   role="dialog" style="display: none;">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">회원 관리</h5>
-                                                            <button type="button" class="btn btn-secondary" aria-label="Close">
-                                                                <span aria-hidden="true" data-bs-dismiss="modal">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                                <a ><c:out value="${userList.userId}"></c:out></a>
-                                                        </div>
-                                                        <div id="modalId${vs.index}" class="modal-body">
+                                                <!-- 모달 창 -->
+                                                <!-- <div id="modal" class="modal"   role="dialog" style="display: none;">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">회원 관리</h5>
+                                                                <button type="button" class="btn btn-secondary" aria-label="Close">
+                                                                    <span aria-hidden="true" data-bs-dismiss="modal">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <a ><c:out value="${userList.userId}"></c:out></a>
+                                                            </div>
+                                                            <div id="modalId${vs.index}" class="modal-body">
 
-                                                        모달 내용 ${userList.userId} 입니다.
+                                                            모달 내용 ${userList.userId} 입니다.
 
-                                                        </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                                  </div>
-                                                </div>
-                                            </div> -->
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                                    </div>
+                                                    </div>
+                                                </div> -->
                                 			</tr>
                                 			</form>
                                 		</c:forEach>
@@ -306,8 +230,8 @@
 
 </body>
 
-<%--    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+<%--  
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
    --%>

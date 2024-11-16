@@ -23,6 +23,7 @@ public class HospitalReservationDTO {
     private String reservationAtStr;
     private String createdAtStr;
     private String modifiedAtStr;
+    private String reservationStatusStr;
 
     @Override
     public String toString() {
@@ -39,6 +40,7 @@ public class HospitalReservationDTO {
                 ", reservationAtStr='" + reservationAtStr + '\'' +
                 ", createdAtStr='" + createdAtStr + '\'' +
                 ", modifiedAtStr='" + modifiedAtStr + '\'' +
+                ", reservationStatusStr='" + reservationStatusStr + '\'' +
                 '}';
     }
 }

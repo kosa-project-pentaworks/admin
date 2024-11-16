@@ -2,6 +2,7 @@ package com.example.admin.dao;
 
 import com.example.admin.dto.HospitalDTO;
 import com.example.admin.dto.HospitalReservationDTO;
+import com.example.admin.dto.ReservationDTO;
 import com.example.admin.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,21 @@ public interface AdminMapper {
     List<UserDTO> selectUserListAll(HashMap<String, Object> paramMap);
 
     // 병원 예약 전체 조회 getUserInfo
-    List<HospitalReservationDTO> selectHospitalReservationListAll();
+    List<ReservationDTO> selectHospitalReservationListAll(HashMap<String, Object> paramMap);
 
     // 회원 id로 회원 정보 조회
     ResponseEntity<UserDTO> getUserInfoRest(HashMap<String, Object> paramMap);
 
     UserDTO getUserInfo(long paramId);
 
+    // 회원 정보 수정 처리
     int userUpdate(UserDTO userDTO);
+
+    // 예약ID로 예약 정보 조회
+    ReservationDTO getReservationInfo(long paramId);
+
+    // 예약 정보 수정
+    int reservationUpdate(ReservationDTO reservationDTO);
+
 
 }

@@ -2,6 +2,7 @@ package com.example.admin.service;
 
 import com.example.admin.dto.HospitalDTO;
 import com.example.admin.dto.HospitalReservationDTO;
+import com.example.admin.dto.ReservationDTO;
 import com.example.admin.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
 
@@ -18,7 +19,7 @@ public interface AdminService {
     List<UserDTO> selectUserListAll(HashMap<String, Object> paramMap);
 
     // 병원 예약 전체 조회
-    List<HospitalReservationDTO> selectHospitalReservationListAll();
+    List<ReservationDTO> selectHospitalReservationListAll(HashMap<String, Object> paramMap);
 
     // 회원 id로 회원 정보 조회
     // 회원 id로 회원 정보 조회
@@ -27,5 +28,12 @@ public interface AdminService {
     UserDTO getUserInfo(long paramId);
 
     int userUpdate(UserDTO userDTO);
+
+
+    // 예약ID로 예약 정보 조회
+    ReservationDTO getReservationInfo(long paramId);
+
+    // 예약 정보 수정
+    int reservationUpdate(ReservationDTO reservationDTO);
 
 }
