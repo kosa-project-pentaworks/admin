@@ -2,10 +2,7 @@ package com.example.admin.service;
 
 
 import com.example.admin.dao.AdminMapper;
-import com.example.admin.dto.HospitalDTO;
-import com.example.admin.dto.HospitalReservationDTO;
-import com.example.admin.dto.ReservationDTO;
-import com.example.admin.dto.UserDTO;
+import com.example.admin.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +73,35 @@ public class AdminServiceImpl implements AdminService {
     public int reservationUpdate(ReservationDTO reservationDTO) {
         log.info("Service reservationUpdate() :: = {}",reservationDTO);
         return adminMapper.reservationUpdate(reservationDTO);
+    }
+
+    @Override
+    public int selectActiveUserCount() {
+        log.info("Service selectActiveUserCount()");
+        return adminMapper.selectActiveUserCount();
+    }
+
+    @Override
+    public int selectDeactivatedUserCount() {
+        log.info("Service selectDeactivatedUserCount()");
+        return adminMapper.selectDeactivatedUserCount();
+    }
+
+    @Override
+    public int selectUserCount() {
+        log.info("Service selectUserCount()");
+        return adminMapper.selectUserCount();
+    }
+
+    @Override
+    public List<StatusDTO> selectHospCount(HashMap<String, Object> paramMap ) {
+        log.info("Service selectHospCount()");
+        return adminMapper.selectHospCount(paramMap);
+    }
+
+    @Override
+    public List<ReservationStatusDTO> selectYearmonthCount() {
+        return adminMapper.selectYearmonthCount();
     }
 
 

@@ -31,46 +31,62 @@
 <!-- 유저 검색 -->
     <select id="selectUserListAll" parameterType="map" resultType="com.example.admin.dto.UserDTO">
         select
-            user_id  as userId,
-            IFNULL(provider_id, '')   as  providerId,
-            email  as  email,
-            username  as  username,
-            phone,
-            CONCAT(
-            substring(phone, 1, 3),
-            '-',
-            substring(phone, 4, 4),
-            '-',
-            substring(phone, 8, 4)
-            ) as   phoneStr,
-            role   as  role,
-            IFNULL(provider, '')  as  provider,
-            CONCAT(
-            zipcode,
-            '-',
-            address_line1,
-            '-',
-            address_line2,
-            '-',
-            city,
-            '-',
-            state) as addressStr,
-            status,
-            CASE  status
-            WHEN 'ACTIVE' THEN '활동'
-            WHEN 'DEACTIVATED' THEN '비활동'
-            ELSE ''
-            END AS statusStr,
-            zipcode as   zipcode,
-            address_line1  as  addressLine1,
-            address_line2  as  addressLine2,
-            city  as  city,
-            state  as  state,
-            IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
-            created_by  as  createdBy,
-            IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
-            modified_by  as  modifiedBy
+        user_id  as   userId,
+        IFNULL(provider_id, '')   as  providerId,
+        email  as  email,
+        username  as  username,
+        phone,
+        CONCAT(
+        substring(phone, 1, 3),
+        '-',
+        substring(phone, 4, 4),
+        '-',
+        substring(phone, 8, 4)
+        ) as   phoneStr,
+        role   as  role,
+        IFNULL(provider, '')  as  provider,
+        CONCAT(
+        '(',
+        zipcode,
+        ') ',
+        CASE
+        WHEN state in ('제주','강원','경기')
+        THEN CONCAT(state,'도 ', city)
+        WHEN state in ('경남')
+        THEN CONCAT('경상남도 ', city)
+        WHEN state in ('경북')
+        THEN CONCAT('경상북도 ', city)
+        WHEN state in ('전남')
+        THEN CONCAT('전라남도 ', city)
+        WHEN state in ('전북')
+        THEN CONCAT('전라북도 ', city)
+        WHEN state in ('충남')
+        THEN CONCAT('충청남도 ', city)
+        WHEN state in ('충북')
+        THEN CONCAT('충청북도 ', city)
+        ELSE city
+        END,
+        ' ',
+        address_line1,
+        ' ',
+        address_line2
+        ) as addressStr,
+        CASE  status
+        WHEN 'ACTIVE' THEN '활동'
+        WHEN 'DEACTIVATED' THEN '비활동'
+        ELSE ''
+        END AS statusStr,
+        zipcode as   zipcode,
+        address_line1  as  addressLine1,
+        address_line2  as  addressLine2,
+        city  as  city,
+        state  as  state,
+        IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
+        created_by  as  createdBy,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
+        modified_by  as  modifiedBy
         from USER
+
         <!--   where 1=1은 반드시 실행 되게  -->
         where 1=1
 
@@ -95,9 +111,10 @@
     <!-- 유저 검색 -->
     <select id="getUserInfo" parameterType="_long" resultType="com.example.admin.dto.UserDTO">
         select
-        user_id  as userId,
-        email  ,
-        username  ,
+        user_id  as   userId,
+        IFNULL(provider_id, '')   as  providerId,
+        email  as  email,
+        username  as  username,
         phone,
         CONCAT(
         substring(phone, 1, 3),
@@ -106,27 +123,51 @@
         '-',
         substring(phone, 8, 4)
         ) as   phoneStr,
-        role ,
+        role   as  role,
         IFNULL(provider, '')  as  provider,
         CONCAT(
+        '(',
         zipcode,
-        '-',
+        ') ',
+        CASE
+        WHEN state in ('제주','강원','경기')
+        THEN CONCAT(state,'도 ', city)
+        WHEN state in ('경남')
+        THEN CONCAT('경상남도 ', city)
+        WHEN state in ('경북')
+        THEN CONCAT('경상북도 ', city)
+        WHEN state in ('전남')
+        THEN CONCAT('전라남도 ', city)
+        WHEN state in ('전북')
+        THEN CONCAT('전라북도 ', city)
+        WHEN state in ('충남')
+        THEN CONCAT('충청남도 ', city)
+        WHEN state in ('충북')
+        THEN CONCAT('충청북도 ', city)
+        ELSE city
+        END,
+        ' ',
         address_line1,
-        '-',
-        address_line2,
-        '-',
-        city,
-        '-',
-        state) as addressStr,
+        ' ',
+        address_line2
+        ) as addressStr,
         status,
         CASE  status
         WHEN 'ACTIVE' THEN '활동'
         WHEN 'DEACTIVATED' THEN '비활동'
         ELSE ''
         END AS statusStr,
+        zipcode as   zipcode,
+        address_line1  as  addressLine1,
+        address_line2  as  addressLine2,
+        city  as  city,
+        state  as  state,
         IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
-        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr
+        created_by  as  createdBy,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
+        modified_by  as  modifiedBy
         from USER
+
 
         where
         user_id  = ${paramId}
@@ -261,9 +302,100 @@
 
         WHERE hosp_reservation_id  = ${hospReservationId};
     </update>
+    <!-- ============================ -->
+    <!--  =========== 통계 =========== -->
+    <!-- ============================ -->
+
+<!--   회원   -->
+    <select id="selectActiveUserCount"  resultType="int">
+        -- 회원: Active
+        select count(*) from user where status='ACTIVE'
+    </select>
+    <select id="selectDeactivatedUserCount"  resultType="int">
+        -- 회원: Deactivated
+        select count(*) from user where status='DEACTIVATED'
+    </select>
+    <select id="selectUserCount"  resultType="int">
+        -- 회원: 전체
+        select count(*) from user
+    </select>
+
+<!--   병원 지역별  -->
+    <select id="selectHospCount" parameterType="map" resultType="com.example.admin.dto.StatusDTO">
+        -- 병원: 지역
+        SELECT
+        CASE  sido_cd_nm
+        WHEN '세종시' THEN '세종'
+        ELSE sido_cd_nm
+        END AS sidoCdNm,
+        COUNT(sido_cd_nm) AS cnt
+        FROM hospital
+        WHERE  1=1
+        GROUP BY sido_cd_nm
+        order by
+<!--        <choose>-->
+<!--            <when test="all">sido_cd_nm asc</when>-->
+<!--            <when test="ascending">cnt asc</when>-->
+<!--            <when test="descending">cnt desc</when>-->
+<!--            <otherwise>sido_cd_nm asc</otherwise>-->
+<!--        </choose>-->
+
+        <if test="all != null and  all !='' ">
+            sido_cd_nm asc
+        </if>
+        <if test="asc != null and  asc !='' ">
+            cnt asc
+        </if>
+        <if test="desc != null and  desc !='' ">
+            cnt desc
+        </if>
+    </select>
+
+<!--    <choose>-->
+<!--        <when test="all">sido_cd_nm asc</when>-->
+<!--        <when test="ascending">cnt asc</when>-->
+<!--        <when test="descending">cnt desc</when>-->
+<!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
+<!--    </choose>-->
 
 
-
-
+    <!--   진요얘약: 기간(최근 3개월)  -->
+    <select id="selectYearmonthCount" resultType="com.example.admin.dto.ReservationStatusDTO">
+        -- 진요얘약: 기간(최근 3개월)
+        --  진요얘약: 기간(최근 3개월)
+        SELECT TA.yearmonth,TA.cnt
+        from (
+        -- 이번달 진료 예약 건수
+        SELECT  DATE_FORMAT(CURDATE(), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") =  DATE_FORMAT(CURDATE(), "%Y-%m")
+        union
+        -- 이전달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), "%Y-%m")
+        union
+        -- 두달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), "%Y-%m")
+        union
+        -- 세달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), "%Y-%m")
+        union
+        -- 네달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), "%Y-%m")
+        union
+        -- 다섯달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), "%Y-%m")
+        ) TA
+        order by TA.yearmonth
+    </select>
 </mapper>
 

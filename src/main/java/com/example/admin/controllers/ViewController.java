@@ -52,13 +52,13 @@ public class ViewController {
     @GetMapping("/userdashboard")
     public String userDashboardView() {
         log.info("userDashboardView()");
-        return "userdashboard"; // dashboard.jsp를 호출합니다.
+        return "redirect:/admin/userdashboard"; // dashboard.jsp를 호출합니다.
     }
     // 병원 예약 통계 대시보드 : 요일별 예약
     @GetMapping("/reservationDashboard")
     public String reservationDashboardView() {
         log.info("reservationDashboardView()");
-        return "reservationDashboard"; // dashboard.jsp를 호출합니다.
+        return "redirect:/admin/reservationDashboard"; // dashboard.jsp를 호출합니다.
     }
 
 

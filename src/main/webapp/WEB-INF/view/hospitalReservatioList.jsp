@@ -52,7 +52,7 @@
                  </style>
 
 
-    <script src = "/css/modal.css"></script>
+
     <script>
         function searchTypeChange(){
            // alert("searchTypeChange()");
@@ -148,7 +148,8 @@
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link noto-sans-kr" href="/view/userdashboard">회원(활동/비활동)</a>
-                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">진료 예약(요일별)</a>
+                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">병원(지역)</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료(기간)</a>
                                         </nav>
 
 
@@ -194,29 +195,6 @@
                                                 <td><c:out value="${reservationList.reservationTime}"></c:out></td>
                                                 <td><c:out value="${reservationList.reservationStatus}"></c:out></td>
                                             <!-- 모달 창 -->
-                                            <!-- <div id="modal" class="modal"   role="dialog" style="display: none;">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">회원 관리</h5>
-                                                            <button type="button" class="btn btn-secondary" aria-label="Close">
-                                                                <span aria-hidden="true" data-bs-dismiss="modal">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                                <a ><c:out value="${userList.userId}"></c:out></a>
-                                                        </div>
-                                                        <div id="modalId${vs.index}" class="modal-body">
-
-                                                        모달 내용 ${userList.userId} 입니다.
-
-                                                        </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                                  </div>
-                                                </div>
-                                            </div> -->
                                 			</tr>
                                 			</form>
                                 		</c:forEach>
@@ -227,6 +205,8 @@
                     </div>
                 </main>
             </div>
+
+        
 <!--    <script src = "/js/user.js"></script> -->
     <script>
 
@@ -235,16 +215,4 @@
 
 </body>
 
-<%--    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-   --%>
-           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-            <script src="/js/scripts.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-            <script src="/assets/demo/chart-area-demo.js"></script>
-            <script src="/assets/demo/chart-bar-demo.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-            <script src="/js/datatables-simple-demo.js"></script>
 </html>

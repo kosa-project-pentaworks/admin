@@ -11261,6 +11261,19 @@ body {
 }
 .table-align-center{
     margin-left:auto;
-
     margin-right:auto;
+}
+
+.pie{
+     width: 400px;
+     height: 400px;
+     margin-left:auto;
+     margin-right:auto;
+}
+
+.chart-bar{
+     width: 50%;
+     height: 50%;
+     margin-left:auto;
+     margin-right:auto;
 }

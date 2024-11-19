@@ -1,9 +1,6 @@
 package com.example.admin.dao;
 
-import com.example.admin.dto.HospitalDTO;
-import com.example.admin.dto.HospitalReservationDTO;
-import com.example.admin.dto.ReservationDTO;
-import com.example.admin.dto.UserDTO;
+import com.example.admin.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.ResponseEntity;
 
@@ -39,6 +36,18 @@ public interface AdminMapper {
 
     // 예약 정보 수정
     int reservationUpdate(ReservationDTO reservationDTO);
+
+
+    // 통계
+    int selectActiveUserCount();
+
+    int selectDeactivatedUserCount();
+
+    int selectUserCount();
+
+    List<StatusDTO> selectHospCount(HashMap<String, Object> paramMap);
+
+    List<ReservationStatusDTO> selectYearmonthCount();
 
 
 }

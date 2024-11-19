@@ -1,9 +1,6 @@
 package com.example.admin.service;
 
-import com.example.admin.dto.HospitalDTO;
-import com.example.admin.dto.HospitalReservationDTO;
-import com.example.admin.dto.ReservationDTO;
-import com.example.admin.dto.UserDTO;
+import com.example.admin.dto.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
@@ -35,5 +32,17 @@ public interface AdminService {
 
     // 예약 정보 수정
     int reservationUpdate(ReservationDTO reservationDTO);
+
+
+    // 통계
+    int selectActiveUserCount();
+
+    int selectDeactivatedUserCount();
+
+    int selectUserCount();
+
+    List<StatusDTO> selectHospCount(HashMap<String, Object> paramMap);
+
+    List<ReservationStatusDTO> selectYearmonthCount();
 
 }
