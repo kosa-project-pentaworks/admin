@@ -34,6 +34,7 @@ dependencies {
 	// implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
 	implementation 'jakarta.servlet:jakarta.servlet-api:6.1.0'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	providedCompile 'org.springframework.boot:spring-boot-starter-tomcat'
 
 	// JSTL
 	// implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
@@ -69,4 +70,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('bootJar') {
+	enabled = false // JAR 빌드를 비활성화
+}
+
+tasks.named('war') {
+	enabled = true // WAR 빌드를 활성화
 }

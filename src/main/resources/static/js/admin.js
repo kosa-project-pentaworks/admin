@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    axios.get('http://localhost:8080/admin/selectHospListAll')
+    axios.get('http://52.79.220.59:8090/admin/selectHospListAll')
         .then(response => {
             const hospitals = response.data;
             let html = '';

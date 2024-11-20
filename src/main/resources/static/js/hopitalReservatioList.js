@@ -37,7 +37,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // 병원 예약 데이터를 가져오는 비동기 요청
-    fetch('http://localhost:8080/admin/selectHospitalReservationListAll')
+    fetch('http://52.79.220.59:8090/admin/selectHospitalReservationListAll')
         .then(response => {
             if (!response.ok) {
                 throw new Error('네트워크 응답이 올바르지 않습니다.');

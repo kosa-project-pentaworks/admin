@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 병원 데이터를 가져오는 비동기 요청
     // window.location.href
     // http://localhost:8080/admin/selectUserListAll?searchType=all&search=${}
-    fetch(`http://localhost:8080/admin/selectUserListAll?searchType=all&search=`)
+    fetch(`http://52.79.220.59:8090/admin/selectUserListAll?searchType=all&search=`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('네트워크 응답이 올바르지 않습니다.');
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         
             // Fetch 요청 ${text}
-            fetch('http://localhost:8080/admin/selectUserListAll?searchType=${searchType}&search=${search}')
+            fetch('http://52.79.220.59:8090/admin/selectUserListAll?searchType=${searchType}&search=${search}')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('네트워크 응답이 올바르지 않습니다.');
