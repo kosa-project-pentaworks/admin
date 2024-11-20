@@ -84,8 +84,7 @@
     <body class="sb-nav-fixed" onload = "initPage();" >
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
             <!-- Navbar Brand-->
-            <!-- <a class="navbar-brand ps-3" href="/view/index">Start Bootstrap</a> -->
-            <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/view/admin2">관리자</a>
+            <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/admin/selectUserListAll">관리자</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -127,15 +126,15 @@
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
-                                            <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">진료 예약</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectHospitalReservationListAll">진료 예약</a>
                                         </nav>
 
                                     <a class="nav-link disabled noto-sans-kr"  data-bs-target="#pagesCollapseError" aria-expanded="true" aria-controls="pagesCollapseError">
                                         통계
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/view/userdashboard">회원(활동/비활동)</a>
-                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">병원(지역)</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/userdashboard">회원(활동/비활동)</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/reservationDashboard">병원(지역)</a>
                                             <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료예약(기간)</a>
                                         </nav>
 
@@ -173,37 +172,15 @@
                                                     <c:out value="${userList.userId}"></c:out>
                                                     </button>
                                 			    </td>
-                                                 <!-- <td><c:out value="${userList.userId}"></c:out></td>  -->
+
                                                 <td><c:out value="${userList.email}"></c:out></td>
                                                 <td><c:out value="${userList.username}"></c:out></td>
                                                 <td><c:out value="${userList.phoneStr}"></c:out></td>
                                                 <td><c:out value="${userList.addressStr}"></c:out></td>
                                                 <td><c:out value="${userList.createdAtStr}"></c:out></td>
                                                 <td><c:out value="${userList.statusStr}"></c:out></td>
-                                                <!-- 모달 창 -->
-                                                <!-- <div id="modal" class="modal"   role="dialog" style="display: none;">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">회원 관리</h5>
-                                                                <button type="button" class="btn btn-secondary" aria-label="Close">
-                                                                    <span aria-hidden="true" data-bs-dismiss="modal">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                    <a ><c:out value="${userList.userId}"></c:out></a>
-                                                            </div>
-                                                            <div id="modalId${vs.index}" class="modal-body">
 
-                                                            모달 내용 ${userList.userId} 입니다.
 
-                                                            </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                                    </div>
-                                                    </div>
-                                                </div> -->
                                 			</tr>
                                 			</form>
                                 		</c:forEach>

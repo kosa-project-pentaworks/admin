@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/view")
 public class ViewController {
 
-    @GetMapping("/index")
-    public String indexView() {
-        log.info("indexView()");
-        return "admin/index"; // admin.jsp를 호출합니다.
-    }
 
     @GetMapping("/admin")
     public String pageView() {

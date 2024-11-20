@@ -105,7 +105,6 @@
                               <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>진료 예약 전체</option>
                               <option value="yadmNm"  <%=searchType.equals("yadmNm")?"selected":""%>>병원</option>
                               <option value="username"  <%=searchType.equals("username")?"selected":""%>>회원이름</option>
-                              <option value="reservationStatus"  <%=searchType.equals("reservationStatus")?"selected":""%>>예약상태</option>
                          </select>
 
 
@@ -149,7 +148,7 @@
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link noto-sans-kr" href="/view/userdashboard">회원(활동/비활동)</a>
                                             <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">병원(지역)</a>
-                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료(기간)</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료예약(기간)</a>
                                         </nav>
 
 
