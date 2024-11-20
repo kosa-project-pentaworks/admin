@@ -7,14 +7,15 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class HospitalDTO {
     private Long hospId;
     private Integer clCd;
     private String addr;
     private String clCdNm;
     private String emdongNm;
-    private LocalDate estbDd;
+    private String estbDd;
     private String hospUrl;
     private Integer postNo;
     private Integer sgguCd;

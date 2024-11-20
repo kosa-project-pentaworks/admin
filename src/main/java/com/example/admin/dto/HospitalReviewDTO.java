@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class HospitalReviewDTO {
     private Long hospReviewId;
     private String hospReviewContent;

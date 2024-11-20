@@ -2,96 +2,107 @@ package com.example.admin.service;
 
 
 import com.example.admin.dao.AdminMapper;
-import com.example.admin.dto.HospitalDTO;
+import com.example.admin.dto.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// AdminServiceImpl 클래스: 서비스 로직을 구현하고 데이터 접근 계층과 상호작용합니다.
 @Service
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
 
 
-
     // 병원 목록 전체 조회 구현
     @Override
-    public List<HospitalDTO> selectMenuListAll() {
-        return adminMapper.selectMenuListAll();
+    public List<HospitalDTO> selectHospListAll() {
+        log.info("AdminService :: selectHospListAll() = {}",adminMapper.selectHospListAll());
+        return adminMapper.selectHospListAll();
     }
 
-    // 전체 사용자 수 조회 구현
+    // 유저 전체 조회
     @Override
-    public int getTotalUsers() {
-        return adminMapper.getTotalUsers();
+    public List<UserDTO> selectUserListAll(HashMap<String, Object> paramMap) {
+        log.info("AdminService :: selectUserListAll() = {}", paramMap);
+
+        return adminMapper.selectUserListAll(paramMap);
     }
 
-    // 활성 사용자 수 조회 구현
+
+    // 병원 예약 전체 조회
     @Override
-    public int getActiveUsers() {
-        return adminMapper.getActiveUsers();
+    public List<ReservationDTO> selectHospitalReservationListAll(HashMap<String, Object> paramMap) {
+        log.info("AdminService :: selectHospitalReservationListAll() =");
+
+        return adminMapper.selectHospitalReservationListAll(paramMap);
     }
 
-    // 전체 병원 수 조회 구현
+    // 유저 정보 조회
     @Override
-    public int getTotalHospitals() {
-        return adminMapper.getTotalHospitals();
+    public ResponseEntity<UserDTO> getUserInfoRest(HashMap<String, Object> paramMap) {
+        return  adminMapper.getUserInfoRest(paramMap);
     }
 
-    // 도시별 사용자 수 조회 구현
     @Override
-    public List<Map<String, Object>> getUserCountByCity() {
-        return adminMapper.getUserCountByCity();
+    public UserDTO getUserInfo(long paramId) {
+        return adminMapper.getUserInfo(paramId);
     }
 
-    // 지역(시,도)별 병원 수 조회 구현
+    
+    // 회원 수정
     @Override
-    public List<Map<String, Object>> getHospitalCountByProvince() {
-        return adminMapper.getHospitalCountByProvince();
+    public int userUpdate(UserDTO userDTO) {
+        log.info("Service userUpdate() :: = {}",userDTO);
+        return adminMapper.userUpdate(userDTO);
     }
 
-    // 병원 예약 건수 조회 구현
     @Override
-    public List<Map<String, Object>> getReservationCountByHospital() {
-        return adminMapper.getReservationCountByHospital();
+    public ReservationDTO getReservationInfo(long paramId) {
+        log.info("Service getReservationInfo() :: = {}",paramId);
+        return adminMapper.getReservationInfo(paramId);
     }
 
-    // 월별 예약 건수 추이 조회 구현
     @Override
-    public List<Map<String, Object>> getMonthlyReservationTrend() {
-        return adminMapper.getMonthlyReservationTrend();
+    public int reservationUpdate(ReservationDTO reservationDTO) {
+        log.info("Service reservationUpdate() :: = {}",reservationDTO);
+        return adminMapper.reservationUpdate(reservationDTO);
     }
 
-    // 병원별 평균 리뷰 평점 조회 구현
     @Override
-    public List<Map<String, Object>> getAverageRatingByHospital() {
-        return adminMapper.getAverageRatingByHospital();
+    public int selectActiveUserCount() {
+        log.info("Service selectActiveUserCount()");
+        return adminMapper.selectActiveUserCount();
     }
 
-    // 병원별 총 결제 금액 조회 구현
     @Override
-    public List<Map<String, Object>> getTotalPaymentAmountByHospital() {
-        return adminMapper.getTotalPaymentAmountByHospital();
+    public int selectDeactivatedUserCount() {
+        log.info("Service selectDeactivatedUserCount()");
+        return adminMapper.selectDeactivatedUserCount();
     }
 
-    // 병원별 참석률 계산 구현
     @Override
-    public List<Map<String, Object>> getAttendanceRateByHospital() {
-        return adminMapper.getAttendanceRateByHospital();
+    public int selectUserCount() {
+        log.info("Service selectUserCount()");
+        return adminMapper.selectUserCount();
     }
 
-    // 일별 신규 회원 가입 수 조회 구현
     @Override
-    public List<Map<String, Object>> getDailyNewUsers() {
-        return adminMapper.getDailyNewUsers();
+    public List<StatusDTO> selectHospCount(HashMap<String, Object> paramMap ) {
+        log.info("Service selectHospCount()");
+        return adminMapper.selectHospCount(paramMap);
     }
 
-    // 리뷰 수 상위 10개 병원 조회 구현
     @Override
-    public List<Map<String, Object>> getTop10HospitalsByReviewCount() {
-        return adminMapper.getTop10HospitalsByReviewCount();
+    public List<ReservationStatusDTO> selectYearmonthCount() {
+        return adminMapper.selectYearmonthCount();
     }
+
+
 }

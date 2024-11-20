@@ -7,16 +7,40 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class HospitalReservationDTO {
     private Long hospReservationId;
     private LocalDateTime reservationAt;
+    private String reservationTime;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private Integer status;
-    private Integer attended;
+    private String reservationStatus;
     private Long userId;
     private Long paymentId;
     private Long hospId;
 
+    private String reservationAtStr;
+    private String createdAtStr;
+    private String modifiedAtStr;
+    private String reservationStatusStr;
+
+    @Override
+    public String toString() {
+        return "HospitalReservationDTO{" +
+                "hospReservationId=" + hospReservationId +
+                ", reservationAt=" + reservationAt +
+                ", reservationTime='" + reservationTime + '\'' +
+                ", createdAt=" + createdAt +
+                ", modifiedAt=" + modifiedAt +
+                ", reservationStatus='" + reservationStatus + '\'' +
+                ", userId=" + userId +
+                ", paymentId=" + paymentId +
+                ", hospId=" + hospId +
+                ", reservationAtStr='" + reservationAtStr + '\'' +
+                ", createdAtStr='" + createdAtStr + '\'' +
+                ", modifiedAtStr='" + modifiedAtStr + '\'' +
+                ", reservationStatusStr='" + reservationStatusStr + '\'' +
+                '}';
+    }
 }

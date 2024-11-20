@@ -1,49 +1,48 @@
 package com.example.admin.service;
 
-import com.example.admin.dto.HospitalDTO;
+import com.example.admin.dto.*;
+import org.springframework.http.ResponseEntity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// AdminService 인터페이스: 비즈니스 로직을 처리하는 메서드를 선언합니다.
 public interface AdminService {
 
     // 병원 목록 전체 조회
-    List<HospitalDTO> selectMenuListAll();
+    List<HospitalDTO> selectHospListAll();
 
-    // 전체 사용자 수 조회
-    int getTotalUsers();
+    // 사용자 목록 전체 조회
+    List<UserDTO> selectUserListAll(HashMap<String, Object> paramMap);
 
-    // 활성 사용자 수 조회
-    int getActiveUsers();
+    // 병원 예약 전체 조회
+    List<ReservationDTO> selectHospitalReservationListAll(HashMap<String, Object> paramMap);
 
-    // 전체 병원 수 조회
-    int getTotalHospitals();
+    // 회원 id로 회원 정보 조회
+    // 회원 id로 회원 정보 조회
+    ResponseEntity<UserDTO> getUserInfoRest(HashMap<String, Object> paramMap);
 
-    // 도시별 사용자 수 조회
-    List<Map<String, Object>> getUserCountByCity();
+    UserDTO getUserInfo(long paramId);
 
-    // 지역(시,도)별 병원 수 조회
-    List<Map<String, Object>> getHospitalCountByProvince();
+    int userUpdate(UserDTO userDTO);
 
-    // 병원 예약 건수 조회
-    List<Map<String, Object>> getReservationCountByHospital();
 
-    // 월별 예약 건수 추이 조회
-    List<Map<String, Object>> getMonthlyReservationTrend();
+    // 예약ID로 예약 정보 조회
+    ReservationDTO getReservationInfo(long paramId);
 
-    // 병원별 평균 리뷰 평점 조회
-    List<Map<String, Object>> getAverageRatingByHospital();
+    // 예약 정보 수정
+    int reservationUpdate(ReservationDTO reservationDTO);
 
-    // 병원별 총 결제 금액 조회
-    List<Map<String, Object>> getTotalPaymentAmountByHospital();
 
-    // 병원별 참석률 계산
-    List<Map<String, Object>> getAttendanceRateByHospital();
+    // 통계
+    int selectActiveUserCount();
 
-    // 일별 신규 회원 가입 수 조회
-    List<Map<String, Object>> getDailyNewUsers();
+    int selectDeactivatedUserCount();
 
-    // 리뷰 수 상위 10개 병원 조회
-    List<Map<String, Object>> getTop10HospitalsByReviewCount();
+    int selectUserCount();
+
+    List<StatusDTO> selectHospCount(HashMap<String, Object> paramMap);
+
+    List<ReservationStatusDTO> selectYearmonthCount();
+
 }
