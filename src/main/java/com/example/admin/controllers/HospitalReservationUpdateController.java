@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/admin")
 @Slf4j
 public class HospitalReservationUpdateController {
 

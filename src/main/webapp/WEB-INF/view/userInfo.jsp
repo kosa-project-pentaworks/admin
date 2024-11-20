@@ -108,7 +108,7 @@
                                 회원 정보
                             </div>
                             
-                            <form action="/api/v1/admin/user/update" method="post">
+                            <form action="/admin/user/update" method="post">
                                 <div class="card-body ">
                                     <table style="width:60%;" class="datatable-table table-align-center">
                                         <thead class="table-success">

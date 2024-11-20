@@ -25,7 +25,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // 병원 데이터를 가져오는 비동기 요청
-            axios.get('http://localhost:8080/admin/selectHospListAll')
+            axios.get('http://52.79.220.59:8090/admin/selectHospListAll')
                 .then(response => {
                     const hospitals = response.data;
                     let html = '';

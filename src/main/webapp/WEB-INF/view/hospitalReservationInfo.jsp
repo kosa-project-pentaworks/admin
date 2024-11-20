@@ -106,7 +106,7 @@
                                 진료 예약 정보
                             </div>
 
-                            <form action="/api/v1/admin/reservation/update" method="post">
+                            <form action="/admin/reservation/update" method="post">
                                 <div class="card-body ">
                                     <table style="width:60%;" class="datatable-table table-align-center">
                                         <thead class="table-success">

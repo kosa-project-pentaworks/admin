@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/admin")
 public class reservationDashboardController {
 
     @Autowired

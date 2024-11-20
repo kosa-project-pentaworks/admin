@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 @Slf4j
 public class AdminController {
 

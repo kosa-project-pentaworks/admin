@@ -98,7 +98,7 @@
 
         <!-- Navbar Search-->
          <!-- -->
-        <form class="d-flex" action="/api/v1/admin/reservationDashboard" method="get"  >
+        <form class="d-flex" action="/admin/reservationDashboard" method="get"  >
             
             <select class="form-select" name = "selectType" id="selectType"  >
 

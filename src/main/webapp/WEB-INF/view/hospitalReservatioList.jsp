@@ -101,7 +101,7 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-flex"  action="/api/v1/admin/selectHospitalReservationListAll" method="get">
+            <form class="d-flex"  action="/admin/selectHospitalReservationListAll" method="get">
 
                          <select class="form-select" name = "searchType" id="searchType" onchange = "searchTypeChange()">
                               <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>진료 예약 전체</option>
@@ -185,7 +185,7 @@
                                 </thead>
                                     <tbody id="userList" class="table-group-divider">
                                 		<c:forEach var="reservationList" items="${reservationList}" varStatus="vs">
-                                		    <form action="/api/v1/admin/getReservationInfo" method="get">
+                                		    <form action="/admin/getReservationInfo" method="get">
                                 			<tr>
                                 			    <td id="userUpdate">
                                                     <button class="startButton btn" name ="paramId" type="submit" data-user-id="${reservationList.hospReservationId}" id="startButton" value="${reservationList.hospReservationId}">
