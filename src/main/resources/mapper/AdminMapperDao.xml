@@ -8,196 +8,394 @@
 
 <mapper namespace="com.example.admin.dao.AdminMapper">
 
-    <select id="selectMenuListAll" resultType="com.example.admin.dto.HospitalDTO">
+    <select id="selectHospListAll" resultType="com.example.admin.dto.HospitalDTO">
         select
             hosp_id as hospId,
             cl_cd   as clCd,
             addr,
-        cl_cd_nm as clCdNm,
-        emdong_nm as emdongNm,
-        estb_dd as estbDd,
-        hosp_url as hospUrl,
-        post_no as postNo,
-        sggu_cd as sgguCd,
-        sggu_cd_nm as sgguCdNm,
-        sido_cd as sidoCd,
-        sido_cd_nm as sidoCdNm,
-         telno,
-        yadm_nm as yadmNm,
-         ykiho,
-        hosp_status as hospStatus
+            cl_cd_nm as clCdNm,
+            emdong_nm as emdongNm,
+            estb_dd as estbDd,
+            hosp_url as hospUrl,
+            post_no as postNo,
+            sggu_cd as sgguCd,
+            sggu_cd_nm as sgguCdNm,
+            sido_cd as sidoCd,
+            sido_cd_nm as sidoCdNm,
+            telno,
+            yadm_nm as yadmNm,
+            ykiho,
+            hosp_status as hospStatus
+        from HOSPITAl
+    </select>
+<!-- 유저 검색 -->
+    <select id="selectUserListAll" parameterType="map" resultType="com.example.admin.dto.UserDTO">
+        select
+        user_id  as   userId,
+        IFNULL(provider_id, '')   as  providerId,
+        email  as  email,
+        username  as  username,
+        phone,
+        CONCAT(
+        substring(phone, 1, 3),
+        '-',
+        substring(phone, 4, 4),
+        '-',
+        substring(phone, 8, 4)
+        ) as   phoneStr,
+        role   as  role,
+        IFNULL(provider, '')  as  provider,
+        CONCAT(
+        '(',
+        zipcode,
+        ') ',
+        CASE
+        WHEN state in ('제주','강원','경기')
+        THEN CONCAT(state,'도 ', city)
+        WHEN state in ('경남')
+        THEN CONCAT('경상남도 ', city)
+        WHEN state in ('경북')
+        THEN CONCAT('경상북도 ', city)
+        WHEN state in ('전남')
+        THEN CONCAT('전라남도 ', city)
+        WHEN state in ('전북')
+        THEN CONCAT('전라북도 ', city)
+        WHEN state in ('충남')
+        THEN CONCAT('충청남도 ', city)
+        WHEN state in ('충북')
+        THEN CONCAT('충청북도 ', city)
+        ELSE city
+        END,
+        ' ',
+        address_line1,
+        ' ',
+        address_line2
+        ) as addressStr,
+        CASE  status
+        WHEN 'ACTIVE' THEN '활동'
+        WHEN 'DEACTIVATED' THEN '비활동'
+        ELSE ''
+        END AS statusStr,
+        zipcode as   zipcode,
+        address_line1  as  addressLine1,
+        address_line2  as  addressLine2,
+        city  as  city,
+        state  as  state,
+        IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
+        created_by  as  createdBy,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
+        modified_by  as  modifiedBy
+        from USER
 
-        from hospital
+        <!--   where 1=1은 반드시 실행 되게  -->
+        where 1=1
+
+        <if test="username != null and  username !='' ">
+            and username like '%${username}%'
+        </if>
+
+        <if test="phone != null and  phone !='' ">
+            and phone like '%${phone}%'
+        </if>
+
+        <if test="email != null and  email !='' ">
+            and email like '%${email}%'
+        </if>
+
+        <if test="userId != null and  userId !='' ">
+            and user_id  = ${userId}
+        </if>
+
     </select>
 
-<!--    <select id="selectMenuListAll" resultType="dto.com.example.admin.HospitalReservationDTO">-->
-<!--        select * from hospitalReservation-->
-<!--    </select>-->
+    <!-- 유저 검색 -->
+    <select id="getUserInfo" parameterType="_long" resultType="com.example.admin.dto.UserDTO">
+        select
+        user_id  as   userId,
+        IFNULL(provider_id, '')   as  providerId,
+        email  as  email,
+        username  as  username,
+        phone,
+        CONCAT(
+        substring(phone, 1, 3),
+        '-',
+        substring(phone, 4, 4),
+        '-',
+        substring(phone, 8, 4)
+        ) as   phoneStr,
+        role   as  role,
+        IFNULL(provider, '')  as  provider,
+        CONCAT(
+        '(',
+        zipcode,
+        ') ',
+        CASE
+        WHEN state in ('제주','강원','경기')
+        THEN CONCAT(state,'도 ', city)
+        WHEN state in ('경남')
+        THEN CONCAT('경상남도 ', city)
+        WHEN state in ('경북')
+        THEN CONCAT('경상북도 ', city)
+        WHEN state in ('전남')
+        THEN CONCAT('전라남도 ', city)
+        WHEN state in ('전북')
+        THEN CONCAT('전라북도 ', city)
+        WHEN state in ('충남')
+        THEN CONCAT('충청남도 ', city)
+        WHEN state in ('충북')
+        THEN CONCAT('충청북도 ', city)
+        ELSE city
+        END,
+        ' ',
+        address_line1,
+        ' ',
+        address_line2
+        ) as addressStr,
+        status,
+        CASE  status
+        WHEN 'ACTIVE' THEN '활동'
+        WHEN 'DEACTIVATED' THEN '비활동'
+        ELSE ''
+        END AS statusStr,
+        zipcode as   zipcode,
+        address_line1  as  addressLine1,
+        address_line2  as  addressLine2,
+        city  as  city,
+        state  as  state,
+        IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
+        created_by  as  createdBy,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr,
+        modified_by  as  modifiedBy
+        from USER
 
 
-    <!--    전체 사용자 수 조화-->
-    <select id="getTotalUsers" resultType="int">
-        SELECT COUNT(*) AS total_users FROM TB_USER_MASTER
-        where  role = "user"
+        where
+        user_id  = ${paramId}
     </select>
 
-    <!--활성 사용 자 수 조화-->
-    <select id="getActiveUsers" resultType="int">
-        SELECT COUNT(*) AS active_users
-        FROM TB_USER_MASTER
-        WHERE status = 'ACTIVE' and  role = "user"
+
+    <!-- 유저 검색Rest -->
+    <select id="getUserInfoRest" parameterType="map" resultType="com.example.admin.dto.UserDTO">
+        select
+        user_id  as userId,
+        email  ,
+        username  ,
+        CONCAT(
+        substring(phone, 1, 3),
+        '-',
+        substring(phone, 4, 4),
+        '-',
+        substring(phone, 8, 4)
+        ) as   phoneStr,
+        role ,
+        IFNULL(provider, '')  as  provider,
+        CONCAT(
+        zipcode,
+        '-',
+        address_line1,
+        '-',
+        address_line2,
+        '-',
+        city,
+        '-',
+        state) as addressStr,
+        status,
+        CASE  status
+        WHEN 'ACTIVE' THEN '활동'
+        WHEN 'DEACTIVATED' THEN '비활동'
+        ELSE ''
+        END AS statusStr,
+        IFNULL(DATE_FORMAT(created_at, '%Y-%m-%d'),'') as createdAtStr,
+        IFNULL(DATE_FORMAT(modified_at, '%Y-%m-%d'),'') as modifiedAtStr
+        from USER
+
+        where
+        user_id  = ${paramId}
     </select>
 
-    <!--    전체 병원 수 조화-->
-    <select id="getTotalHospitals" resultType="int">
-        SELECT COUNT(*) AS total_hospitals FROM TB_HOSPITAL_MASTER
+    <!--  회원 정보 수정   -->
+    <update id="userUpdate"
+            parameterType="com.example.admin.dto.UserDTO">
+        UPDATE User
+        SET
+        username = #{username},
+        phone = #{phone},
+        status = #{status},
+        modified_at = now()
+        WHERE user_id  = ${userId}
+    </update>
+
+<!--병원 예약 검색-->
+    <select id="selectHospitalReservationListAll" parameterType="map" resultType="com.example.admin.dto.ReservationDTO">
+
+        select
+        hosp_reservation_id as hospReservationId,   --  예약 번호
+        h.yadm_nm as yadmNm,   -- 병원 이름
+        u.user_id  as userId,     --  회원 ID
+        u.username as username,   -- 회원 이름
+        IFNULL(DATE_FORMAT(reservation_at, '%Y-%m-%d'),'')  as reservationAt,     -- 예약 날짜
+        reservation_time   as reservationTime,  -- 예약 시간
+        CASE  reservation_status
+        WHEN 'SUCCESS' THEN '예약'
+        WHEN 'CANCELLED' THEN '취소'
+        ELSE ''
+        END AS reservationStatus -- 예약 상태
+        from
+        hospital_reservation hr
+        join  USER u
+        on hr.user_id=u.user_id
+        join HOSPITAl h
+        on hr.hosp_id=h.hosp_id
+        WHERE  1=1
+
+        <if test="username != null and  username !='' ">
+            and username like '%${username}%'
+        </if>
+
+        <if test="yadmNm != null and  yadmNm !='' ">
+            and yadm_nm like '%${yadmNm}%'
+        </if>
+
+        <if test="reservationStatus != null and  reservationStatus !='' ">
+            and reservation_status like '%{reservationStatus}%'
+        </if>
+
+        <if test="hospReservationId != null and  hospReservationId !='' ">
+            and hosp_reservation_id  = ${hospReservationId}
+        </if>
+
+        order by reservation_at desc ,reservation_time desc
+
     </select>
 
-    <!--    도시별 사용자 수 조회-->
-    <select id="getUserCountByCity" resultType="map">
-        SELECT city, COUNT(*) AS user_count
-        FROM user
-        GROUP BY city
-        ORDER BY user_count DESC
+    <!-- 병원 예약 검색 -->
+    <select id="getReservationInfo" parameterType="_long" resultType="com.example.admin.dto.ReservationDTO">
+        -- 사용 버전
+        select
+        hosp_reservation_id as hospReservationId,   --  예약 번호
+        h.yadm_nm as yadmNm,   -- 병원 이름
+        u.user_id  as userId,     --  회원 ID
+        u.username as username,   -- 회원 이름
+        IFNULL(DATE_FORMAT(reservation_at, '%Y-%m-%d'),'')  as reservationAt,     -- 예약 날짜
+        reservation_time   as reservationTime,  -- 예약 시간
+        CASE  reservation_status
+        WHEN 'SUCCESS' THEN '예약'
+        WHEN 'CANCELLED' THEN '취소'
+        ELSE ''
+        END AS reservationStatus -- 예약 상태
+        from
+        hospital_reservation hr
+        join  USER u
+        on hr.user_id=u.user_id
+        join HOSPITAl h
+        on hr.hosp_id=h.hosp_id
+        where
+        hosp_reservation_id  = ${paramId}
     </select>
 
-    <!--    지역(시,도)별 병원 수 조화-->
-    <select id="getHospitalCountByProvince" resultType="map">
-        SELECT sido_cd_nm AS province, COUNT(*) AS hospital_count
+    <!--  예약 정보 수정   -->
+    <update id="reservationUpdate"
+            parameterType="com.example.admin.dto.ReservationDTO">
+        UPDATE hospital_reservation
+        SET
+        reservation_status = #{reservationStatus}
+
+        WHERE hosp_reservation_id  = ${hospReservationId};
+    </update>
+    <!-- ============================ -->
+    <!--  =========== 통계 =========== -->
+    <!-- ============================ -->
+
+<!--   회원   -->
+    <select id="selectActiveUserCount"  resultType="int">
+        -- 회원: Active
+        select count(*) from user where status='ACTIVE'
+    </select>
+    <select id="selectDeactivatedUserCount"  resultType="int">
+        -- 회원: Deactivated
+        select count(*) from user where status='DEACTIVATED'
+    </select>
+    <select id="selectUserCount"  resultType="int">
+        -- 회원: 전체
+        select count(*) from user
+    </select>
+
+<!--   병원 지역별  -->
+    <select id="selectHospCount" parameterType="map" resultType="com.example.admin.dto.StatusDTO">
+        -- 병원: 지역
+        SELECT
+        CASE  sido_cd_nm
+        WHEN '세종시' THEN '세종'
+        ELSE sido_cd_nm
+        END AS sidoCdNm,
+        COUNT(sido_cd_nm) AS cnt
         FROM hospital
+        WHERE  1=1
         GROUP BY sido_cd_nm
-        ORDER BY hospital_count DESC
+        order by
+<!--        <choose>-->
+<!--            <when test="all">sido_cd_nm asc</when>-->
+<!--            <when test="ascending">cnt asc</when>-->
+<!--            <when test="descending">cnt desc</when>-->
+<!--            <otherwise>sido_cd_nm asc</otherwise>-->
+<!--        </choose>-->
+
+        <if test="all != null and  all !='' ">
+            sido_cd_nm asc
+        </if>
+        <if test="asc != null and  asc !='' ">
+            cnt asc
+        </if>
+        <if test="desc != null and  desc !='' ">
+            cnt desc
+        </if>
     </select>
 
-    <!--    병원 예약 건수 조화-->
-    <select id="getReservationCountByHospital" resultType="map">
-        SELECT h.yadm_nm AS hospital_name, COUNT(hr.hosp_reservation_id) AS reservation_count
-        FROM hospital_reservation hr
-        JOIN hospital h ON hr.hosp_id = h.hosp_id
-        GROUP BY hr.hosp_id
-        ORDER BY reservation_count DESC
+<!--    <choose>-->
+<!--        <when test="all">sido_cd_nm asc</when>-->
+<!--        <when test="ascending">cnt asc</when>-->
+<!--        <when test="descending">cnt desc</when>-->
+<!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
+<!--    </choose>-->
+
+
+    <!--   진요얘약: 기간(최근 3개월)  -->
+    <select id="selectYearmonthCount" resultType="com.example.admin.dto.ReservationStatusDTO">
+        -- 진요얘약: 기간(최근 3개월)
+        --  진요얘약: 기간(최근 3개월)
+        SELECT TA.yearmonth,TA.cnt
+        from (
+        -- 이번달 진료 예약 건수
+        SELECT  DATE_FORMAT(CURDATE(), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") =  DATE_FORMAT(CURDATE(), "%Y-%m")
+        union
+        -- 이전달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), "%Y-%m")
+        union
+        -- 두달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), "%Y-%m")
+        union
+        -- 세달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), "%Y-%m")
+        union
+        -- 네달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), "%Y-%m")
+        union
+        -- 다섯달 진료 예약 건 수
+        SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
+        FROM db_batis.hospital_reservation
+        where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), "%Y-%m")
+        ) TA
+        order by TA.yearmonth
     </select>
-
-    <!--월별 예약 건수 추이-->
-    <select id="getMonthlyReservationTrend" resultType="map">
-        SELECT DATE_FORMAT(reservation_at, '%Y-%m') AS month, COUNT(*) AS reservation_count
-        FROM hospital_reservation
-        GROUP BY month
-        ORDER BY month
-    </select>
-
-    <!--병원 별 평균 리뷰 평점-->
-    <select id="getAverageRatingByHospital" resultType="map">
-        SELECT h.yadm_nm AS hospital_name, AVG(hr.hosp_review_rating) AS average_rating
-        FROM hospital_review hr
-        JOIN hospital h ON hr.hosp_id = h.hosp_id
-        GROUP BY hr.hosp_id
-        ORDER BY average_rating DESC
-    </select>
-
-    <!--병원별 총 결제 -->
-    <select id="getTotalPaymentAmountByHospital" resultType="map">
-        SELECT h.yadm_nm AS hospital_name, SUM(p.amount) AS total_amount
-        FROM payment p
-        JOIN hospital h ON p.hosp_id = h.hosp_id
-        GROUP BY p.hosp_id
-        ORDER BY total_amount DESC
-    </select>
-
-    <!-- 예약의 참석률? 계산-->
-    <select id="getAttendanceRateByHospital" resultType="map">
-        SELECT h.yadm_nm AS hospital_name,
-        (SUM(hr.attended) / COUNT(hr.hosp_reservation_id)) * 100 AS attendance_rate
-        FROM hospital_reservation hr
-        JOIN hospital h ON hr.hosp_id = h.hosp_id
-        GROUP BY hr.hosp_id
-        ORDER BY attendance_rate DESC
-    </select>
-
-    <!--    일별 신규 회원 가입 수-->
-    <select id="getDailyNewUsers" resultType="map">
-        SELECT DATE(created_at) AS date, COUNT(*) AS new_users
-        FROM TB_USER_MASTER
-        GROUP BY date
-        ORDER BY date
-    </select>
-
-    <!--    병원 리뷰 수 상위 10개 병원-->
-    <select id="getTop10HospitalsByReviewCount" resultType="map">
-        SELECT h.yadm_nm AS hospital_name, COUNT(hr.hosp_review_id) AS review_count
-        FROM TB_HOSPITAL_REVIEW_HISTORY hr
-        JOIN TB_HOSPITAL_MASTER h ON hr.hosp_id = h.hosp_id
-        GROUP BY hr.hosp_id
-        ORDER BY review_count DESC
-        LIMIT 10
-    </select>
-
-<!--    &lt;!&ndash; 방문자 연령대별 통계 &ndash;&gt;-->
-<!--    <select id="getVisitorAgeDistribution" resultType="map">-->
-<!--        SELECT age_group AS ageGroup, COUNT(*) AS visitor_count-->
-<!--        FROM visitor-->
-<!--        GROUP BY age_group-->
-<!--        ORDER BY age_group-->
-<!--    </select>-->
-
-
-
-<!--    &lt;!&ndash; 병원 별 예약자 수 &ndash;&gt;-->
-<!--    <select id="getReservationCountByHospital" resultType="map">-->
-<!--        SELECT h.yadm_nm AS hospital_name, COUNT(r.hosp_reservation_id) AS reservation_count-->
-<!--        FROM hospital_reservation r-->
-<!--        JOIN hospital h ON r.hosp_id = h.hosp_id-->
-<!--        GROUP BY r.hosp_id-->
-<!--        ORDER BY reservation_count DESC-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 일정 기간 예약자 현황 &ndash;&gt;-->
-<!--    <select id="getReservationStatusWithinPeriod" resultType="map">-->
-<!--        SELECT reservation_date, COUNT(*) AS reservation_count-->
-<!--        FROM hospital_reservation-->
-<!--        WHERE reservation_date BETWEEN #{startDate} AND #{endDate}-->
-<!--        GROUP BY reservation_date-->
-<!--        ORDER BY reservation_date-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash; 기간 별 등록된 병원 수 &ndash;&gt;-->
-<!--    <select id="getHospitalRegistrationCountByPeriod" resultType="map">-->
-<!--        SELECT DATE_FORMAT(estb_dd, '%Y-%m') AS month, COUNT(*) AS registration_count-->
-<!--        FROM hospital-->
-<!--        WHERE estb_dd BETWEEN #{startDate} AND #{endDate}-->
-<!--        GROUP BY month-->
-<!--        ORDER BY month-->
-<!--    </select>-->
-
-    <!-- 날짜별 병원 평균 평점 -->
-    <select id="getAverageRatingByDate" resultType="map">
-        SELECT
-        DATE(hrh.created_at) AS review_date,
-        hrh.hosp_id,
-        AVG(hrh.hosp_review_rating) AS avg_rating
-        FROM
-        TB_HOSPITAL_REVIEW_HISTORY hrh
-        GROUP BY
-        DATE(hrh.created_at), hrh.hosp_id
-        ORDER BY
-        review_date, hrh.hosp_id;
-    </select>
-
-    <!-- 시,도 별 사용자와 병원 수 -->
-    <select id= "getHospitalAndUserCountByCity" resultType="map">
-        SELECT
-        hm.sido_cd_nm AS region,  -- 시도명
-        COUNT(DISTINCT um.user_id) AS user_count,  -- 유저 수
-        COUNT(DISTINCT hm.hosp_id) AS hospital_count  -- 병원 수
-        FROM
-        TB_USER_MASTER um
-        JOIN
-        TB_HOSPITAL_MASTER hm ON um.user_id = hm.hosp_id
-        GROUP BY
-        hm.sido_cd_nm
-        ORDER BY
-        region;
-    </select>
-
 </mapper>
 

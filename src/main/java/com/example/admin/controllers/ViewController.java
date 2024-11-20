@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/view")
 public class ViewController {
 
+
     @GetMapping("/admin")
     public String pageView() {
         log.info("pageView()");
@@ -20,7 +21,7 @@ public class ViewController {
     @GetMapping("/admin2")
     public String pageView2() {
         log.info("pageView2()");
-        return "admin2"; // admin.jsp를 호출합니다.
+        return "redirect:/admin/selectUserListAll"; // admin.jsp를 호출합니다.
     }
     @GetMapping("/admin3")
     public String pageView3() {
@@ -28,9 +29,38 @@ public class ViewController {
         return "admin3"; // admin.jsp를 호출합니다.
     }
 
-    @GetMapping("/dashboard")
-    public String dashboardView() {
-        log.info("dashboardView()");
-        return "dashboard"; // dashboard.jsp를 호출합니다.
+    //회원 리스트
+    @GetMapping("/userList")
+    public String userListView() {
+        log.info("userListView()");
+
+        return "redirect:/admin/selectUserListAll";
+    }
+    // 병원 예약 리스트
+    @GetMapping("/hospitalReservatioList")
+    public String hospitalReservatioListView() {
+        log.info("hospitalReservatioListView()");
+        return "redirect:/admin/selectHospitalReservationListAll"; // dashboard.jsp를 호출합니다.
+    }
+
+    // 유저 통계 대시보드 : 유저
+    @GetMapping("/userdashboard")
+    public String userDashboardView() {
+        log.info("userDashboardView()");
+        return "redirect:/admin/userdashboard"; // dashboard.jsp를 호출합니다.
+    }
+    // 병원 예약 통계 대시보드 : 요일별 예약
+    @GetMapping("/reservationDashboard")
+    public String reservationDashboardView() {
+        log.info("reservationDashboardView()");
+        return "redirect:/admin/reservationDashboard"; // dashboard.jsp를 호출합니다.
+    }
+
+
+    // text page
+    @GetMapping("/userdata")
+    public String userdata() {
+        log.info("userdata()");
+        return "userdata"; // dashboard.jsp를 호출합니다.
     }
 }

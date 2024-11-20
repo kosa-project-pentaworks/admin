@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class UserDTO {
     private Long userId;
     private String providerId;
@@ -28,4 +29,37 @@ public class UserDTO {
     private String modifiedBy;
 
 
+    private String phoneStr;
+    private String addressStr;
+    private String createdAtStr;
+    private String modifiedAtStr;
+    private String statusStr;
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "userId=" + userId +
+                ", providerId='" + providerId + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
+                ", provider='" + provider + '\'' +
+                ", status='" + status + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", createdAt=" + createdAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", modifiedAt=" + modifiedAt +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", phoneStr='" + phoneStr + '\'' +
+                ", addressStr='" + addressStr + '\'' +
+                ", createdAtStr='" + createdAtStr + '\'' +
+                ", modifiedAtStr='" + modifiedAtStr + '\'' +
+                ", statusStr='" + statusStr + '\'' +
+                '}';
+    }
 }
