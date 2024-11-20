@@ -37,7 +37,7 @@ public class AdminController {
         List<HospitalDTO> returnMenusDtoList =adminService.selectHospListAll();
         log.info("returnMessageDtoList= {}",returnMenusDtoList);
         ResponseEntity<List<HospitalDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnMenusDtoList);
-
+        log.info("returnMessageDtoList= {}",returnMenusDtoList);
         //리턴
         return results;
     }
