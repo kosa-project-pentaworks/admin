@@ -10,25 +10,27 @@
 
     <select id="selectHospListAll" resultType="com.example.admin.dto.HospitalDTO">
         select
-            hosp_id as hospId,
-            cl_cd   as clCd,
-            addr,
-            cl_cd_nm as clCdNm,
-            emdong_nm as emdongNm,
-            estb_dd as estbDd,
-            hosp_url as hospUrl,
-            post_no as postNo,
-            sggu_cd as sgguCd,
-            sggu_cd_nm as sgguCdNm,
-            sido_cd as sidoCd,
-            sido_cd_nm as sidoCdNm,
-            telno,
-            yadm_nm as yadmNm,
-            ykiho,
-            hosp_status as hospStatus
+
+        hosp_id as hospId,
+        cl_cd   as clCd,
+        addr,
+        cl_cd_nm as clCdNm,
+        emdong_nm as emdongNm,
+        estb_dd as estbDd,
+        hosp_url as hospUrl,
+        post_no as postNo,
+        sggu_cd as sgguCd,
+        sggu_cd_nm as sgguCdNm,
+        sido_cd as sidoCd,
+        sido_cd_nm as sidoCdNm,
+        telno,
+        yadm_nm as yadmNm,
+        ykiho,
+        hosp_status as hospStatus
+
         from hospital
     </select>
-<!-- 유저 검색 -->
+    <!-- 유저 검색 -->
     <select id="selectUserListAll" parameterType="map" resultType="com.example.admin.dto.UserDTO">
         select
         user_id  as   userId,
@@ -225,7 +227,7 @@
         WHERE user_id  = ${userId}
     </update>
 
-<!--병원 예약 검색-->
+    <!--병원 예약 검색-->
     <select id="selectHospitalReservationListAll" parameterType="map" resultType="com.example.admin.dto.ReservationDTO">
 
         select
@@ -306,7 +308,7 @@
     <!--  =========== 통계 =========== -->
     <!-- ============================ -->
 
-<!--   회원   -->
+    <!--   회원   -->
     <select id="selectActiveUserCount"  resultType="int">
         -- 회원: Active
         select count(*) from USER where status='ACTIVE'
@@ -320,7 +322,7 @@
         select count(*) from USER
     </select>
 
-<!--   병원 지역별  -->
+    <!--   병원 지역별  -->
     <select id="selectHospCount" parameterType="map" resultType="com.example.admin.dto.StatusDTO">
         -- 병원: 지역
         SELECT
@@ -333,12 +335,12 @@
         WHERE  1=1
         GROUP BY sido_cd_nm
         order by
-<!--        <choose>-->
-<!--            <when test="all">sido_cd_nm asc</when>-->
-<!--            <when test="ascending">cnt asc</when>-->
-<!--            <when test="descending">cnt desc</when>-->
-<!--            <otherwise>sido_cd_nm asc</otherwise>-->
-<!--        </choose>-->
+        <!--        <choose>-->
+        <!--            <when test="all">sido_cd_nm asc</when>-->
+        <!--            <when test="ascending">cnt asc</when>-->
+        <!--            <when test="descending">cnt desc</when>-->
+        <!--            <otherwise>sido_cd_nm asc</otherwise>-->
+        <!--        </choose>-->
 
         <if test="all != null and  all !='' ">
             sido_cd_nm asc
@@ -351,12 +353,12 @@
         </if>
     </select>
 
-<!--    <choose>-->
-<!--        <when test="all">sido_cd_nm asc</when>-->
-<!--        <when test="ascending">cnt asc</when>-->
-<!--        <when test="descending">cnt desc</when>-->
-<!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
-<!--    </choose>-->
+    <!--    <choose>-->
+    <!--        <when test="all">sido_cd_nm asc</when>-->
+    <!--        <when test="ascending">cnt asc</when>-->
+    <!--        <when test="descending">cnt desc</when>-->
+    <!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
+    <!--    </choose>-->
 
 
     <!--   진요얘약: 기간(최근 3개월)  -->
@@ -398,4 +400,3 @@
         order by TA.yearmonth
     </select>
 </mapper>
-
