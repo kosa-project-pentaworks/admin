@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/api/v1/admin")
 @Slf4j
 public class UserUpdateController {
 
@@ -77,14 +77,14 @@ public class UserUpdateController {
         log.info("userUpdate() :: getUserId = {} ",userDTO.getUserId());
         long uid = userDTO.getUserId();
 
-        String url = "redirect:/admin/getUserInfo?paramId="+uid;
+        String url = "redirect:/api/v1/admin/getUserInfo?paramId="+uid;
 
         // 리턴
         // returnCnt = 0; // 태스트용
         if (returnCnt == 1){
             return url;
         }else {
-            return "/admin/getUserInfo?paramId="+userDTO.getUserId();
+            return "redirect:/api/v1/admin/getUserInfo?paramId="+userDTO.getUserId();
         }
     }
 

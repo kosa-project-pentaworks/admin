@@ -95,11 +95,11 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
             <!-- Navbar Brand-->
             <!-- <a class="navbar-brand ps-3" href="/view/index">Start Bootstrap</a> -->
-            <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/view/admin2">관리자</a>
+            <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/api/v1/admin/selectUserListAll">관리자</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-flex"  action="/admin/selectHospitalReservationListAll" method="get">
+            <form class="d-flex"  action="/api/v1/admin/selectHospitalReservationListAll" method="get">
 
                          <select class="form-select" name = "searchType" id="searchType" onchange = "searchTypeChange()">
                               <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>진료 예약 전체</option>
@@ -137,8 +137,8 @@
                                         관리
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원</a>
-                                            <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">진료 예약</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/selectUserListAll">회원</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/selectHospitalReservationListAll">진료 예약</a>
                                         </nav>
 
                             <%-- <div class="sb-sidenav-menu-heading">통계</div> --%>
@@ -146,9 +146,9 @@
                                         통계
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/view/userdashboard">회원(활동/비활동)</a>
-                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">병원(지역)</a>
-                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료예약(기간)</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/userdashboard">회원(활동/비활동)</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/reservationDashboard">병원(지역)</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/selectYearmonthCount">진료예약(기간)</a>
                                         </nav>
 
 
@@ -179,7 +179,7 @@
                                 </thead>
                                     <tbody id="userList" class="table-group-divider">
                                 		<c:forEach var="reservationList" items="${reservationList}" varStatus="vs">
-                                		    <form action="/admin/getReservationInfo" method="get">
+                                		    <form action="/api/v1/admin/getReservationInfo" method="get">
                                 			<tr>
                                 			    <td id="userUpdate">
                                                     <button class="startButton btn" name ="paramId" type="submit" data-user-id="${reservationList.hospReservationId}" id="startButton" value="${reservationList.hospReservationId}">

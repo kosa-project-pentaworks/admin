@@ -34,7 +34,7 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
             <!-- Navbar Brand-->
             <!-- <a class="navbar-brand ps-3" href="/view/index">Start Bootstrap</a> -->
-            <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/view/admin2">관리자</a>
+            <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/api/v1/admin/selectUserListAll">관리자</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -75,17 +75,17 @@
                                         관리
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
-                                            <a class="nav-link noto-sans-kr" href="/view/hospitalReservatioList">진료 예약</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/selectUserListAll">회원 </a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/selectHospitalReservationListAll">진료 예약</a>
                                         </nav>
 
                                     <a class="nav-link disabled noto-sans-kr"  data-bs-target="#pagesCollapseError" aria-expanded="true" aria-controls="pagesCollapseError">
                                         통계
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link noto-sans-kr" href="/view/userdashboard">회원(활동/비활동)</a>
-                                            <a class="nav-link noto-sans-kr" href="/view/reservationDashboard">병원(지역)</a>
-                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료예약(기간)</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/userdashboard">회원(활동/비활동)</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/reservationDashboard">병원(지역)</a>
+                                            <a class="nav-link noto-sans-kr" href="/api/v1/admin/selectYearmonthCount">진료예약(기간)</a>
                                         </nav>
 
                         </nav>
@@ -101,7 +101,7 @@
                                 진료 예약 정보
                             </div>
 
-                            <form action="/admin/reservation/update" method="post">
+                            <form action="/api/v1/admin/reservation/update" method="post">
                                 <div class="card-body ">
                                     <table style="width:60%;" class="datatable-table table-align-center">
                                         <thead class="table-success">

@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/api/v1/admin")
 @Slf4j
 public class HospitalReservationUpdateController {
 
@@ -53,7 +53,7 @@ public class HospitalReservationUpdateController {
         log.info("userUpdate() :: getUserId = {} ",reservationDTO.getHospReservationId());
         long uid = reservationDTO.getHospReservationId();
 
-        String url = "redirect:/admin/getReservationInfo?paramId="+uid;
+        String url = "redirect:/api/v1/admin/getReservationInfo?paramId="+uid;
 
         // 리턴
         // returnCnt = 0; // 태스트용

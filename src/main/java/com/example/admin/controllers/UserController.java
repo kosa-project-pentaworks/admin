@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/api/v1/admin")
 public class UserController {
 
     @Autowired
