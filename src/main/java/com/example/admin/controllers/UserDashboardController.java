@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/api/v1/admin")
 public class UserDashboardController {
 
     @Autowired
