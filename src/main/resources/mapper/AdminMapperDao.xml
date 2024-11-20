@@ -10,25 +10,25 @@
 
     <select id="selectHospListAll" resultType="com.example.admin.dto.HospitalDTO">
         select
-            hosp_id as hospId,
-            cl_cd   as clCd,
-            addr,
-            cl_cd_nm as clCdNm,
-            emdong_nm as emdongNm,
-            estb_dd as estbDd,
-            hosp_url as hospUrl,
-            post_no as postNo,
-            sggu_cd as sgguCd,
-            sggu_cd_nm as sgguCdNm,
-            sido_cd as sidoCd,
-            sido_cd_nm as sidoCdNm,
-            telno,
-            yadm_nm as yadmNm,
-            ykiho,
-            hosp_status as hospStatus
-        from HOSPITAl
+        hosp_id as hospId,
+        cl_cd   as clCd,
+        addr,
+        cl_cd_nm as clCdNm,
+        emdong_nm as emdongNm,
+        estb_dd as estbDd,
+        hosp_url as hospUrl,
+        post_no as postNo,
+        sggu_cd as sgguCd,
+        sggu_cd_nm as sgguCdNm,
+        sido_cd as sidoCd,
+        sido_cd_nm as sidoCdNm,
+        telno,
+        yadm_nm as yadmNm,
+        ykiho,
+        hosp_status as hospStatus
+        from hospital
     </select>
-<!-- 유저 검색 -->
+    <!-- 유저 검색 -->
     <select id="selectUserListAll" parameterType="map" resultType="com.example.admin.dto.UserDTO">
         select
         user_id  as   userId,
@@ -216,7 +216,7 @@
     <!--  회원 정보 수정   -->
     <update id="userUpdate"
             parameterType="com.example.admin.dto.UserDTO">
-        UPDATE User
+        UPDATE USER
         SET
         username = #{username},
         phone = #{phone},
@@ -225,7 +225,7 @@
         WHERE user_id  = ${userId}
     </update>
 
-<!--병원 예약 검색-->
+    <!--병원 예약 검색-->
     <select id="selectHospitalReservationListAll" parameterType="map" resultType="com.example.admin.dto.ReservationDTO">
 
         select
@@ -241,10 +241,10 @@
         ELSE ''
         END AS reservationStatus -- 예약 상태
         from
-        hospital_reservation hr
+        HOSPITAL_RESERVATION hr
         join  USER u
         on hr.user_id=u.user_id
-        join HOSPITAl h
+        join hospital h
         on hr.hosp_id=h.hosp_id
         WHERE  1=1
 
@@ -284,10 +284,10 @@
         ELSE ''
         END AS reservationStatus -- 예약 상태
         from
-        hospital_reservation hr
+        HOSPITAL_RESERVATION hr
         join  USER u
         on hr.user_id=u.user_id
-        join HOSPITAl h
+        join hospital h
         on hr.hosp_id=h.hosp_id
         where
         hosp_reservation_id  = ${paramId}
@@ -296,7 +296,7 @@
     <!--  예약 정보 수정   -->
     <update id="reservationUpdate"
             parameterType="com.example.admin.dto.ReservationDTO">
-        UPDATE hospital_reservation
+        UPDATE HOSPITAL_RESERVATION
         SET
         reservation_status = #{reservationStatus}
 
@@ -306,21 +306,21 @@
     <!--  =========== 통계 =========== -->
     <!-- ============================ -->
 
-<!--   회원   -->
+    <!--   회원   -->
     <select id="selectActiveUserCount"  resultType="int">
         -- 회원: Active
-        select count(*) from user where status='ACTIVE'
+        select count(*) from USER where status='ACTIVE'
     </select>
     <select id="selectDeactivatedUserCount"  resultType="int">
         -- 회원: Deactivated
-        select count(*) from user where status='DEACTIVATED'
+        select count(*) from USER where status='DEACTIVATED'
     </select>
     <select id="selectUserCount"  resultType="int">
         -- 회원: 전체
-        select count(*) from user
+        select count(*) from USER
     </select>
 
-<!--   병원 지역별  -->
+    <!--   병원 지역별  -->
     <select id="selectHospCount" parameterType="map" resultType="com.example.admin.dto.StatusDTO">
         -- 병원: 지역
         SELECT
@@ -333,12 +333,12 @@
         WHERE  1=1
         GROUP BY sido_cd_nm
         order by
-<!--        <choose>-->
-<!--            <when test="all">sido_cd_nm asc</when>-->
-<!--            <when test="ascending">cnt asc</when>-->
-<!--            <when test="descending">cnt desc</when>-->
-<!--            <otherwise>sido_cd_nm asc</otherwise>-->
-<!--        </choose>-->
+        <!--        <choose>-->
+        <!--            <when test="all">sido_cd_nm asc</when>-->
+        <!--            <when test="ascending">cnt asc</when>-->
+        <!--            <when test="descending">cnt desc</when>-->
+        <!--            <otherwise>sido_cd_nm asc</otherwise>-->
+        <!--        </choose>-->
 
         <if test="all != null and  all !='' ">
             sido_cd_nm asc
@@ -351,12 +351,12 @@
         </if>
     </select>
 
-<!--    <choose>-->
-<!--        <when test="all">sido_cd_nm asc</when>-->
-<!--        <when test="ascending">cnt asc</when>-->
-<!--        <when test="descending">cnt desc</when>-->
-<!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
-<!--    </choose>-->
+    <!--    <choose>-->
+    <!--        <when test="all">sido_cd_nm asc</when>-->
+    <!--        <when test="ascending">cnt asc</when>-->
+    <!--        <when test="descending">cnt desc</when>-->
+    <!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
+    <!--    </choose>-->
 
 
     <!--   진요얘약: 기간(최근 3개월)  -->
@@ -367,35 +367,34 @@
         from (
         -- 이번달 진료 예약 건수
         SELECT  DATE_FORMAT(CURDATE(), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
-        FROM db_batis.hospital_reservation
+        FROM HOSPITAL_RESERVATION
         where DATE_FORMAT(reservation_at, "%Y-%m") =  DATE_FORMAT(CURDATE(), "%Y-%m")
         union
         -- 이전달 진료 예약 건 수
         SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
-        FROM db_batis.hospital_reservation
+        FROM HOSPITAL_RESERVATION
         where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), "%Y-%m")
         union
         -- 두달 진료 예약 건 수
         SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
-        FROM db_batis.hospital_reservation
+        FROM HOSPITAL_RESERVATION
         where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 2 MONTH), "%Y-%m")
         union
         -- 세달 진료 예약 건 수
         SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
-        FROM db_batis.hospital_reservation
+        FROM HOSPITAL_RESERVATION
         where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 3 MONTH), "%Y-%m")
         union
         -- 네달 진료 예약 건 수
         SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
-        FROM db_batis.hospital_reservation
+        FROM HOSPITAL_RESERVATION
         where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), "%Y-%m")
         union
         -- 다섯달 진료 예약 건 수
         SELECT  DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), "%Y-%m")as yearmonth ,COUNT(reservation_at) AS cnt
-        FROM db_batis.hospital_reservation
+        FROM HOSPITAL_RESERVATION
         where DATE_FORMAT(reservation_at, "%Y-%m") = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 5 MONTH), "%Y-%m")
         ) TA
         order by TA.yearmonth
     </select>
 </mapper>
-
