@@ -35,62 +35,62 @@ public class UserController {
     // ============================================================
     //  유저 목록 조회
     // ============================================================
-//    @GetMapping("/selectUserListAll")
-//    public String selectUserListAll(@RequestParam HashMap<String, Object> paramMap, Model model) {
-//        // 요청
-//        log.info("selectUserListAll()");
-//        log.info("selectUserListAll() = {}",paramMap);
-//        // ============================================================
-//        //  searchType별 분기
-//        // ============================================================
-//        if(paramMap.isEmpty()){
-//            log.info("selectUserListAll() if");
-//        }
-//        else {
-//            String searchType = (String) paramMap.get("searchType");
-//
-//
-//            switch (searchType) {
-//                case "all":
-//                    paramMap.put("search", null);
-//                    break;
-//                case "email":
-//                    paramMap.put("email", paramMap.get("search"));
-//                    break;
-//                case "username":
-//                    paramMap.put("username", paramMap.get("search"));
-//                    break;
-//                case "phone":
-//                    paramMap.put("phone", paramMap.get("search"));
-//                    break;
-//                default:
-//
-//            }
-//            log.info("selectUserListAll() = {}", paramMap);
-//        }
-//
-//
-//        // 요청 실행: 전체조회
-//        List<UserDTO> returnUserList =adminService.selectUserListAll(paramMap);
-//        for(int i=0; i < returnUserList.size() ; i++ ){
-//            log.info("returnUserDTOList= {}",returnUserList.get(i).toString());
-//        }
-////        log.info("returnUserDTOList= {}",returnMenusDtoList);
-//        // 모델에 유저 리스트를 담음
-//        model.addAttribute("userList",returnUserList);
-//        model.addAttribute("searchType",(String) paramMap.get("searchType"));
-//        model.addAttribute("search",(String) paramMap.get("search"));
-//        log.info("returnUserDTOList= {}",model.getAttribute("userList"));
-//        log.info("searchType= {}",model.getAttribute("searchType"));
-//        log.info("search= {}",model.getAttribute("search"));
-//
-//        ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
-//
-//        //리턴
-//        return "userList";
-//    }
-//
-//
-//
+    @GetMapping("/selectUserListAll")
+    public String selectUserListAll(@RequestParam HashMap<String, Object> paramMap, Model model) {
+        // 요청
+        log.info("selectUserListAll()");
+        log.info("selectUserListAll() = {}",paramMap);
+        // ============================================================
+        //  searchType별 분기
+        // ============================================================
+        if(paramMap.isEmpty()){
+            log.info("selectUserListAll() if");
+        }
+        else {
+            String searchType = (String) paramMap.get("searchType");
+
+
+            switch (searchType) {
+                case "all":
+                    paramMap.put("search", null);
+                    break;
+                case "email":
+                    paramMap.put("email", paramMap.get("search"));
+                    break;
+                case "username":
+                    paramMap.put("username", paramMap.get("search"));
+                    break;
+                case "phone":
+                    paramMap.put("phone", paramMap.get("search"));
+                    break;
+                default:
+
+            }
+            log.info("selectUserListAll() = {}", paramMap);
+        }
+
+
+        // 요청 실행: 전체조회
+        List<UserDTO> returnUserList =adminService.selectUserListAll(paramMap);
+        for(int i=0; i < returnUserList.size() ; i++ ){
+            log.info("returnUserDTOList= {}",returnUserList.get(i).toString());
+        }
+//        log.info("returnUserDTOList= {}",returnMenusDtoList);
+        // 모델에 유저 리스트를 담음
+        model.addAttribute("userList",returnUserList);
+        model.addAttribute("searchType",(String) paramMap.get("searchType"));
+        model.addAttribute("search",(String) paramMap.get("search"));
+        log.info("returnUserDTOList= {}",model.getAttribute("userList"));
+        log.info("searchType= {}",model.getAttribute("searchType"));
+        log.info("search= {}",model.getAttribute("search"));
+
+        ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
+
+        //리턴
+        return "userList";
+    }
+
+
+
 
 }

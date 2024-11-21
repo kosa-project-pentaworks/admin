@@ -77,14 +77,14 @@ public class UserUpdateController {
         log.info("userUpdate() :: getUserId = {} ",userDTO.getUserId());
         long uid = userDTO.getUserId();
 
-        String url = "redirect:/api/v1/admin/getUserInfo?paramId="+uid;
+        String url = "redirect:/admin/getUserInfo?paramId="+uid;
 
         // 리턴
         // returnCnt = 0; // 태스트용
         if (returnCnt == 1){
             return url;
         }else {
-            return "redirect:/api/v1/admin/getUserInfo?paramId="+userDTO.getUserId();
+            return "redirect:/admin/getUserInfo?paramId="+userDTO.getUserId();
         }
     }
 

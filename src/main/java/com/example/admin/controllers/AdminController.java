@@ -17,8 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 이 컨트롤러는 사용 안해요
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 @Slf4j
 public class AdminController {
 
@@ -26,79 +27,72 @@ public class AdminController {
     private AdminService adminService;
 
 
-
-    // 병원 목록 전체 조회
-    @GetMapping(value = "/selectHospListAll")
-    public ResponseEntity<List<HospitalDTO>> selectHospListAll() {
-        // 요청
-        log.info("selectHospListAll()");
-
-        // 요청 실행: 전체조회
-        List<HospitalDTO> returnMenusDtoList =adminService.selectHospListAll();
-        log.info("returnMessageDtoList= {}",returnMenusDtoList);
-        ResponseEntity<List<HospitalDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnMenusDtoList);
-        log.info("returnMessageDtoList= {}",returnMenusDtoList);
-        //리턴
-        return results;
-    }
-
-
-
-
-    // 유저 목록 전체 조회
-    @GetMapping("/selectUserListAll")
-    public ResponseEntity<List<UserDTO>> selectUserListAll(@RequestParam HashMap<String, Object> paramMap) {
-        // 요청
-        log.info("selectUserListAll()");
-        log.info("selectUserListAll() = {}",paramMap);
-        // ============================================================
-        //  searchType별 분기
-        // ============================================================
-        if(paramMap.isEmpty()){
-            log.info("selectUserListAll() if");
-        }
-        else {
-            String searchType = (String) paramMap.get("searchType");
-
-
-            switch (searchType) {
-                case "all":
-                    break;
-                case "email":
-                    paramMap.put("email", paramMap.get("search"));
-                    break;
-                case "username":
-                    paramMap.put("username", paramMap.get("search"));
-                    break;
-                case "phone":
-                    paramMap.put("phone", paramMap.get("search"));
-                    break;
-                default:
-
-            }
-            log.info("selectUserListAll() = {}", paramMap);
-        }
-
-        // 요청 실행: 전체조회
-        List<UserDTO> returnUserList =adminService.selectUserListAll(paramMap);
-//        log.info("returnUserDTOList= {}",returnMenusDtoList);
-        for(int i=0; i < returnUserList.size() ; i++ ){
-            log.info("returnUserDTOList= {}",returnUserList.get(i).toString());
-        }
-
-
-        ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
-
-        //리턴
-        return results;
-    }
-
-
-
-
-
-
-
+//
+//    // 병원 목록 전체 조회
+//    @GetMapping(value = "/selectHospListAlll")
+//    public ResponseEntity<List<HospitalDTO>> selectHospListAll() {
+//        // 요청
+//        log.info("selectHospListAll()");
+//
+//        // 요청 실행: 전체조회
+//        List<HospitalDTO> returnMenusDtoList =adminService.selectHospListAll();
+//        log.info("returnMessageDtoList= {}",returnMenusDtoList);
+//        ResponseEntity<List<HospitalDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnMenusDtoList);
+//        log.info("returnMessageDtoList= {}",returnMenusDtoList);
+//        //리턴
+//        return results;
+//    }
+//
+//
+//
+//
+//    // 유저 목록 전체 조회
+//    @GetMapping("/selectUserListAll")
+//    public ResponseEntity<List<UserDTO>> selectUserListAll(@RequestParam HashMap<String, Object> paramMap) {
+//        // 요청
+//        log.info("selectUserListAll()");
+//        log.info("selectUserListAll() = {}",paramMap);
+//        // ============================================================
+//        //  searchType별 분기
+//        // ============================================================
+//        if(paramMap.isEmpty()){
+//            log.info("selectUserListAll() if");
+//        }
+//        else {
+//            String searchType = (String) paramMap.get("searchType");
+//
+//
+//            switch (searchType) {
+//                case "all":
+//                    break;
+//                case "email":
+//                    paramMap.put("email", paramMap.get("search"));
+//                    break;
+//                case "username":
+//                    paramMap.put("username", paramMap.get("search"));
+//                    break;
+//                case "phone":
+//                    paramMap.put("phone", paramMap.get("search"));
+//                    break;
+//                default:
+//
+//            }
+//            log.info("selectUserListAll() = {}", paramMap);
+//        }
+//
+//        // 요청 실행: 전체조회
+//        List<UserDTO> returnUserList =adminService.selectUserListAll(paramMap);
+////        log.info("returnUserDTOList= {}",returnMenusDtoList);
+//        for(int i=0; i < returnUserList.size() ; i++ ){
+//            log.info("returnUserDTOList= {}",returnUserList.get(i).toString());
+//        }
+//
+//
+//        ResponseEntity<List<UserDTO>> results = ResponseEntity.status(HttpStatus.OK).body(returnUserList);
+//
+//        //리턴
+//        return results;
+//    }
 
 
 

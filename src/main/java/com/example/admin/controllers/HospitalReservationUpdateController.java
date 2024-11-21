@@ -53,7 +53,7 @@ public class HospitalReservationUpdateController {
         log.info("userUpdate() :: getUserId = {} ",reservationDTO.getHospReservationId());
         long uid = reservationDTO.getHospReservationId();
 
-        String url = "redirect:/api/v1/admin/getReservationInfo?paramId="+uid;
+        String url = "redirect:/admin/getReservationInfo?paramId="+uid;
 
         // 리턴
         // returnCnt = 0; // 태스트용
