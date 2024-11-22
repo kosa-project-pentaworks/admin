@@ -166,12 +166,7 @@
                         label: 'Dataset 1',
                         type: 'line',
                         data: cntarr2,
-                        borderColor:  'rgba(255, 206, 86, 0.2)',
-                        backgroundColor:  'rgba(255, 206, 86, 1)',
-                        hoverBackgroundColor: [
-                        'rgba(255, 99, 132, 1)'
 
-                        ]
                     },
                                     
                     {

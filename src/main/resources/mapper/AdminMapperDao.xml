@@ -11,22 +11,16 @@
     <select id="selectHospListAll" resultType="com.example.admin.dto.HospitalDTO">
         select
 
-        hosp_id as hospId,
-        cl_cd   as clCd,
-        addr,
-        cl_cd_nm as clCdNm,
-        emdong_nm as emdongNm,
-        estb_dd as estbDd,
-        hosp_url as hospUrl,
-        post_no as postNo,
-        sggu_cd as sgguCd,
-        sggu_cd_nm as sgguCdNm,
-        sido_cd as sidoCd,
-        sido_cd_nm as sidoCdNm,
-        telno,
-        yadm_nm as yadmNm,
-        ykiho,
-        hosp_status as hospStatus
+        hosp_id as hospId,  -- 뱡원 id
+        addr,  -- 병원 주소
+        emdong_nm as emdongNm, -- 읍면동 이름
+        estb_dd as estbDd, -- 설립 날짜
+        hosp_url as hospUrl, -- 홈페이지 url
+        sggu_cd_nm as sgguCdNm,  -- 시구역 명
+        sido_cd_nm as sidoCdNm, --  시도 명
+        telno,  -- 전화 번호
+        yadm_nm as yadmNm, -- 병원 이름
+        hosp_status as hospStatus -- 오픈 상태
 
         from hospital
     </select>
@@ -91,7 +85,6 @@
 
         <!--   where 1=1은 반드시 실행 되게  -->
         where 1=1
-
         <if test="username != null and  username !='' ">
             and username like '%${username}%'
         </if>
@@ -103,6 +96,10 @@
         <if test="email != null and  email !='' ">
             and email like '%${email}%'
         </if>
+
+
+
+
 
         <if test="userId != null and  userId !='' ">
             and user_id  = ${userId}
@@ -335,13 +332,6 @@
         WHERE  1=1
         GROUP BY sido_cd_nm
         order by
-        <!--        <choose>-->
-        <!--            <when test="all">sido_cd_nm asc</when>-->
-        <!--            <when test="ascending">cnt asc</when>-->
-        <!--            <when test="descending">cnt desc</when>-->
-        <!--            <otherwise>sido_cd_nm asc</otherwise>-->
-        <!--        </choose>-->
-
         <if test="all != null and  all !='' ">
             sido_cd_nm asc
         </if>
@@ -353,12 +343,14 @@
         </if>
     </select>
 
-    <!--    <choose>-->
-    <!--        <when test="all">sido_cd_nm asc</when>-->
-    <!--        <when test="ascending">cnt asc</when>-->
-    <!--        <when test="descending">cnt desc</when>-->
-    <!--        &lt;!&ndash;            <otherwise>sido_cd_nm asc</otherwise>&ndash;&gt;-->
-    <!--    </choose>-->
+
+
+    <!--        <choose>-->
+    <!--            <when test="all">sido_cd_nm asc</when>-->
+    <!--            <when test="ascending">cnt asc</when>-->
+    <!--            <when test="descending">cnt desc</when>-->
+    <!--            <otherwise>sido_cd_nm asc</otherwise>-->
+    <!--        </choose>-->
 
 
     <!--   진요얘약: 기간(최근 3개월)  -->

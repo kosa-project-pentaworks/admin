@@ -40,7 +40,7 @@ public class reservationDashboardController {
         else {
             String selectType = (String) paramMap.get("selectType");
 
-
+            //  searchType별 분기
             switch (selectType) {
                 case "all":
                     paramMap.put("all", "all");
