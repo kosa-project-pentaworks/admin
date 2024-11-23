@@ -90,7 +90,8 @@
 
                                             <a class="nav-link noto-sans-kr" href="/admin/userdashboard">회원(활동/비활동)</a>
                                             <a class="nav-link noto-sans-kr" href="/admin/reservationDashboard">병원(지역)</a>
-                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료예약(기간)</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectYearmonthCount">진료예약(6개월)</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectReservationCount">진료예약(병원)</a>
 
                                         </nav>
 

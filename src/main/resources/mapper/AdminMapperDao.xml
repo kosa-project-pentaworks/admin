@@ -414,19 +414,19 @@
         order by TA.yearmonth
     </select>
 
-<!--    &lt;!&ndash;   병원별 진료예약 건수 상위 6개 &ndash;&gt;-->
-<!--    <select id="reservationCount" resultType="com.example.admin.dto.ReservationStatusDTO">-->
-<!--        &#45;&#45; 진료예약 누적 상위 6-->
-<!--        SELECT-->
-<!--        h.yadm_nm,-->
-<!--        COUNT(hr.hosp_id) AS cnt-->
-<!--        FROM HOSPITAL_RESERVATION hr-->
-<!--        join hospital h-->
-<!--        on hr.hosp_id=h.hosp_id-->
-<!--        WHERE  1=1-->
-<!--        GROUP BY hr.hosp_id-->
-<!--        ORDER BY cnt DESC-->
-<!--        LIMIT 6;-->
-<!--    </select>-->
+    <!--   병원별 진료예약 건수 상위 6개 -->
+    <select id="reservationCount" resultType="com.example.admin.dto.ReservationStatusDTO">
+        -- 진료예약 누적 상위 6
+        SELECT
+        h.yadm_nm as yadmNm,
+        COUNT(hr.hosp_id) AS cnt
+        FROM HOSPITAL_RESERVATION hr
+        join hospital h
+        on hr.hosp_id=h.hosp_id
+        WHERE  1=1
+        GROUP BY hr.hosp_id
+        ORDER BY cnt DESC
+        LIMIT 10;
+    </select>
 
 </mapper>

@@ -45,6 +45,6 @@ public interface AdminService {
 
     List<ReservationStatusDTO> selectYearmonthCount();
 
-//    List<ReservationStatusDTO> reservationCount();
+    List<ReservationStatusDTO> reservationCount();
 
 }

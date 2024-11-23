@@ -80,7 +80,7 @@ public class reservationDashboardController {
     }
 
 
-    // 진요얘약: 기간(최근 3개월)
+    // 진요얘약: 기간(최근 6개월)
     @GetMapping("/selectYearmonthCount")
     public String selectYearmonthCount( Model model) {
         log.info("selectYearmonthCount()");
@@ -106,6 +106,35 @@ public class reservationDashboardController {
         return "dashboardReservation";
     }
 
+
+
+
+    // 진요얘약: 기간(병원)
+    @GetMapping("/selectReservationCount")
+    public String selectReservationCount( Model model) {
+        log.info("selectReservationCount()");
+
+
+
+        List<ReservationStatusDTO> hospCount  = adminService.reservationCount();
+
+        log.info("selectReservationCount()::selectUserCount() :: = {}",hospCount);
+
+        // list 생성
+        List<String> yadmNm = new ArrayList<>();
+        List<Integer> cnt = new ArrayList<>();
+        for (int i=0; i < hospCount.size();i++ ){
+            yadmNm.add(hospCount.get(i).getYadmNm());
+            cnt.add(hospCount.get(i).getCnt());
+
+        }
+        model.addAttribute("yearmonth",yadmNm);
+        model.addAttribute("cnt",cnt);
+        log.info("reservationDashboardAdmin()::yadmNm() :: = {}",yadmNm);
+        log.info("reservationDashboardAdmin()::cnt() :: = {}",cnt);
+        model.addAttribute("deactivatedHospCount",hospCount);
+        return "dashboardReservationHospital";
+    }
 
 
 

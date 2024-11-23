@@ -104,5 +104,10 @@ public class AdminServiceImpl implements AdminService {
         return adminMapper.selectYearmonthCount();
     }
 
+    @Override
+    public List<ReservationStatusDTO> reservationCount() {
+        return adminMapper.reservationCount();
+    }
+
 
 }

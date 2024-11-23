@@ -49,7 +49,7 @@ public interface AdminMapper {
 
     List<ReservationStatusDTO> selectYearmonthCount();
 //     reservationCount
-//    List<ReservationStatusDTO> reservationCount();
+    List<ReservationStatusDTO> reservationCount();
 
 
 
