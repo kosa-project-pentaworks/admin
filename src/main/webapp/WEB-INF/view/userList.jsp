@@ -121,7 +121,9 @@
                                     </a>
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectHospitalListAll">병원</a>
                                             <a class="nav-link noto-sans-kr" href="/admin/selectHospitalReservationListAll">진료 예약</a>
+
                                         </nav>
 
                                     <a class="nav-link disabled noto-sans-kr"  data-bs-target="#pagesCollapseError" aria-expanded="true" aria-controls="pagesCollapseError">

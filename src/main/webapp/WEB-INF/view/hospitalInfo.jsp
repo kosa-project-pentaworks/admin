@@ -29,11 +29,13 @@
 
 
 
+
 </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
             <!-- Navbar Brand-->
 
+            <!-- <a class="navbar-brand ps-3" href="/view/index">Start Bootstrap</a> -->
             <a class="navbar-brand ps-3 text-dark noto-sans-kr" href="/admin/selectUserListAll">관리자</a>
 
             <!-- Sidebar Toggle-->
@@ -104,11 +106,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                진료 예약 정보
+                                병원 정보
                             </div>
 
-                            <form action="/admin/reservation/update" method="post">
-                                <input  type="hidden"name="hospReservationId" value = "${reservation.hospReservationId}">
+                            <form >
                                 <div class="card-body ">
                                     <table style="width:60%;" class="datatable-table table-align-center">
                                         <thead class="table-success">
@@ -118,52 +119,43 @@
                                                 </tr>
                                         </thead>
 
-                                        <tbody id="userList" class="table-group-divider">
+                                        <tbody id="hospList" class="table-group-divider">
 
                                             <tr>
-                                                <td style="width:30%;">예약번호</td>
-                                                <td>${reservation.hospReservationId}</td>
-                                                <!-- <td><input style="width:100%;" type="text" name="hospReservationId" value = "${reservation.hospReservationId}" readonly></td> -->
+                                                <td style="width:30%;">병원번호</td>
+                                                <td >${hosp.hospId}</td>
+                                                <!-- <td><input style="width:100%;" type="text" name="hospId" value = "${hosp.hospId}" readonly></td> -->
                                             </tr>
                                             <tr>
                                                 <td>병원</td>
-                                                <td>${reservation.yadmNm}</td>
-                                                <!-- <td	><input style="width:100%;" type="email" name="yadmNm"  value = "${reservation.yadmNm}" readonly > </td> -->
+                                                <td >${hosp.yadmNm}</td>
+                                                <!-- <td	><input style="width:100%;" type="text" name="yadmNm"  value = "${hosp.yadmNm}" readonly > </td> -->
                                             </tr>
                                             <tr>
-                                                <td>회원번호</td>
-                                                <td>${reservation.userId}</td>
-                                                <!-- <td><input style="width:100%;" type="text" name="userId" value = "${reservation.userId}" readonly></td> -->
+                                                <td>주소</td>
+                                                <td >${hosp.addr}</td>
+                                                <!-- <td><input style="width:100%;" type="text" name="addr" value = "${hosp.addr}" readonly></td> -->
                                             </tr>
                                             <tr>
-                                                <td>회원이름</td>
-                                                <td>${reservation.username}</td>
-                                                <!-- <td ><input style="width:100%;" type="text" name="username" value = "${reservation.username}" readonly></td> -->
+                                                <td>전화번호</td>
+                                                <td >${hosp.telno}</td>
+                                                <!-- <td ><input style="width:100%;" type="text" name="telno" value = "${hosp.telno}" readonly></td> -->
                                             <!--   <td><div> ${user.addressStr}</div> </td> -->
                                             </tr>
                                             <tr>
-                                                <td>예약날짜</td>
-                                                <td>${reservation.reservationAt}</td>
-                                                <!-- <td><input style="width:100%;" type="text" name="reservationAt" value = "${reservation.reservationAt}" readonly></td> -->
+                                                <td>운영여부</td>
+                                                <td >${hosp.hospStatusStr}</td>
+                                                <!-- <td >${hosp.hospStatusStr}</td> -->
+                                                <!-- <td><input style="width:100%;" type="text" name="addr" value = "${hosp.addr}" readonly></td> -->
                                             </tr>
                                             <tr>
-                                                <td>예약시간</td>
-                                                <td>${reservation.reservationTime}</td>
-                                                <!-- <td><input style="width:100%;" type="text" name="reservationTime" value = "${reservation.reservationTime}" readonly></td> -->
-                                            </tr>
-                                            <tr>
-                                                <td>상태</td>
-                                                <td>
-                                                <input type="radio" name="reservationStatus" value="SUCCESS" <c:out value="${reservation.reservationStatus == '예약' ? 'checked' : ''}"/>>&nbsp;<a>예약확인</a>
-                                                &nbsp;&nbsp;&nbsp;
-                                                <input type="radio" name="reservationStatus" value="CANCELLED" <c:out value="${reservation.reservationStatus == '취소' ? 'checked' : ''}"/>>&nbsp;<a>예약취소</a>
-                                                </td>
+                                                <td>홈페이지</td>
+                                                <td >${hosp.hospUrl}</td> 
+                                                <!-- <td >${hosp.hospUrl}</td> -->
+                                                <!-- <td><input style="width:100%;" type="text" name="addr" value = "${hosp.addr}" readonly></td> -->
                                             </tr>
                                         </tbody>
                                 </table>
-                                <div class="text-align-center">
-                                    <input type="submit" value="수정">&nbsp;<input type="reset" value="취소">
-                                </div>
                                 <br/>
                             </div>
                             </form>
@@ -176,6 +168,8 @@
                     </div>
                 </main>
             </div>
+        </div>
 </body>
+
 
 </html>

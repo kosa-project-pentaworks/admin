@@ -24,7 +24,7 @@
 <head>
 <%--
     <meta charset="UTF-8">
-    <title>회원 목록</title>
+    <title>병원 목록</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -76,11 +76,11 @@
               case "yadmNm" :  // 변수 = 상수1이면, 실행문 A실행
                 document.querySelector('#search').disabled = false;
                 break; // swith{} 코드 블록 탈출
-              case "username" :  // 변수 = 상수1이면, 실행문 A실행
+              case "addr" :  // 변수 = 상수1이면, 실행문 A실행
                 document.querySelector('#search').disabled = false;
                 break; // swith{} 코드 블록 탈출
 
-              case "reservationStatus" : // 변수 != 상수1 이고, 변수 = 상수2 이면, 실행문 B 실행
+              case "telno" : // 변수 != 상수1 이고, 변수 = 상수2 이면, 실행문 B 실행
                 document.querySelector('#search').disabled = false;
                 document.querySelector('#reservationSearch').display = true;
                 break; // swith{} 코드 블록 탈출
@@ -101,12 +101,13 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-flex"  action="/admin/selectHospitalReservationListAll" method="get">
+            <form class="d-flex"  action="/admin/selectHospitalListAll" method="get">
 
                          <select class="form-select" name = "searchType" id="searchType" onchange = "searchTypeChange()">
-                              <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>진료 예약 전체</option>
-                              <option value="yadmNm"  <%=searchType.equals("yadmNm")?"selected":""%>>병원</option>
-                              <option value="username"  <%=searchType.equals("username")?"selected":""%>>회원이름</option>
+                              <option value="all" <%=searchType.equals("")|| searchType == null?"selected":""%>>병원 전체</option>
+                              <option value="yadmNm"  <%=searchType.equals("yadmNm")?"selected":""%>>병원 이름</option>
+                              <option value="addr"  <%=searchType.equals("addr")?"selected":""%>>주소</option>
+                              <option value="telno"  <%=searchType.equals("telno")?"selected":""%>>전화번호</option>
                          </select>
 
 
@@ -141,6 +142,7 @@
                                         <nav class="sb-sidenav-menu-nested nav">
 
                                             <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원</a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectHospitalListAll">병원</a>
                                             <a class="nav-link noto-sans-kr" href="/admin/selectHospitalReservationListAll">진료 예약</a>
 
                                         </nav>
@@ -168,37 +170,33 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                진료 예약 목록
+                                병원 목록
                             </div>
                             <div class="card-body">
                              <table class="datatable-table">
                                 <thead class="table-success">
                                     <tr>
-                                        <th>예약번호</th>
+                                        <th>병원번호</th>
                                         <th>병원</th>
-                                        <th>회원번호</th>
-                                        <th>회원이름</th>
-                                        <th>예약날짜</th>
-                                        <th>예약시간</th>
-                                        <th>상태</th>
+                                        <th>주소</th>
+                                        <th>전화번호</th>
+                                        <th>설립일</th>
                                     </tr>
                                 </thead>
                                     <tbody id="userList" class="table-group-divider">
-                                		<c:forEach var="reservationList" items="${reservationList}" varStatus="vs">
-                                		    <form action="/admin/getReservationInfo" method="get">
+                                		<c:forEach var="hospitalList" items="${hospitalList}" varStatus="vs">
+                                		    <form action="/admin/getHospitalInfo" method="get">
                                 			<tr>
                                 			    <td id="userUpdate">
-                                                    <button class="startButton btn" name ="paramId" type="submit" data-user-id="${reservationList.hospReservationId}" id="startButton" value="${reservationList.hospReservationId}">
-                                                    <c:out value="${reservationList.hospReservationId}"></c:out>
+                                                    <button class="startButton btn" name ="paramId" type="submit" data-user-id="${hospitalList.hospId}" id="startButton" value="${hospitalList.hospId}">
+                                                    <c:out value="${hospitalList.hospId}"></c:out>
                                                     </button>
                                 			    </td>
                                                  <!-- <td><c:out value="${userList.userId}"></c:out></td>  -->
-                                                <td><c:out value="${reservationList.yadmNm}"></c:out></td>
-                                                <td><c:out value="${reservationList.userId}"></c:out></td>
-                                                <td><c:out value="${reservationList.username}"></c:out></td>
-                                                <td><c:out value="${reservationList.reservationAt}"></c:out></td>
-                                                <td><c:out value="${reservationList.reservationTime}"></c:out></td>
-                                                <td><c:out value="${reservationList.reservationStatus}"></c:out></td>
+                                                <td ><c:out value="${hospitalList.yadmNm}"></c:out></td>
+                                                <td><c:out value="${hospitalList.addr}"></c:out></td>
+                                                <td width=160px><c:out value="${hospitalList.telno}"></c:out></td>
+                                                <td width=140px><c:out value="${hospitalList.estbDd}"></c:out></td>
                                             <!-- 모달 창 -->
                                 			</tr>
                                 			</form>

@@ -4,7 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
+<%
 
+    String selectType = request.getParameter("selectType");
+    if(selectType == null) selectType = "";
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -38,6 +42,44 @@
 <!-- ////////////////////////////////////////////////////////////////////////////// -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<!-- ////////////////////////////////////////////////////////////////////////////// -->
+<!-- // script.        // 버튼 체                                                 // -->
+<!-- ////////////////////////////////////////////////////////////////////////////// -->
+    <script>
+        function searchTypeChange(){
+           // alert("searchTypeChange()");
+           document.querySelector("#search").value = '';
+           if(document.querySelector("#searchType").value === 'all'){
+                 document.querySelector('#search').disabled = true;
+           }
+           else{
+             document.querySelector('#search').disabled = false;
+           }
+        }
+        function initPage(){
+            let searchType = document.querySelector("#searchType").value;
+
+            switch (searchType){
+
+              case "all" :  // 변수 = 상수1이면, 실행문 A실행
+                document.querySelector('#search').disabled = true;
+                break; // swith{} 코드 블록 탈출
+              case "email" :  // 변수 = 상수1이면, 실행문 A실행
+                document.querySelector('#search').disabled = false;
+                break; // swith{} 코드 블록 탈출
+              case "username" :  // 변수 = 상수1이면, 실행문 A실행
+                document.querySelector('#search').disabled = false;
+                break; // swith{} 코드 블록 탈출
+
+              case "phone" : // 변수 != 상수1 이고, 변수 = 상수2 이면, 실행문 B 실행
+                document.querySelector('#search').disabled = false;
+                break; // swith{} 코드 블록 탈출
+
+              default: // 변수 != 상수1 이고, 변수 != 상수2 이면, 실행문 C 실행
+                document.querySelector('#search').disabled = true;
+            }
+        }
+     </script>
 </head>
 <body class="sb-nav-fixed">
 
@@ -53,6 +95,22 @@
 
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+
+        <!-- Navbar Search-->
+         <!-- -->
+        <form class="d-flex" action="/admin/reservationDashboard" method="get"  >
+            
+            <select class="form-select" name = "selectType" id="selectType"  >
+
+                <option value="all"  <%=selectType.equals("")|| selectType == null?"selected":""%> >이름(오름차순)</option>
+
+                <option value="asc" <%=selectType.equals("asc")?"selected":""%> >병원수(오름차순)</option>
+
+                <option value="desc" <%=selectType.equals("desc")?"selected":""%> >병원수(내림차순)</option>
+           </select>
+           &nbsp;&nbsp;
+            <button class="btn btn-outline-success" type="submit" id="searchButton" >Search</button>
+        </form>
 
 
         <!-- Navbar-->
@@ -114,12 +172,27 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        진료얘약(최근 6개월)
+                        병원(지역)
                     </div>
 
-                    <div class="card-body">
-                        <canvas id="myBarChart"></canvas>
+                    <div class="card-body" >
+                        <canvas id="myBarChart" ></canvas>
                     </div>
+
+                <!-- <thead class="table-success">
+                        <tr>
+                            <th>지역</th>
+                            <th>수</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userList" class="table-group-divider">
+                        <c:forEach var="deactivatedHospCount" items="${deactivatedHospCount}" varStatus="vs">
+                            <tr><td><c:out value="${deactivatedHospCount.sidoCdNm}"></c:out></td></tr>
+                            <tr>
+                                <td><c:out value="${deactivatedHospCount.cnt}"></c:out></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody> -->
                 </div>
             </div>
         </main>
@@ -138,7 +211,7 @@
     <script>
             
 
-            let data = '${yearmonth}';
+            let data = '${sidoCdNm}';
             // cnt
              let cnt = '${cnt}';
              let testString = data.replace("[", "").replace("]","");
@@ -160,37 +233,33 @@
                 type: 'bar',
                 data: {
                     labels:arr1,
-                    datasets: [
-                    {
-
-                        label: 'Dataset 1',
-                        type: 'line',
-                        data: cntarr2,
-
-                    },
-                                    
-                    {
+                    datasets: [{
                         label: 'Color Votes',
                         data: cntarr2,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)'
-    
-
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
-
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 1,
                         hoverBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
-    
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
                         ]
                     }]
                 },

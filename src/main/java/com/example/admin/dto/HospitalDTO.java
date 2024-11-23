@@ -27,5 +27,30 @@ public class HospitalDTO {
     private String ykiho;
     private String hospStatus;
 
+
+    private String hospStatusStr;
+
+    @Override
+    public String toString() {
+        return "HospitalDTO{" +
+                "hospId=" + hospId +
+                ", clCd=" + clCd +
+                ", addr='" + addr + '\'' +
+                ", clCdNm='" + clCdNm + '\'' +
+                ", emdongNm='" + emdongNm + '\'' +
+                ", estbDd='" + estbDd + '\'' +
+                ", hospUrl='" + hospUrl + '\'' +
+                ", postNo=" + postNo +
+                ", sgguCd=" + sgguCd +
+                ", sgguCdNm='" + sgguCdNm + '\'' +
+                ", sidoCd=" + sidoCd +
+                ", sidoCdNm='" + sidoCdNm + '\'' +
+                ", telno='" + telno + '\'' +
+                ", yadmNm='" + yadmNm + '\'' +
+                ", ykiho='" + ykiho + '\'' +
+                ", hospStatus='" + hospStatus + '\'' +
+                ", hospStatusStr='" + hospStatusStr + '\'' +
+                '}';
+    }
 }
 

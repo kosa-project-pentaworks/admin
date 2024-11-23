@@ -33,6 +33,6 @@ public class UserDashboardController {
         model.addAttribute("activeUserCount",activeUserCount);
         model.addAttribute("deactivatedUserCount",deactivatedUserCount);
         model.addAttribute("userCount",userCount);
-        return "userdashboard";
+        return "dashboardUser";
     }
 }

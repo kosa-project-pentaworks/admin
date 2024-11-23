@@ -74,8 +74,9 @@ public class reservationDashboardController {
         model.addAttribute("sidoCdNm",sidoCdNm);
         model.addAttribute("cnt",cnt);
         log.info("reservationDashboardAdmin()::cnt() :: = {}",cnt);
+        log.info("reservationDashboardAdmin()::sidoCdNm() :: = {}",sidoCdNm);
         model.addAttribute("deactivatedHospCount",hospCount);
-        return "reservationDashboard";
+        return "dashboardHospital";
     }
 
 
@@ -102,7 +103,7 @@ public class reservationDashboardController {
         model.addAttribute("cnt",cnt);
         log.info("reservationDashboardAdmin()::cnt() :: = {}",cnt);
         model.addAttribute("deactivatedHospCount",hospCount);
-        return "hospReservationDashboard";
+        return "dashboardReservation";
     }
 
 

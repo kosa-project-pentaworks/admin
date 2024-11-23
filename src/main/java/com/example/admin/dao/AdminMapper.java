@@ -15,7 +15,7 @@ import java.util.Objects;
 public interface AdminMapper {
 
     // 병원 목록 전체 조회
-    List<HospitalDTO> selectHospListAll();
+    List<HospitalDTO> selectHospListAll(HashMap<String, Object> paramMap);
 
     // 회원 목록 전체 조회
     List<UserDTO> selectUserListAll(HashMap<String, Object> paramMap);
@@ -48,6 +48,9 @@ public interface AdminMapper {
     List<StatusDTO> selectHospCount(HashMap<String, Object> paramMap);
 
     List<ReservationStatusDTO> selectYearmonthCount();
+//     reservationCount
+//    List<ReservationStatusDTO> reservationCount();
+
 
 
 }

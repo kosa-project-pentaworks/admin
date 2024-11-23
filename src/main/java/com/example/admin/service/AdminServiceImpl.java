@@ -22,9 +22,9 @@ public class AdminServiceImpl implements AdminService {
 
     // 병원 목록 전체 조회 구현
     @Override
-    public List<HospitalDTO> selectHospListAll() {
-        log.info("AdminService :: selectHospListAll() = {}",adminMapper.selectHospListAll());
-        return adminMapper.selectHospListAll();
+    public List<HospitalDTO> selectHospListAll(HashMap<String, Object> paramMap) {
+        log.info("AdminService :: selectHospListAll() = {}",paramMap);
+        return adminMapper.selectHospListAll(paramMap);
     }
 
     // 유저 전체 조회

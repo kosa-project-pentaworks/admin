@@ -13,12 +13,14 @@ import lombok.Setter;
 public class ReservationStatusDTO {
     private int cnt;
     private String yearmonth;
+    private String yadmNm;
 
     @Override
     public String toString() {
         return "ReservationStatusDTO{" +
                 "cnt=" + cnt +
                 ", yearmonth='" + yearmonth + '\'' +
+                ", yadmNm='" + yadmNm + '\'' +
                 '}';
     }
 }

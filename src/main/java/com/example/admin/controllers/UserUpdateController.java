@@ -43,24 +43,6 @@ public class UserUpdateController {
         return "userInfo";
     }
 
-    //---------------------------------
-    // 방법 : @RequestParam
-    //---------------------------------
-    @ResponseBody
-    @GetMapping(value ="/getUserInfoRest")
-    public ResponseEntity<UserDTO> getMemberByIdRP(@RequestParam HashMap<String, Object> paramMap) {
-        // 요청
-        log.info("getMemberByIdRP() :: id = {}",paramMap);
-
-        // 요청 실행
-        // 조회 :아이디
-        ResponseEntity<UserDTO> retult = adminService.getUserInfoRest(paramMap);
-
-
-        //리턴
-        return retult;
-    }
-
 
     // ============================================================
     // 업데이트 실향

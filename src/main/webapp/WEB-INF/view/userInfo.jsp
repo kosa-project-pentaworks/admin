@@ -80,6 +80,7 @@
                                         <nav class="sb-sidenav-menu-nested nav">
 
                                             <a class="nav-link noto-sans-kr" href="/admin/selectUserListAll">회원 </a>
+                                            <a class="nav-link noto-sans-kr" href="/admin/selectHospitalListAll">병원</a>
                                             <a class="nav-link noto-sans-kr" href="/admin/selectHospitalReservationListAll">진료 예약</a>
 
                                         </nav>
@@ -109,6 +110,7 @@
                             </div>
                             
                             <form action="/admin/user/update" method="post">
+                                <input  type="hidden" name="userId" value = "${user.userId}">
                                 <div class="card-body ">
                                     <table style="width:60%;" class="datatable-table table-align-center">
                                         <thead class="table-success">
@@ -122,24 +124,27 @@
 
                                             <tr>
                                                 <td style="width:30%;">회원번호</td>
-                                                <td><input style="width:100%;" type="text" name="userId" value = "${user.userId}" readonly></td>
+                                                <td >${user.userId}</td>
+                                                <!-- <td><input style="width:100%;" type="text" name="userId" value = "${user.userId}" readonly></td> -->
                                             </tr>
                                             <tr>
                                                 <td>이매일</td>
-                                                <td	><input style="width:100%;" type="email" name="email"  value = "${user.email}" readonly > </td>
+                                                <td>${user.email}</td>
+                                                <!-- <td	><input style="width:100%;" type="email" name="email"  value = "${user.email}" readonly > </td> -->
                                             </tr>
                                             <tr>
                                                 <td>이름</td>
-                                                <td><input style="width:100%;" type="text" name="username" value = "${user.username}"></td>
+                                                <td><input  style="text-align:center" style="width:100%;" type="text" name="username" value = "${user.username}"></td>
                                             </tr>
                                             <tr>
                                                 <td>주소</td>
-                                                <td ><input style="width:100%;" type="text" name="addressStr" value = "${user.addressStr}" readonly></td>
+                                                <td>${user.addressStr}</td>
+                                                <!-- <td ><input style="width:100%;" type="text" name="addressStr" value = "${user.addressStr}" readonly></td> -->
                                             <!--   <td><div> ${user.addressStr}</div> </td> -->
                                             </tr>
                                             <tr>
                                                 <td>전화번호</td>
-                                                <td><input style="width:100%;" type="text" name="phone" value = "${user.phone}"></td>
+                                                <td><input  style="text-align:center" style="width:100%;" type="text" name="phone" value = "${user.phone}"></td>
                                             </tr>
                                             <tr>
                                                 <td>상태</td>
