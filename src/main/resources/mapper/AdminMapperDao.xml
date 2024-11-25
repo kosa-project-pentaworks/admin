@@ -418,6 +418,10 @@
     <select id="reservationCount" resultType="com.example.admin.dto.ReservationStatusDTO">
         -- 진료예약 누적 상위 6
         SELECT
+        CASE  h.sido_cd_nm
+        WHEN '세종시' THEN '세종'
+        ELSE h.sido_cd_nm
+        END AS sidoCdNm,
         h.yadm_nm as yadmNm,
         COUNT(hr.hosp_id) AS cnt
         FROM HOSPITAL_RESERVATION hr

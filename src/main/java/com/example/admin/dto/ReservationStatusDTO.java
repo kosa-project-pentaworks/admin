@@ -14,6 +14,7 @@ public class ReservationStatusDTO {
     private int cnt;
     private String yearmonth;
     private String yadmNm;
+    private String sidoCdNm;
 
     @Override
     public String toString() {
@@ -21,6 +22,7 @@ public class ReservationStatusDTO {
                 "cnt=" + cnt +
                 ", yearmonth='" + yearmonth + '\'' +
                 ", yadmNm='" + yadmNm + '\'' +
+                ", sidoCdNm='" + sidoCdNm + '\'' +
                 '}';
     }
 }

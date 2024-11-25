@@ -123,13 +123,16 @@ public class reservationDashboardController {
         // list 생성
         List<String> yadmNm = new ArrayList<>();
         List<Integer> cnt = new ArrayList<>();
+        List<String> sidoCdNm = new ArrayList<>();
         for (int i=0; i < hospCount.size();i++ ){
             yadmNm.add(hospCount.get(i).getYadmNm());
             cnt.add(hospCount.get(i).getCnt());
+            sidoCdNm.add(hospCount.get(i).getSidoCdNm());
 
         }
         model.addAttribute("yearmonth",yadmNm);
         model.addAttribute("cnt",cnt);
+        model.addAttribute("sidoCdNm",sidoCdNm);
         log.info("reservationDashboardAdmin()::yadmNm() :: = {}",yadmNm);
         log.info("reservationDashboardAdmin()::cnt() :: = {}",cnt);
         model.addAttribute("deactivatedHospCount",hospCount);

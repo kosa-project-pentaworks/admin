@@ -133,6 +133,7 @@
                                 <tr>
                                     <th style="width:15%;">번호</th>
                                     <th>병원</th>
+                                    <th>지역</th>
                                     <th style="width:15%;">예약(건수)</th>
                                 </tr>
                         </thead>
@@ -145,11 +146,14 @@
                                     
                                     List<String> yearmonthList = (List<String>)request.getAttribute("yearmonth");
                                     List<Integer> sidoCntList = (List<Integer>)request.getAttribute("cnt");
+                                    List<String> sidoCdNmList = (List<String>)request.getAttribute("sidoCdNm");
+
                                         
                                     for(int i=0; i<yearmonthList.size(); i++) {
                                         out.println("<tr>");
                                         out.println("<td>"+ (i+1) +"</td>");	 
                                         out.println("<td>"+ yearmonthList.get(i) +"</td>");
+                                        out.println("<td>"+ sidoCdNmList.get(i) +"</td>");
                                         out.println("<td>"+ sidoCntList.get(i) +"</td>");
                                         out.println("</tr>");
                                     } 
