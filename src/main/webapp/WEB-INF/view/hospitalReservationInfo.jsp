@@ -54,6 +54,8 @@
                           <button class="btn btn-outline-success" type="submit" id="searchButton" >Search</button>
             </form>
             -->
+            &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            <button class="btn btn-outline-success"><a class="dropdown-item" href="/admin/loginOut">Logout</a></button>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">

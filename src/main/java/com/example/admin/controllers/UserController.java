@@ -3,6 +3,7 @@ package com.example.admin.controllers;
 
 import com.example.admin.dto.UserDTO;
 import com.example.admin.service.AdminService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,6 +91,25 @@ public class UserController {
         return "userList";
     }
 
+
+    // ==================================================
+    // 로그 아웃
+    // =================================================
+
+    // 로그 아웃을 처리 한다 /admin/loginOut
+    @GetMapping(value = "/loginOut")
+    public String loginOut(HttpSession session) {
+        // 요청
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        log.info("loginOut() :: loginEmail ={}", loginEmail);
+
+        // 요청 처리
+        // - 세션 삭제한다
+        session.invalidate();
+
+//      return "redirect:/demo";
+        return "redirect:http://52.79.220.59/";
+    }
 
 
 
