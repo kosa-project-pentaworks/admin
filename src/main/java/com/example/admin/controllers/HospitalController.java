@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class HospitalController {
 //        }
 //        log.info("returnUserDTOList= {}",returnHospitalList.get(10).toString());
         // 모델에 유저 리스트를 담음
+
         model.addAttribute("hospitalList",returnHospitalList);
 
         // 검색 조건 유지를 위해 모델에 검색 조건 , 검색단어 를 담음

@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Collections" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -59,8 +60,15 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
-        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-        <button class="btn btn-outline-success"><a class="dropdown-item" href="/admin/loginOut">Logout</a></button>
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+
+        <button class="btn btn-outline-success "><a class="dropdown-item" href="/admin/loginOut">Logout</a></button>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
@@ -149,7 +157,6 @@
                                     List<Integer> sidoCntList = (List<Integer>)request.getAttribute("cnt");
                                     List<String> sidoCdNmList = (List<String>)request.getAttribute("sidoCdNm");
 
-                                        
                                     for(int i=0; i<yearmonthList.size(); i++) {
                                         out.println("<tr>");
                                         out.println("<td>"+ (i+1) +"</td>");	 
@@ -158,7 +165,6 @@
                                         out.println("<td>"+ sidoCntList.get(i) +"</td>");
                                         out.println("</tr>");
                                     } 
-
 
                                 %>
                             </tr>
@@ -193,7 +199,9 @@
             console.log(arr1);
             console.log(cntarr2);
 
-
+            // 배열 거꾸로
+            const reverseArrSido = arr1.reverse();
+            const reverseArrCnt = cntarr2.reverse();
 
 
             
@@ -204,13 +212,13 @@
             const myBarChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels:arr1 ,fontStyle: "bold",
+                    labels:reverseArrSido ,fontStyle: "bold",
                     datasets: [
                     {
 
                         label: 'Dataset 1',
                         type: 'line',
-                        data: cntarr2,
+                        data: reverseArrCnt,
                         // borderColor: 'rgba(75, 192, 192, 1)' // black
                         // borderColor: 'rgba(0, 0, 225, 1)' // blue 
                         borderColor: 'rgba(75, 192, 192, 1)' // light green
@@ -219,7 +227,7 @@
                                     
                     {
                         label: 'Color Votes',
-                        data: cntarr2,
+                        data: reverseArrCnt,
                         backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
